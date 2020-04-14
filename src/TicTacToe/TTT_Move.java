@@ -2,22 +2,16 @@ package TicTacToe;
 
 import GameInterfaces.Move;
 
-public class TTT_Move implements Move
-{
-    private String userID;
+public class TTT_Move implements Move {
     private int player;
     private int row;
     private int col;
 
-    public TTT_Move(String userID, int player, int row, int col) {
-        this.userID = userID;
+    public TTT_Move(int player, int row, int col) {
         this.player = player;
         this.row = row;
         this.col = col;
     }
-
-    @Override
-    public String getUserID() {return userID;}
 
     @Override
     public int getPlayer() {return player;}

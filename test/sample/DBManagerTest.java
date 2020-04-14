@@ -3,8 +3,10 @@ package sample;
 import DataClasses.*;
 import Database.DBManager;
 
+import javax.imageio.stream.ImageOutputStream;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 class DBManagerTest {
     @org.junit.jupiter.api.Test
@@ -56,7 +58,7 @@ class DBManagerTest {
 
         User startingPlayer = (User) DBManager.getInstance().get(User.class, "updated_rbradt");
         User player2 = (User) DBManager.getInstance().get(User.class, "rbradt2");
-        TTTGameDataLocal = new TTT_GameData(LocalDateTime.now(), startingPlayer.getId(), player2.getId(), startingPlayer.getId());
+        TTTGameDataLocal = new TTT_GameData(UUID.randomUUID().toString(), LocalDateTime.now(), startingPlayer.getId(), player2.getId(), startingPlayer.getId());
 
         DBManager.getInstance().insert(TTTGameDataLocal);
 

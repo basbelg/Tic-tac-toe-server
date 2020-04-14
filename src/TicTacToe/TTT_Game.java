@@ -2,6 +2,7 @@ package TicTacToe;
 
 import GameInterfaces.Board;
 import GameInterfaces.Game;
+import GameInterfaces.GameListener;
 import GameInterfaces.Move;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class TTT_Game implements Game {
             board.setPosition(nextMove.getPlayer(), nextMove.getRow(), nextMove.getColumn());
             moveHistory.add((TTT_Move) nextMove);
             turn++;
-            notifyAllListeners();
+            notifyAllListeners("Move", board, nextMove, null);
         }
     }
 
@@ -79,7 +80,7 @@ public class TTT_Game implements Game {
             board.unsetPosition(lastMove.getRow(), lastMove.getColumn());
             moveHistory.remove(moveHistory.size() - 1);
             turn--;
-            notifyAllListeners();
+            notifyAllListeners("Undo Move", board, lastMove, null);
         }
     }
 
@@ -89,7 +90,7 @@ public class TTT_Game implements Game {
             moveHistory.clear();
             board.clearBoard();
             turn = 0;
-            notifyAllListeners();
+            notifyAllListeners("Clear Board", board, null, null);
         }
         else
             throw new Exception("Game is not active!");
@@ -112,13 +113,16 @@ public class TTT_Game implements Game {
     }
 
     @Override
-    public void addGameListener(GameListener listener) {observers.add(listener);}
+    public void addGameListener(GameListener listener) {
+        if(!observers.contains(listener))
+            observers.add(listener);
+    }
 
     @Override
     public void removeGameListener(GameListener listener) {observers.remove(listener);}
 
-    private void notifyAllListeners() {
+    private void notifyAllListeners(String name, Board b, Move m, Object addInfo) {
         for(GameListener listener: observers)
-            listener.notify();
+            listener.onEventReceived(name, b, m, addInfo);
     }
 }

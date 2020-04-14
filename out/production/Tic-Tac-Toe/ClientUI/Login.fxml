@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="339.0" prefWidth="542.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Game.Login">
+<AnchorPane prefHeight="339.0" prefWidth="542.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientUI.Login">
    <children>
       <Button fx:id="signInButton" disable="true" layoutX="245.0" layoutY="228.0" mnemonicParsing="false" onMouseClicked="#onSignInClicked" text="Sign In" />
       <Button fx:id="newUserButton" layoutX="238.0" layoutY="276.0" mnemonicParsing="false" onMouseClicked="#onNewUserClicked" text="New User" />
