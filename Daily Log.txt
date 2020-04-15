@@ -182,3 +182,35 @@
 		1. Yes
 		2. Finish hooking up Login and Register windows to code that will send the data to the DB.
 		3. No
+
+4/13/20
+	Riley
+		1. Yes
+		2. I will start on the server code
+		3. No
+
+	Bas
+		1. Yes
+		2. Work on the backend on the Client side
+		3. No
+
+	Johnny
+		1. No
+		2. Work more on UI elements
+		3. No
+			
+4/14/20
+	Riley
+		1. Yes
+		2. Continue working on the server and start on the game microservice
+		3. No
+
+	Bas
+		1. Yes
+		2. Continue on the backend of the Client side code, and implement a MessageFactory
+		3. no
+
+	Johnny
+		1. Yes
+		2. Hook the UI up with code logic
+		3. No
