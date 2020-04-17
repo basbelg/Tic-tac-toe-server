@@ -5,28 +5,22 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.nio.channels.ClosedByInterruptException;
-import java.util.List;
 
-public class Client implements Runnable{
-    private User user;
-
-    private Thread thread;
+public class GameService implements Runnable{
+    private static GameService instance = new GameService(8001);
 
     private Socket socket;
     private ObjectInputStream input;
     private ObjectOutputStream output;
 
-    private List<Client> clients;
+    private Thread thread;
     private BlockingQueue<Packet> requests;
 
-    public Client(Socket socket) {
+    private GameService(int port) {
         try {
-            this.socket = socket;
+            socket = new Socket("localhost", port);
             input = new ObjectInputStream(socket.getInputStream());
             output = new ObjectOutputStream(socket.getOutputStream());
-
-            this.clients = Server.getInstance().getClients();
-            this.requests = Server.getInstance().getRequests();
 
             thread = new Thread(this);
             thread.run();
@@ -35,13 +29,11 @@ public class Client implements Runnable{
         }
     }
 
-
+    public static GameService getInstance() {return instance;}
 
     public void sendPacket(Packet packet) {
         try {
             output.writeObject(packet);
-            output.flush();
-            output.reset();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,21 +45,14 @@ public class Client implements Runnable{
             while (!thread.isInterrupted()) {
                 Packet packet = (Packet) input.readObject();
 
-                switch (packet.getType()) {
-                    case "":
-                        break;
-                    default:
-                        requests.add(packet);
-                }
+                // handle
+
+                // send to all players and spectators
+                // Server.getInstance().getClients().get(1).sendPacket(new Move); ...
+                // for(Client client: Server.getInstance().getClients()) ...
             }
-        } catch (ClosedByInterruptException e) {
-            e.printStackTrace();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            synchronized (clients) {
-                clients.remove(this);
-            }
         }
     }
 

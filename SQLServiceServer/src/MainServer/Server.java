@@ -16,7 +16,6 @@ public class Server implements Runnable {
     // Thread
     private Thread thread;
     private BlockingQueue<Packet> requests;
-    private boolean shutdown;
 
     // Server
     private Socket socket;
@@ -33,12 +32,10 @@ public class Server implements Runnable {
 
             // Client
             clients = synchronizedList(new ArrayList<Client>());
-
-            // Thread
             requests = new ArrayBlockingQueue<>(512);
-            shutdown = false;
             count = 0;
 
+            // Thread
             thread = new Thread(this);
             thread.start();
         } catch (IOException e) {
@@ -53,7 +50,7 @@ public class Server implements Runnable {
     @Override
     public void run() {
         try {
-            while(!shutdown) {
+            while(!thread.isInterrupted()) {
                 socket = serverSocket.accept();
                 System.out.println("socket accepted: " + socket.toString());
 
@@ -73,7 +70,7 @@ public class Server implements Runnable {
     }
 
     public synchronized void terminateServer() {
-        shutdown = true;
+        thread.interrupt();
         try {
             serverSocket.close();
         } catch (IOException e) {

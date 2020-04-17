@@ -17,7 +17,7 @@ public class TTT_Game implements Game {
     private List<TTT_Move> moveHistory;
     private List<GameListener> observers;
 
-    TTT_Game() {
+    public TTT_Game() {
         id = UUID.randomUUID().toString();
         observers = new ArrayList<>();
         board = null;

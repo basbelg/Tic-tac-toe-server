@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/GameServer/GameServer.iml" filepath="$PROJECT_DIR$/GameServer/GameServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SQLServiceServer/GameServer.iml" filepath="$PROJECT_DIR$/SQLServiceServer/GameServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GameServiceServer/GameServiceServer.iml" filepath="$PROJECT_DIR$/GameServiceServer/GameServiceServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SQLServiceServer/SQLServiceServer.iml" filepath="$PROJECT_DIR$/SQLServiceServer/SQLServiceServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tic-Tac-Toe.iml" filepath="$PROJECT_DIR$/Tic-Tac-Toe.iml" />
     </modules>
   </component>
