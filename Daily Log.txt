@@ -214,3 +214,35 @@
 		1. Yes
 		2. Hook the UI up with code logic
 		3. No
+
+4/16/20
+	Riley
+		1. Yes
+		2. Work on the microservice servers
+		3. No
+
+	Bas
+		1. Yes
+		2. Create and start working on the code for the Client class
+		3. No
+
+	Johnny
+		1. Yes
+		2. Get flow of ui down
+		3. No
+
+4/17/20
+	Riley
+		1. Yes
+		2. Work on message handling on the server
+		3. No
+
+	Bas
+		1. Yes
+		2. Finish the code for the Client class and work on update methods for the UIs
+		3. No
+
+	Johnny
+		1. Yes
+		2. Write update() for all the controllers and client classes.
+		3. No
