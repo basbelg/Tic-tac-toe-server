@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/DataClasses/TTT_MoveData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DataClasses/TTT_ViewerData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Database/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/DBManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -169,7 +165,7 @@
       <workItem from="1587105732553" duration="12027000" />
       <workItem from="1587202357111" duration="3981000" />
       <workItem from="1587236084162" duration="1672000" />
-      <workItem from="1587273099414" duration="23015000" />
+      <workItem from="1587273099414" duration="23339000" />
     </task>
     <servers />
   </component>

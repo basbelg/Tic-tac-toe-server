@@ -84,11 +84,11 @@ public class DBManager implements DataSource {
                 resultSet.next();
                 user.setId(resultSet.getInt("id"));
             }
-            else if(obj instanceof TTT_MoveData {
+            else if(obj instanceof TTT_MoveData) {
                 // insert user into database
                 TTT_MoveData ttt_moveData = (TTT_MoveData) obj;
 
-                statement = connection.prepareStatement("insert into user (game_id, player_id, move_time, row," +
+                statement = connection.prepareStatement("insert into move (game_id, player_id, move_time, row," +
                         " col, turn) values (?,?,?,?,?, ?);");
                 statement.setString(1, ttt_moveData.getGame_id());
                 statement.setInt(2, ttt_moveData.getPlayer_id());
@@ -99,35 +99,17 @@ public class DBManager implements DataSource {
 
                 statement.executeUpdate();
                 statement.close();
-
-                // retrieve auto-generated id
-                statement = connection.prepareStatement("select id from user where username = ?;");
-                statement.setString(1, user.getUsername());
-                resultSet = statement.executeQuery();
-                resultSet.next();
-                user.setId(resultSet.getInt("id"));
             }
             else if(obj instanceof TTT_ViewerData) {
                 // insert user into database
                 TTT_ViewerData ttt_viewerData = (TTT_ViewerData) obj;
 
-                statement = connection.prepareStatement("insert into user (username, password, fname, lname," +
-                        " is_active) values (?,?,?,?,?);");
-                statement.setString(1, user.getUsername());
-                statement.setString(2, user.getPassword());
-                statement.setString(3, user.getFirstName());
-                statement.setString(4, user.getLastName());
-                statement.setBoolean(5, true);
+                statement = connection.prepareStatement("insert into viewer (game_id, viewer_id) values (?,?);");
+                statement.setString(1, ttt_viewerData.getGame_id());
+                statement.setInt(2, ttt_viewerData.getViewer_id());
 
                 statement.executeUpdate();
                 statement.close();
-
-                // retrieve auto-generated id
-                statement = connection.prepareStatement("select id from user where username = ?;");
-                statement.setString(1, user.getUsername());
-                resultSet = statement.executeQuery();
-                resultSet.next();
-                user.setId(resultSet.getInt("id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
