@@ -1,13 +1,16 @@
 package MainServer;
 
+import Messages.Packet;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.nio.channels.ClosedByInterruptException;
+import java.util.concurrent.BlockingQueue;
 
-public class SQLService implements Runnable{
-    private static SQLService instance = new SQLService(8002);
+public class SQLServiceConnection implements Runnable{
+    private static SQLServiceConnection instance = new SQLServiceConnection(8002);
 
     private Socket socket;
     private ObjectInputStream input;
@@ -16,7 +19,7 @@ public class SQLService implements Runnable{
     private Thread thread;
     private BlockingQueue<Packet> requests;
 
-    private SQLService(int port) {
+    private SQLServiceConnection(int port) {
         try {
             socket = new Socket("localhost", port);
             input = new ObjectInputStream(socket.getInputStream());
@@ -29,7 +32,7 @@ public class SQLService implements Runnable{
         }
     }
 
-    public static SQLService getInstance() {return instance;}
+    public static SQLServiceConnection getInstance() {return instance;}
 
     public void sendPacket(Packet packet) {
         try {

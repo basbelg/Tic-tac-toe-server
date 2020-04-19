@@ -1,5 +1,7 @@
 package GameService;
 
+import Messages.Packet;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -8,8 +10,8 @@ import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-public class Server implements Runnable{
-    private static Server instance = new Server(8001);
+public class GameServer implements Runnable{
+    private static GameServer instance = new GameServer(8001);
 
     private Socket socket;
     private ServerSocket serverSocket;
@@ -19,7 +21,7 @@ public class Server implements Runnable{
     private Thread thread;
     private BlockingQueue<Packet> requests;
 
-    private Server(int port) {
+    private GameServer(int port) {
         try {
             serverSocket = new ServerSocket(port);
 
@@ -30,7 +32,7 @@ public class Server implements Runnable{
         } catch (IOException e) {e.printStackTrace();}
     }
 
-    public static Server getInstance() {return instance;}
+    public static GameServer getInstance() {return instance;}
     public BlockingQueue<Packet> getRequests() {return requests;}
 
     public void sendPacket(Packet packet) {

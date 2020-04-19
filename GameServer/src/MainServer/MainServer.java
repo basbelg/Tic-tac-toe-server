@@ -1,5 +1,7 @@
 package MainServer;
 
+import Messages.Packet;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -7,11 +9,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 import static java.util.Collections.synchronizedList;
 
-public class Server implements Runnable {
-    private static Server instance = new Server(8000);
+public class MainServer implements Runnable {
+    private static MainServer instance = new MainServer(8000);
 
     // Thread
     private Thread thread;
@@ -25,7 +28,7 @@ public class Server implements Runnable {
     private int count;
     private List<Client> clients;
 
-    private Server(int port) {
+    private MainServer(int port) {
         try {
             // Server
             serverSocket = new ServerSocket(port);
@@ -38,12 +41,10 @@ public class Server implements Runnable {
             // Thread
             thread = new Thread(this);
             thread.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) {e.printStackTrace();}
     }
 
-    public static Server getInstance() {return instance;}
+    public static MainServer getInstance() {return instance;}
     public BlockingQueue<Packet> getRequests() {return requests;}
     public List<Client> getClients() {return clients;}
 
@@ -71,10 +72,6 @@ public class Server implements Runnable {
 
     public synchronized void terminateServer() {
         thread.interrupt();
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        try {serverSocket.close();} catch (IOException e) {e.printStackTrace();}
     }
 }

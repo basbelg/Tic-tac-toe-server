@@ -2,18 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/GameServiceServer/src/GameService/GameHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GameServiceServer/src/GameService/Server.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SQLServiceServer/GameServer.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SQLServiceServer/SQLServiceServer.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/ServerClasses.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/Controller.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/GameServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServiceServer/GameServiceServer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLServiceServer/src/MainServer/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLServiceServer/src/MainServer/GameService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/SQLService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLServiceServer/src/MainServer/SQLService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLServiceServer/src/MainServer/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TicTacToe/TTT_Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TicTacToe/TTT_Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServiceServer/GameServiceServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServiceServer/src/GameService/GameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/src/GameService/GameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServiceServer/src/GameService/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/src/GameService/GameServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQLServiceServer/GameServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/GameServer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQLServiceServer/SQLServiceServer.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQLServiceServer/src/MainServer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQLServiceServer/src/MainServer/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/GameServiceConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQLServiceServer/src/MainServer/SQLService.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/SQLServiceConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQLServiceServer/src/MainServer/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/MainServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/Player.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Game.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +49,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.19.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Tic_Tac_Toe_Server/ServerClasses.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -173,7 +180,10 @@
       <workItem from="1586789009327" duration="9787000" />
       <workItem from="1586958029745" duration="2149000" />
       <workItem from="1587004976867" duration="13644000" />
-      <workItem from="1587105732553" duration="7599000" />
+      <workItem from="1587105732553" duration="12027000" />
+      <workItem from="1587202357111" duration="3981000" />
+      <workItem from="1587236084162" duration="1672000" />
+      <workItem from="1587273099414" duration="5849000" />
     </task>
     <servers />
   </component>
@@ -181,14 +191,14 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="872" y="359" key="#Project_Structure" timestamp="1587128035948">
+    <state x="872" y="359" key="#Project_Structure" timestamp="1587280590594">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="872" y="359" key="#Project_Structure/0.0.2560.1400@0.0.2560.1400" timestamp="1587128035948" />
-    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586072638458">
+    <state x="872" y="359" key="#Project_Structure/0.0.2560.1400@0.0.2560.1400" timestamp="1587280590594" />
+    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587236741617">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586072638458" />
+    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587236741617" />
     <state x="562" y="610" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586194498698">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -201,10 +211,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586801492447" />
-    <state x="1060" y="455" key="FileChooserDialogImpl" timestamp="1586532057653">
+    <state x="586" y="530" key="FileChooserDialogImpl" timestamp="1587274017315">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1060" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1586532057653" />
+    <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587274017315" />
     <state width="1234" height="212" key="GridCell.Tab.0.bottom" timestamp="1586448390564">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -221,17 +231,17 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1234" height="212" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1586448390563" />
-    <state x="377" y="453" key="SettingsEditor" timestamp="1586833309587">
+    <state x="623" y="513" key="SettingsEditor" timestamp="1587274020652">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="377" y="453" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1586833309587" />
-    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1587105832121">
+    <state x="623" y="513" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587274020652" />
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1587273315446">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587105832121" />
-    <state x="662" y="321" key="new project wizard" timestamp="1587005327653">
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587273315446" />
+    <state x="662" y="321" key="new project wizard" timestamp="1587137532871">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="662" y="321" key="new project wizard/0.0.2560.1400@0.0.2560.1400" timestamp="1587005327653" />
+    <state x="662" y="321" key="new project wizard/0.0.2560.1400@0.0.2560.1400" timestamp="1587137532871" />
   </component>
 </project>

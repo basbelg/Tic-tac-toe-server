@@ -1,16 +1,18 @@
-package GameService;
+package SQLService;
+
+import Messages.Packet;
 
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
-public class GameHandler implements Runnable{
-    GameHandler instance = new GameHandler();
+public class SQLHandler implements Runnable{
+    SQLHandler instance = new SQLHandler();
 
     private BlockingQueue<Packet> requests;
     private Thread thread;
 
-    private GameHandler() {
-        requests = Server.getInstance().getRequests();
+    private SQLHandler() {
+        requests = SQLServer.getInstance().getRequests();
 
         thread = new Thread(this);
         thread.run();
