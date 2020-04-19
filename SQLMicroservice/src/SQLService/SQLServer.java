@@ -55,9 +55,7 @@ public class SQLServer implements Runnable{
                 requests.add(packet);
             }
         } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
-        finally {
-
-        }
+        finally {SQLHandler.getInstance().terminateServer();}
     }
 
     public void terminateServer() {

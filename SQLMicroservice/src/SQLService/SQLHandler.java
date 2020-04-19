@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
 public class SQLHandler implements Runnable{
-    SQLHandler instance = new SQLHandler();
+    private static SQLHandler instance = new SQLHandler();
 
     private BlockingQueue<Packet> requests;
     private Thread thread;
@@ -17,6 +17,8 @@ public class SQLHandler implements Runnable{
         thread = new Thread(this);
         thread.run();
     }
+
+    public static SQLHandler getInstance() {return instance;}
 
     @Override
     public void run() {

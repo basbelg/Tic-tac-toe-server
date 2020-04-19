@@ -1,12 +1,13 @@
 package GameService;
 
+import Messages.EncapsulatedMessage;
 import Messages.Packet;
 
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
 public class GameHandler implements Runnable{
-    GameHandler instance = new GameHandler();
+    private static GameHandler instance = new GameHandler();
 
     private BlockingQueue<Packet> requests;
     private Thread thread;
@@ -18,13 +19,15 @@ public class GameHandler implements Runnable{
         thread.run();
     }
 
+    public static GameHandler getInstance() {return instance;}
+
     @Override
     public void run() {
         try {
             while(!thread.isInterrupted()) {
-                Packet packet = requests.take();
-                
+                EncapsulatedMessage ENC = (EncapsulatedMessage) requests.take().getData();
 
+                switch (ENC.getType())
             }
         } catch (IOException | InterruptedException | NullPointerException e) {
             e.printStackTrace();

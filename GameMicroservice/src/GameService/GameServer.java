@@ -55,9 +55,7 @@ public class GameServer implements Runnable{
                 requests.add(packet);
             }
         } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
-        finally {
-
-        }
+        finally {GameHandler.getInstance().terminateServer();}
     }
 
     public void terminateServer() {
