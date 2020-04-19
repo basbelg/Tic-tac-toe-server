@@ -7,14 +7,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.lang.invoke.SerializedLambda;
 import java.net.Socket;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 public class Client implements Runnable, Serializable{
     private User user = null;
-    private String state;
 
     private Thread thread;
 
@@ -113,6 +111,4 @@ public class Client implements Runnable, Serializable{
     }
 
     public User getUser() {return user;}
-    public void setState(String state) {this.state = state;}
-    public String getState() {return state;}
 }

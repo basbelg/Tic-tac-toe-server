@@ -1,8 +1,5 @@
 package GameService;
 
-import DataClasses.TTT_GameData;
-import Database.DBManager;
-import GameInterfaces.Move;
 import MainServer.Client;
 import Messages.*;
 import TicTacToe.TTT_Game;
@@ -106,7 +103,7 @@ public class GameHandler implements Runnable{
                         break;
                 }
             }
-        } catch (IOException | InterruptedException | NullPointerException e) {
+        } catch (InterruptedException | NullPointerException e) {
             e.printStackTrace();
         }
     }

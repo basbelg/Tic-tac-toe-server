@@ -2,7 +2,6 @@ package SQLService;
 
 import Messages.Packet;
 
-import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
 public class SQLHandler implements Runnable{
@@ -31,7 +30,7 @@ public class SQLHandler implements Runnable{
                 }
 
             }
-        } catch (IOException | InterruptedException | NullPointerException e) {
+        } catch (InterruptedException | NullPointerException e) {
             e.printStackTrace();
         }
     }
