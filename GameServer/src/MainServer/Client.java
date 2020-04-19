@@ -12,8 +12,9 @@ import java.net.Socket;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
-public class Client implements Runnable{
+public class Client implements Runnable, Serializable{
     private User user = null;
+    private String state;
 
     private Thread thread;
 
@@ -78,21 +79,22 @@ public class Client implements Runnable{
                         }
                         break;
 
+                    case "SPC-MSG": // Spectate
                     case "CNT-MSG": // Connect to lobby
                     case "CAI-MSG": // Create AI Game Lobby
                     case "CLB-MSG": // Create Game Lobby
                     case "MOV-MSG": // Move
-                        EncapsulatedMessage ENC_Game = new EncapsulatedMessage(packet.getType(), Integer.valueOf(user.getId()), packet.getData());
+                        EncapsulatedMessage ENC_Game = new EncapsulatedMessage(packet.getType(), this, packet.getData());
                         GameServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC_Game));
+                        break;
 
                     case "GVW-MSG": // Game Viewers
                     case "DAC-MSG": // Deactivate Account
                     case "UPA-MSG": // Update Account Info
-                    case "SPC-MSG": // Spectate
                     case "GLG-MSG": // Game Log
                     case "STS-MSG": // Stats
                     case "GRE-MSG": // Game Result
-                        EncapsulatedMessage ENC = new EncapsulatedMessage(packet.getType(), Integer.valueOf(user.getId()), packet.getData());
+                        EncapsulatedMessage ENC = new EncapsulatedMessage(packet.getType(), this, packet.getData());
                         SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC));
                         break;
                 }
@@ -111,4 +113,6 @@ public class Client implements Runnable{
     }
 
     public User getUser() {return user;}
+    public void setState(String state) {this.state = state;}
+    public String getState() {return state;}
 }

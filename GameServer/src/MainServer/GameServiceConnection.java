@@ -1,7 +1,7 @@
 package MainServer;
 
-import Messages.EncapsulatedMessage;
-import Messages.Packet;
+import DataClasses.TTT_GameData;
+import Messages.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -53,7 +53,12 @@ public class GameServiceConnection implements Runnable{
                 if(packet.getType() == "ENC-MSG") {
                     EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
                     switch(ENC.getType()) {
-
+                        case "CNT-MSG": // Connect to lobby
+                            ConnectToLobbyMessage CNT = (ConnectToLobbyMessage) ENC.getMsg();
+                            for(Client client: MainServer.getInstance().getClients())
+                                if(ENC.getidentifier() != client)
+                                    client.sendPacket(new Packet("FUL-MSG", (FullLobbyMessage) MessageFactory.getMessage("FUL-MSG")));
+                            break;
                     }
                 }
 

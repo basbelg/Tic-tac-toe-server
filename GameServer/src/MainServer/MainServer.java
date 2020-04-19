@@ -27,10 +27,6 @@ public class MainServer implements Runnable {
     private int count;
     private List<Client> clients;
 
-    // Games
-    private Map<String, TTT_GameData> active_games;
-    private List<TTT_ViewerData> active_viewers;
-
     private MainServer(int port) {
         try {
             // Server
@@ -77,4 +73,6 @@ public class MainServer implements Runnable {
         thread.interrupt();
         try {serverSocket.close();} catch (IOException e) {e.printStackTrace();}
     }
+
+
 }
