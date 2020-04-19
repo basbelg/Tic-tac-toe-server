@@ -2,6 +2,7 @@ package GameService;
 
 import MainServer.Client;
 import Messages.*;
+import TicTacToe.TTT_Board;
 import TicTacToe.TTT_Game;
 
 import java.io.IOException;
@@ -87,19 +88,34 @@ public class GameHandler implements Runnable{
                             current_game.performMove(MOV.getMoveInfo().getNextMove());
                             if(current_game.isFinished()) {
                                 GameResultMessage GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
-                                GRE.setWinner(subscribers.get(current_game.getGameId()).get(current_game.getWinner() - 1).getUser().getUsername());
+                                GRE.setWinner(subscribers.get(current_game.getGameId()).get(current_game.getWinner()-1).getUser().getUsername());
                             }
                             else
                                 for(Client client: subscribers.get(current_game.getGameId()))
                                     client.sendPacket(new Packet("MOV-MSG", MOV));
                         } catch (Exception e) {
                             e.printStackTrace();
-                            EncapsulatedMessage ENC_ILM = new EncapsulatedMessage("ILM-MSG", ENC.getidentifier(), (IllegalMoveMessage) MessageFactory.getMessage("ILM-MSG"));
-                            GameServer.getInstance().sendPacket(new Packet("ENC-MSG", ENC_ILM));
+                            ((Client)ENC.getidentifier()).sendPacket(new Packet("ENC-MSG",(IllegalMoveMessage)MessageFactory.getMessage("ILM-MSG")));
                         }
                         break;
                     case "SPC-MSG": // Spectate Message
+                        SpectateMessage SPC = (SpectateMessage) ENC.getMsg();
 
+                        if(games.get(SPC.getGameId()).isActive()) {
+                            subscribers.get(SPC.getGameId()).add((Client)ENC.getidentifier());
+
+                            try {
+                                TTT_Board board = (TTT_Board) games.get(SPC.getGameId()).getBoard();
+                                int[][] arrayBoard = new int[3][3];
+                                for(int i = 0; i < 9; i++)
+                                    arrayBoard[i/3][i%3] = board.getPlayerAt(i/3, i%3);
+                                SPC.setGameBoard(arrayBoard);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            ((Client)ENC.getidentifier()).sendPacket(new Packet("SPC-MSG", SPC));
+                        }
                         break;
                 }
             }

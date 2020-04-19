@@ -125,4 +125,6 @@ public class TTT_Game implements Game {
         for(GameListener listener: observers)
             listener.onEventReceived(name, b, m, addInfo);
     }
+
+    public boolean isActive() {return active;}
 }
