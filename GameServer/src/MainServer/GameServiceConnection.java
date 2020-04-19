@@ -1,5 +1,6 @@
 package MainServer;
 
+import Messages.EncapsulatedMessage;
 import Messages.Packet;
 
 import java.io.IOException;
@@ -48,6 +49,13 @@ public class GameServiceConnection implements Runnable{
         try {
             while (!thread.isInterrupted()) {
                 Packet packet = (Packet) input.readObject();
+
+                if(packet.getType() == "ENC-MSG") {
+                    EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
+                    switch(ENC.getType()) {
+
+                    }
+                }
 
                 // handle
 

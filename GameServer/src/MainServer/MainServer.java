@@ -1,13 +1,12 @@
 package MainServer;
 
+import DataClasses.TTT_GameData;
 import Messages.Packet;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
@@ -27,6 +26,10 @@ public class MainServer implements Runnable {
     // Client
     private int count;
     private List<Client> clients;
+
+    // Games
+    private Map<String, TTT_GameData> active_games;
+    private List<TTT_ViewerData> active_viewers;
 
     private MainServer(int port) {
         try {
