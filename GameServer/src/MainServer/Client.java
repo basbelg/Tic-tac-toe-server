@@ -1,11 +1,13 @@
 package MainServer;
 
 import DataClasses.User;
-import Messages.Packet;
+import Messages.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.lang.invoke.SerializedLambda;
 import java.net.Socket;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -57,31 +59,57 @@ public class Client implements Runnable{
                 switch (packet.getType()) {
                     case "CNT-MSG": // Connect to lobby
                         break;
-                    case "CAC-MSG": // Create Account
-                        break;
                     case "CAI-MSG": // Create AI Game Lobby
                         break;
                     case "CLB-MSG": // Create Game Lobby
                         break;
-                    case "DAC-MSG": // Deactivate Account
-                        break;
-
-                    case "LOG-MSG": // Login
-                        break;
                     case "MOV-MSG": // Move
                         break;
-
                     case "SPC-MSG": // Spectate
                         break;
-                    case "UPA-MSG": // Update Account Info
+
+                    case "DAC-MSG": // Deactivate Account
                         break;
                     case "GLG-MSG": // Game Log
                         break;
                     case "GRE-MSG": // Game Result
+                        
+                        SQLServiceConnection.getInstance().sendPacket(packet);
                         break;
                     case "GVW-MSG": // Game Viewers
+                        ((GameViewersMessage)packet.getData()).setUserId(user.getId());
+                        SQLServiceConnection.getInstance().sendPacket(packet);
                         break;
+
+                    case "CAC-MSG": // Create Account
+                        CreateAccountMessage CAC = (CreateAccountMessage) packet.getData();
+                        user = new User(0, CAC.getNewUser().getUsername(), null, null, null, false);
+                        SQLServiceConnection.getInstance().sendPacket(packet);
+                        break;
+
+                    case "LOG-MSG": // Login
+                        LoginMessage LOG = (LoginMessage) packet.getData();
+                        boolean LOF = false;
+
+                        for(Client client: clients)
+                            if(client.user != null && client.user.getUsername() == LOG.getUsername()) {
+                                sendPacket(new Packet("LOF-MSG", (AccountFailedMessage) MessageFactory.getMessage("LOF-MSG")));
+                                LOF = true;
+                                break;
+                            }
+
+                        if(!LOF) {
+                            user = new User(LOG.getUsername(), null, null, null);
+                            SQLServiceConnection.getInstance().sendPacket(packet);
+                        }
+                        break;
+
                     case "STS-MSG": // Stats
+                        SQLServiceConnection.getInstance().sendPacket(packet);
+                        break;
+                    case "UPA-MSG": // Update Account Info
+                        ((UpdateAccountInfoMessage)packet.getData()).getUpdatedUser().setId(user.getId());
+                        SQLServiceConnection.getInstance().sendPacket(packet);
                         break;
                     default:
                         requests.add(packet);
@@ -99,4 +127,6 @@ public class Client implements Runnable{
             e.printStackTrace();
         }
     }
+
+    public User getUser() {return user;}
 }

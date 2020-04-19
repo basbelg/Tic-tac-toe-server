@@ -34,9 +34,11 @@ public class SQLServiceConnection implements Runnable{
 
     public static SQLServiceConnection getInstance() {return instance;}
 
-    public void sendPacket(Packet packet) {
+    public synchronized void sendPacket(Packet packet) {
         try {
             output.writeObject(packet);
+            output.flush();
+            output.reset();
         } catch (IOException e) {
             e.printStackTrace();
         }

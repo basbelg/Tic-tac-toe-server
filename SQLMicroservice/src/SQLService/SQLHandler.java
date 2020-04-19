@@ -24,6 +24,9 @@ public class SQLHandler implements Runnable{
             while(!thread.isInterrupted()) {
                 Packet packet = requests.take();
 
+                switch(packet.getType()) {
+
+                }
 
             }
         } catch (IOException | InterruptedException | NullPointerException e) {
