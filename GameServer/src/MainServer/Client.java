@@ -57,30 +57,6 @@ public class Client implements Runnable{
                 Packet packet = (Packet) input.readObject();
 
                 switch (packet.getType()) {
-                    case "CNT-MSG": // Connect to lobby
-                        break;
-                    case "CAI-MSG": // Create AI Game Lobby
-                        break;
-                    case "CLB-MSG": // Create Game Lobby
-                        break;
-                    case "MOV-MSG": // Move
-                        break;
-                    case "SPC-MSG": // Spectate
-                        break;
-
-                    case "DAC-MSG": // Deactivate Account
-                        break;
-                    case "GLG-MSG": // Game Log
-                        break;
-                    case "GRE-MSG": // Game Result
-                        
-                        SQLServiceConnection.getInstance().sendPacket(packet);
-                        break;
-                    case "GVW-MSG": // Game Viewers
-                        ((GameViewersMessage)packet.getData()).setUserId(user.getId());
-                        SQLServiceConnection.getInstance().sendPacket(packet);
-                        break;
-
                     case "CAC-MSG": // Create Account
                         CreateAccountMessage CAC = (CreateAccountMessage) packet.getData();
                         user = new User(0, CAC.getNewUser().getUsername(), null, null, null, false);
@@ -90,29 +66,35 @@ public class Client implements Runnable{
                     case "LOG-MSG": // Login
                         LoginMessage LOG = (LoginMessage) packet.getData();
                         boolean LOF = false;
-
                         for(Client client: clients)
                             if(client.user != null && client.user.getUsername() == LOG.getUsername()) {
                                 sendPacket(new Packet("LOF-MSG", (AccountFailedMessage) MessageFactory.getMessage("LOF-MSG")));
                                 LOF = true;
                                 break;
                             }
-
                         if(!LOF) {
                             user = new User(LOG.getUsername(), null, null, null);
                             SQLServiceConnection.getInstance().sendPacket(packet);
                         }
                         break;
 
-                    case "STS-MSG": // Stats
-                        SQLServiceConnection.getInstance().sendPacket(packet);
-                        break;
+                    case "CNT-MSG": // Connect to lobby
+                    case "CAI-MSG": // Create AI Game Lobby
+                    case "CLB-MSG": // Create Game Lobby
+                    case "MOV-MSG": // Move
+                        EncapsulatedMessage ENC_Game = new EncapsulatedMessage(packet.getType(), Integer.valueOf(user.getId()), packet.getData());
+                        GameServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC_Game));
+
+                    case "GVW-MSG": // Game Viewers
+                    case "DAC-MSG": // Deactivate Account
                     case "UPA-MSG": // Update Account Info
-                        ((UpdateAccountInfoMessage)packet.getData()).getUpdatedUser().setId(user.getId());
-                        SQLServiceConnection.getInstance().sendPacket(packet);
+                    case "SPC-MSG": // Spectate
+                    case "GLG-MSG": // Game Log
+                    case "STS-MSG": // Stats
+                    case "GRE-MSG": // Game Result
+                        EncapsulatedMessage ENC = new EncapsulatedMessage(packet.getType(), Integer.valueOf(user.getId()), packet.getData());
+                        SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC));
                         break;
-                    default:
-                        requests.add(packet);
                 }
             }
         } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
