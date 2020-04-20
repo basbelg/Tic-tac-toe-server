@@ -1,12 +1,18 @@
 package MainServer;
 
-import Messages.Packet;
+import DataClasses.GameInfo;
+import DataClasses.TTT_GameData;
+import DataClasses.User;
+import Database.DBManager;
+import Messages.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.nio.channels.ClosedByInterruptException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 public class SQLServiceConnection implements Runnable{
@@ -50,9 +56,48 @@ public class SQLServiceConnection implements Runnable{
             while (!thread.isInterrupted()) {
                 Packet packet = (Packet) input.readObject();
 
-                // handle
+                switch (packet.getType()) {
+                    case "ENC-MSG": // encapsulated message
+                        EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
+                        switch (ENC.getType()) {
+                            case "UPA-MSG": // Update Account Info
+                            case "STS-MSG": // Stats
+                            case "GLG-MSG": // Game Log
+                            case "DAC-MSG": // Deactivate Account
+                            case "GVW-MSG": // Game Viewers
+                            case "GMP-MSG": // Games played
+                                // Return to MainServer
+                                MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).
+                                        sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
+                                break;
+                        }
+                        break;
 
-                // send to relevant party
+                    //--------------------------------------------------------------------------------------------------
+                    //                                             Login
+                    //--------------------------------------------------------------------------------------------------
+                    case "LOG-MSG": // login
+
+                        break;
+
+                    //--------------------------------------------------------------------------------------------------
+                    //                                        Create Account
+                    //--------------------------------------------------------------------------------------------------
+                    case "CAC-MSG": // create account
+                        break;
+
+                    //--------------------------------------------------------------------------------------------------
+                    //                                          Save Move
+                    //--------------------------------------------------------------------------------------------------
+                    case "MOV-MSG": // move
+                        break;
+
+                    //--------------------------------------------------------------------------------------------------
+                    //                                          Save Game
+                    //--------------------------------------------------------------------------------------------------
+                    case "SAV-MSG": // save
+                        break;
+                }
             }
         } catch (ClosedByInterruptException e) {
             e.printStackTrace();

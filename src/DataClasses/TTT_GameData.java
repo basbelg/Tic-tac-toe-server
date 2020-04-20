@@ -1,8 +1,9 @@
 package DataClasses;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class TTT_GameData {
+public class TTT_GameData implements Serializable {
     private String id;
     private LocalDateTime startingTime;
     private LocalDateTime endTime;
@@ -59,11 +60,19 @@ public class TTT_GameData {
         return winningPlayerId;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
+    public void setId() {this.id = id;}
 
-    public void setWinningPlayerId(int winningPlayerId) {
-        this.winningPlayerId = winningPlayerId;
-    }
+    public void setStartingTime(LocalDateTime setStartingTime) {this.startingTime = startingTime;}
+
+    public void setEndTime(LocalDateTime endTime) {this.endTime = endTime;}
+
+    public void setPlayer1Id(int player1Id) {this.player1Id = player1Id;}
+
+    public void setPlayer2Id(int player2Id) {this.player2Id = player2Id;}
+
+    public void setStartingPlayerId(int startingPlayerId) {this.startingPlayerId = startingPlayerId;}
+
+    public void setWinningPlayerId(int winningPlayerId) {this.winningPlayerId = winningPlayerId;}
+
+
 }

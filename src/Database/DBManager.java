@@ -234,8 +234,8 @@ public class DBManager implements DataSource {
                         resultSet.getInt("starting_player"), resultSet.getInt("winner"));
             }
             else if(classType == User.class) {
-                statement = connection.prepareStatement("select * from user where username = ?;");
-                statement.setString(1, id);
+                statement = connection.prepareStatement("select * from user where id = ?;");
+                statement.setInt(1, Integer.valueOf(id));
                 resultSet = statement.executeQuery();
 
                 resultSet.next();
