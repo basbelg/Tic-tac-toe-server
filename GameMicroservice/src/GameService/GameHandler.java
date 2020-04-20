@@ -18,13 +18,12 @@ public class GameHandler implements Runnable{
     private Thread thread;
 
     private HashMap<String, TTT_Game> games;
-    private HashMap<String, List<Client>> subscribers;
+    //private HashMap<String, List<Client>> subscribers;
 
     private GameHandler() {
         requests = GameServer.getInstance().getRequests();
 
         games = new HashMap<>();
-        subscribers = new HashMap<>();
 
         thread = new Thread(this);
         thread.run();
@@ -50,7 +49,6 @@ public class GameHandler implements Runnable{
                         try {
                             TTT_Game ttt_game = games.get(CNT.getLobbyGameId());
                             ttt_game.startGame();
-                            subscribers.get(ttt_game.getGameId()).add((Client) ENC.getidentifier());
                             CNT.setLobbyGameId(ttt_game.getGameId());
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -64,8 +62,6 @@ public class GameHandler implements Runnable{
                             TTT_Game ttt_game = new TTT_Game();
                             ttt_game.startGame();
                             games.putIfAbsent(ttt_game.getGameId(), ttt_game);
-                            subscribers.putIfAbsent(ttt_game.getGameId(), new ArrayList<>());
-                            subscribers.get(ttt_game.getGameId()).add((Client) ENC.getidentifier());
                             CAI.setGameLobbyId(ttt_game.getGameId());
                             ((Client)ENC.getidentifier()).sendPacket(new Packet("CAI-MSG", CAI));
                         } catch (Exception e) {e.printStackTrace();}
@@ -75,8 +71,6 @@ public class GameHandler implements Runnable{
 
                         TTT_Game ttt_game = new TTT_Game();
                         games.putIfAbsent(ttt_game.getGameId(), ttt_game);
-                        subscribers.putIfAbsent(ttt_game.getGameId(), new ArrayList<>());
-                        subscribers.get(ttt_game.getGameId()).add((Client) ENC.getidentifier());
                         CLB.setGameLobbyId(ttt_game.getGameId());
                         ((Client)ENC.getidentifier()).sendPacket(new Packet("CLB-MSG", CLB));
                         break;
@@ -88,11 +82,8 @@ public class GameHandler implements Runnable{
                             current_game.performMove(MOV.getMoveInfo().getNextMove());
                             if(current_game.isFinished()) {
                                 GameResultMessage GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
-                                GRE.setWinner(subscribers.get(current_game.getGameId()).get(current_game.getWinner()-1).getUser().getUsername());
                             }
-                            else
-                                for(Client client: subscribers.get(current_game.getGameId()))
-                                    client.sendPacket(new Packet("MOV-MSG", MOV));
+
                         } catch (Exception e) {
                             e.printStackTrace();
                             ((Client)ENC.getidentifier()).sendPacket(new Packet("ENC-MSG",(IllegalMoveMessage)MessageFactory.getMessage("ILM-MSG")));
@@ -102,8 +93,6 @@ public class GameHandler implements Runnable{
                         SpectateMessage SPC = (SpectateMessage) ENC.getMsg();
 
                         if(games.get(SPC.getGameId()).isActive()) {
-                            subscribers.get(SPC.getGameId()).add((Client)ENC.getidentifier());
-
                             try {
                                 TTT_Board board = (TTT_Board) games.get(SPC.getGameId()).getBoard();
                                 int[][] arrayBoard = new int[3][3];

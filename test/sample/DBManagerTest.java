@@ -12,7 +12,7 @@ class DBManagerTest {
     @org.junit.jupiter.api.Test
     void addUser() {
         boolean wasSuccess;
-        User user = new User("updated_rbradt", "Riley", "Bradt", "1234asdf");
+        User user = new User("AI Player", null, null, null);
 
         wasSuccess = DBManager.getInstance().insert(user);
 

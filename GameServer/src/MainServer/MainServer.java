@@ -1,6 +1,7 @@
 package MainServer;
 
 import DataClasses.TTT_GameData;
+import DataClasses.TTT_ViewerData;
 import Messages.Packet;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
+import static java.util.Collections.checkedCollection;
 import static java.util.Collections.synchronizedList;
 
 public class MainServer implements Runnable {
@@ -27,6 +29,10 @@ public class MainServer implements Runnable {
     private int count;
     private List<Client> clients;
 
+    // Lobby
+    private List<TTT_GameData> active_games;
+    private Map<String, List<TTT_ViewerData>>  active_viewers;
+
     private MainServer(int port) {
         try {
             // Server
@@ -37,6 +43,10 @@ public class MainServer implements Runnable {
             requests = new ArrayBlockingQueue<>(512);
             count = 0;
 
+            // active lobby info
+            active_games = Collections.synchronizedList(new ArrayList<>());
+            active_viewers = Collections.synchronizedMap(new HashMap<>());
+
             // Thread
             thread = new Thread(this);
             thread.start();
@@ -46,6 +56,8 @@ public class MainServer implements Runnable {
     public static MainServer getInstance() {return instance;}
     public BlockingQueue<Packet> getRequests() {return requests;}
     public List<Client> getClients() {return clients;}
+    public List<TTT_GameData> getActiveGames() {return active_games;}
+    public Map<String, List<TTT_ViewerData>> getActiveViewers() {return active_viewers;}
 
     @Override
     public void run() {
@@ -73,6 +85,7 @@ public class MainServer implements Runnable {
         thread.interrupt();
         try {serverSocket.close();} catch (IOException e) {e.printStackTrace();}
     }
+
 
 
 }
