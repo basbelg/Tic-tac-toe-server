@@ -118,6 +118,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.DBManagerTest.clearUsers" />
+      <item itemvalue="JUnit.DBManagerTest.addGame" />
+      <item itemvalue="JUnit.DBManagerTest.addUser" />
+      <item itemvalue="JUnit.DBManagerTest.printAllActiveUsers" />
+      <item itemvalue="JUnit.DBManagerTest.updateUser" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.DBManagerTest.addGame" />
