@@ -1,9 +1,6 @@
 package SQLService;
 
-import DataClasses.GameInfo;
-import DataClasses.TTT_GameData;
-import DataClasses.TTT_ViewerData;
-import DataClasses.User;
+import DataClasses.*;
 import Database.DBManager;
 import Messages.*;
 
@@ -60,26 +57,68 @@ public class SQLHandler implements Runnable{
                                 GameViewersMessage GVW = (GameViewersMessage) ENC.getMsg();
 
                                 List<Object> viewers = DBManager.getInstance().query(TTT_ViewerData.class, GVW.getGameId());
+                                List<Spectator> spectators = new ArrayList<>();
 
+                                for(Object obj : viewers) {
+                                    User viewer = (User) DBManager.getInstance().get(User.class, String.valueOf(((TTT_ViewerData) obj).getViewer_id()));
+                                    spectators.add(new Spectator(viewer.getUsername()));
+                                }
+
+                                GVW.setSpectators(spectators);
                                 SQLServer.getInstance().sendPacket(packet);
                                 break;
                             case "DAC-MSG": // Deactivate Account
                                 DeactivateAccountMessage DAC = (DeactivateAccountMessage) ENC.getMsg();
 
+                                User deactivatedAccount = (User) DBManager.getInstance().get(User.class, String.valueOf(DAC.getUserId()));
 
+                                deactivatedAccount.setIsActive(false);
+
+                                DBManager.getInstance().update(deactivatedAccount);
                                 break;
                             case "UPA-MSG": // Update Account Info
                                 UpdateAccountInfoMessage UPA = (UpdateAccountInfoMessage) ENC.getMsg();
 
+                                List<Object> users = DBManager.getInstance().list(User.class);
+                                boolean UAC_Failed = false;
 
+                                for(Object obj: users) {
+                                    User user = (User) obj;
+                                    if(user.getUsername() == UPA.getUpdatedUser().getUsername()) {
+                                        AccountFailedMessage ACF = (AccountFailedMessage) MessageFactory.getMessage("ACF-MSG");
+                                        SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("ACF-MSG", ENC.getidentifier(), ACF)));
+                                        UAC_Failed = true;
+                                        break;
+                                    }
+                                }
 
-                                AccountSuccessfulMessage ACS = (AccountSuccessfulMessage) MessageFactory.getMessage("ACS-MSG");
-                                SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("ACS-MSG", ENC.getidentifier(), ACS)));
+                                if(!UAC_Failed) {
+                                    AccountSuccessfulMessage ACS = (AccountSuccessfulMessage) MessageFactory.getMessage("ACS-MSG");
+                                    SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("ACS-MSG", ENC.getidentifier(), ACS)));
+
+                                    DBManager.getInstance().update(UPA.getUpdatedUser());
+                                }
+
                                 break;
                             case "GLG-MSG": // Game Log
                                 GameLogMessage GLG = (GameLogMessage) ENC.getMsg();
 
+                                TTT_GameData gameData = (TTT_GameData) DBManager.getInstance().get(TTT_GameData.class, GLG.getGameId());
 
+                                GLG.setGameStarted(gameData.getStartingTime());
+                                GLG.setGameEnded(gameData.getEndTime());
+
+                                User player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getPlayer1Id()));
+                                GLG.setPlayer1Username(player.getUsername());
+                                player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getPlayer2Id()));
+                                GLG.setPlayer2Username(player.getUsername());
+                                player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getWinningPlayerId()));
+                                GLG.setWinner(player.getUsername());
+
+                                List<Object> moveData = DBManager.getInstance().query(TTT_MoveData.class, GLG.getGameId());
+                                List<MoveInfo> moves = new ArrayList<>();
+
+                                for(Object obj : )
 
                                 SQLServer.getInstance().sendPacket(packet);
                                 break;
