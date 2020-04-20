@@ -1,16 +1,13 @@
 package MainServer;
 
-import DataClasses.LobbyInfo;
 import DataClasses.TTT_GameData;
 import DataClasses.TTT_ViewerData;
 import Messages.*;
-import UI.Main;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 public class Publisher implements Runnable{
@@ -40,53 +37,10 @@ public class Publisher implements Runnable{
                 EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
                 switch (ENC.getType()) {
                     //--------------------------------------------------------------------------------------------------
-                    //                                 Login Message (from client)
+                    //                                        Login Message
                     //--------------------------------------------------------------------------------------------------
                     case "LOG-MSG": // Login
-                        LoginMessage LOG = (LoginMessage) ENC.getMsg();
-                        boolean LOF = false;
 
-                        synchronized (MainServer.getInstance().getActiveGames()) {
-                            Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
-                            while (iterator.hasNext()) {
-                                Client client = iterator.next();
-                                if (client.getUser() != null && client.getUser().getUsername()==LOG.getUsername()) {
-                                    LOF = true;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (LOF) {
-                            int id = (Integer) ENC.getidentifier();
-                            MainServer.getInstance().getClientIDMap().get(id).sendPacket(new Packet("LOF-MSG",
-                                    (AccountFailedMessage) MessageFactory.getMessage("LOF-MSG")));
-                        }
-                        else
-                            SQLServiceConnection.getInstance().sendPacket(packet);
-                        break;
-
-                    //--------------------------------------------------------------------------------------------------
-                    //                                    All Active Games
-                    //--------------------------------------------------------------------------------------------------
-                    case "AAG-MSG":
-                        AllActiveGamesMessage AAG = (AllActiveGamesMessage) ENC.getMsg();
-                        List<LobbyInfo> allGames = new ArrayList<>();
-
-                        synchronized (MainServer.getInstance().getActiveGames()) {
-                            Iterator<TTT_GameData> iterator = MainServer.getInstance().getActiveGames().iterator();
-                            while(iterator.hasNext()) {
-                                TTT_GameData current_game = iterator.next();
-                                    String creator = MainServer.getInstance().getClientIDMap().get(current_game
-                                            .getPlayer1Id()).getUser().getUsername();
-                                    allGames.add(new LobbyInfo(creator, current_game.getId(),
-                                            (current_game.getPlayer2Id() == 0)? 1 : 2));
-                            }
-                        }
-
-                        AAG.setAllActiveGames(allGames);
-                        int id = (Integer) ENC.getidentifier();
-                        MainServer.getInstance().getClientIDMap().get(id).sendPacket(new Packet("AAG-MSG", AAG));
                         break;
 
                     //--------------------------------------------------------------------------------------------------
