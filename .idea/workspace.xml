@@ -2,10 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/ServerClasses.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/ServerClasses.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetails.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayer.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/Server.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/GameServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/GameServer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tic-Tac-Toe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Tic-Tac-Toe.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +25,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -35,7 +44,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$/Downloads/ServerClasses.jar!/" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.28235295" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -62,6 +71,8 @@
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="GameServer.src.UI.Main" />
+      <module name="GameServer" />
+      <option name="VM_PARAMETERS" value="--module-path C:\Users\jtols\Downloads\openjfx-12.0.2_windows-x64_bin-sdk\javafx-sdk-12.0.2\lib --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
