@@ -2,17 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/ServerClasses.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/ServerClasses.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetails.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayer.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/Server.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GameServer/UI/GameDetails.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayer.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayerController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/GameServer/UI/Server.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameServer/GameServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/GameServer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tic-Tac-Toe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Tic-Tac-Toe.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DataClasses/Spectator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/DBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/DataSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/DataSource.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/GameServiceConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/GameServiceConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/MainServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/MainServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/SQLServiceConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/SQLServiceConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +36,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -41,7 +54,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/ServerClasses.jar!/" />
+    <property name="last_opened_file_path" value="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.19.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -66,11 +79,11 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.DBManagerTest.addUser">
-    <configuration default="true" type="Application" factoryName="Application">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="UI.Main" />
       <module name="GameServer" />
-      <option name="VM_PARAMETERS" value="-module-path C:\Users\basbe\Downloads\openjfx-13.0.2_windows-x64_bin-sdk\javafx-sdk-13.0.2\lib --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path C:\Users\basbe\Downloads\openjfx-13.0.2_windows-x64_bin-sdk\javafx-sdk-13.0.2\lib --add-modules javafx.controls,javafx.fxml" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -203,6 +216,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.DBManagerTest.clearUsers" />
       <item itemvalue="JUnit.DBManagerTest.addGame" />
       <item itemvalue="JUnit.DBManagerTest.addUser" />
@@ -256,6 +270,19 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="WindowStateProjectService">
     <state x="872" y="359" key="#Project_Structure" timestamp="1587280590594">

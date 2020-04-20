@@ -3,6 +3,7 @@ package SQLService;
 import DataClasses.*;
 import Database.DBManager;
 import Messages.*;
+import TicTacToe.TTT_Move;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +119,13 @@ public class SQLHandler implements Runnable{
                                 List<Object> moveData = DBManager.getInstance().query(TTT_MoveData.class, GLG.getGameId());
                                 List<MoveInfo> moves = new ArrayList<>();
 
-                                for(Object obj : )
+                                int playerNum = 1;
+
+                                for(Object obj : moveData) {
+                                    TTT_MoveData move = (TTT_MoveData) obj;
+
+                                    moves.add(new MoveInfo(new TTT_Move((playerNum == 1 ? playerNum++ : playerNum--), move.getRow(), move.getColumn()), move.getTime()));
+                                }
 
                                 SQLServer.getInstance().sendPacket(packet);
                                 break;
