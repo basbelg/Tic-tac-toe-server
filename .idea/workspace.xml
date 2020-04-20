@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/TicTacToe/TTT_Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TicTacToe/TTT_Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,18 +31,25 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.19.jar!/" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Tic_Tac_Toe_Server/ServerClasses.jar!/" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
-  <component name="RunManager" selected="JUnit.DBManagerTest.addGame">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="R:\CS4B\Tic-Tac-Toe\SQLServiceServer" />
+      <recent name="R:\CS4B\Tic-Tac-Toe\src\Game" />
+      <recent name="R:\CS4B\Tic-Tac-Toe\src\DataClasses" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.DBManagerTest.addUser">
     <configuration name="DBManagerTest.addGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="Tic-Tac-Toe" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="database.*" />
+          <option name="PATTERN" value="Database.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -58,7 +65,7 @@
       <module name="Tic-Tac-Toe" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="database.*" />
+          <option name="PATTERN" value="Database.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -74,7 +81,7 @@
       <module name="Tic-Tac-Toe" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="database.*" />
+          <option name="PATTERN" value="Database.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -90,7 +97,7 @@
       <module name="Tic-Tac-Toe" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="database.*" />
+          <option name="PATTERN" value="Database.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -106,7 +113,7 @@
       <module name="Tic-Tac-Toe" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="database.*" />
+          <option name="PATTERN" value="Database.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -127,9 +134,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DBManagerTest.addUser" />
         <item itemvalue="JUnit.DBManagerTest.addGame" />
         <item itemvalue="JUnit.DBManagerTest.printAllActiveUsers" />
-        <item itemvalue="JUnit.DBManagerTest.addUser" />
         <item itemvalue="JUnit.DBManagerTest.updateUser" />
         <item itemvalue="JUnit.DBManagerTest.clearUsers" />
       </list>
@@ -157,7 +164,16 @@
       <workItem from="1586404643803" duration="15206000" />
       <workItem from="1586531841068" duration="1698000" />
       <workItem from="1586613903053" duration="10581000" />
-      <workItem from="1586700892058" duration="11504000" />
+      <workItem from="1586700892058" duration="11878000" />
+      <workItem from="1586758638253" duration="2420000" />
+      <workItem from="1586789009327" duration="9787000" />
+      <workItem from="1586958029745" duration="2149000" />
+      <workItem from="1587004976867" duration="13644000" />
+      <workItem from="1587105732553" duration="12027000" />
+      <workItem from="1587202357111" duration="3981000" />
+      <workItem from="1587236084162" duration="1672000" />
+      <workItem from="1587273099414" duration="37584000" />
+      <workItem from="1587359756487" duration="45516000" />
     </task>
     <servers />
   </component>
@@ -165,53 +181,61 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="872" y="359" key="#Project_Structure" timestamp="1586072746289">
+    <state x="872" y="359" key="#Project_Structure" timestamp="1587280590594">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="872" y="359" key="#Project_Structure/0.0.2560.1400@0.0.2560.1400" timestamp="1586072746289" />
-    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1586072638458">
+    <state x="872" y="359" key="#Project_Structure/0.0.2560.1400@0.0.2560.1400" timestamp="1587280590594" />
+    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587236741617">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586072638458" />
+    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587236741617" />
     <state x="562" y="610" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586194498698">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="562" y="610" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1586194498698" />
-    <state x="1085" y="410" key="#com.intellij.ide.util.MemberChooser" timestamp="1586618863207">
+    <state x="1085" y="410" key="#com.intellij.ide.util.MemberChooser" timestamp="1587005897707">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1085" y="410" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1586618863207" />
-    <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586624765460">
+    <state x="1085" y="410" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1587005897707" />
+    <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586801492447">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586624765460" />
-    <state x="1060" y="455" key="FileChooserDialogImpl" timestamp="1586532057653">
+    <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586801492447" />
+    <state x="586" y="530" key="FileChooserDialogImpl" timestamp="1587274017315">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1060" y="455" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1586532057653" />
-    <state width="1234" height="212" key="GridCell.Tab.0.bottom" timestamp="1586448390564">
+    <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587274017315" />
+    <state width="2500" height="210" key="GridCell.Tab.0.bottom" timestamp="1587367624903">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1234" height="212" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1586448390564" />
-    <state width="1234" height="212" key="GridCell.Tab.0.center" timestamp="1586448390563">
+    <state width="2500" height="210" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624903" />
+    <state width="2500" height="210" key="GridCell.Tab.0.center" timestamp="1587367624903">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1234" height="212" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1586448390563" />
-    <state width="1234" height="212" key="GridCell.Tab.0.left" timestamp="1586448390563">
+    <state width="2500" height="210" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624903" />
+    <state width="2500" height="210" key="GridCell.Tab.0.left" timestamp="1587367624902">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1234" height="212" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1586448390563" />
-    <state width="1234" height="212" key="GridCell.Tab.0.right" timestamp="1586448390563">
+    <state width="2500" height="210" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624902" />
+    <state width="2500" height="210" key="GridCell.Tab.0.right" timestamp="1587367624903">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1234" height="212" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1586448390563" />
-    <state x="432" y="317" key="SettingsEditor" timestamp="1586197217080">
+    <state width="2500" height="210" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624903" />
+    <state x="623" y="513" key="SettingsEditor" timestamp="1587307170614">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="432" y="317" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1586197217080" />
-    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1586701861769">
+    <state x="623" y="513" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587307170614" />
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1587359771163">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586701861769" />
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587359771163" />
+    <state x="662" y="321" key="new project wizard" timestamp="1587137532871">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="662" y="321" key="new project wizard/0.0.2560.1400@0.0.2560.1400" timestamp="1587137532871" />
+    <state x="943" y="319" width="672" height="678" key="search.everywhere.popup" timestamp="1587367624424">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="943" y="319" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624424" />
   </component>
 </project>

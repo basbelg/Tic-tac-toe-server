@@ -1,4 +1,4 @@
-package database;
+package Database;
 
 import DataClasses.*;
 
@@ -83,6 +83,33 @@ public class DBManager implements DataSource {
                 resultSet = statement.executeQuery();
                 resultSet.next();
                 user.setId(resultSet.getInt("id"));
+            }
+            else if(obj instanceof TTT_MoveData) {
+                // insert user into database
+                TTT_MoveData ttt_moveData = (TTT_MoveData) obj;
+
+                statement = connection.prepareStatement("insert into move (game_id, player_id, move_time, row," +
+                        " col, turn) values (?,?,?,?,?, ?);");
+                statement.setString(1, ttt_moveData.getGame_id());
+                statement.setInt(2, ttt_moveData.getPlayer_id());
+                statement.setTimestamp(3, Timestamp.valueOf(ttt_moveData.getTime()));
+                statement.setInt(4, ttt_moveData.getRow());
+                statement.setInt(5, ttt_moveData.getColumn());
+                statement.setInt(6, ttt_moveData.getTurn());
+
+                statement.executeUpdate();
+                statement.close();
+            }
+            else if(obj instanceof TTT_ViewerData) {
+                // insert user into database
+                TTT_ViewerData ttt_viewerData = (TTT_ViewerData) obj;
+
+                statement = connection.prepareStatement("insert into viewer (game_id, viewer_id) values (?,?);");
+                statement.setString(1, ttt_viewerData.getGame_id());
+                statement.setInt(2, ttt_viewerData.getViewer_id());
+
+                statement.executeUpdate();
+                statement.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -207,8 +234,8 @@ public class DBManager implements DataSource {
                         resultSet.getInt("starting_player"), resultSet.getInt("winner"));
             }
             else if(classType == User.class) {
-                statement = connection.prepareStatement("select * from user where username = ?;");
-                statement.setString(1, id);
+                statement = connection.prepareStatement("select * from user where id = ?;");
+                statement.setInt(1, Integer.valueOf(id));
                 resultSet = statement.executeQuery();
 
                 resultSet.next();
@@ -255,6 +282,23 @@ public class DBManager implements DataSource {
                             resultSet.getTimestamp("end_time").toLocalDateTime(),
                             resultSet.getInt("player1"), resultSet.getInt("player2"),
                             resultSet.getInt("starting_player"), resultSet.getInt("winner")));
+            }
+            else if(classType == TTT_MoveData.class) {
+                resultSet = statement.executeQuery("select * from move;");
+
+                while(resultSet.next())
+                    objs.add(new TTT_MoveData(resultSet.getString("game_id"),
+                            resultSet.getInt("player_id"),
+                            resultSet.getTimestamp("move_time").toLocalDateTime(),
+                            resultSet.getInt("row"), resultSet.getInt("col"),
+                            resultSet.getInt("turn")));
+            }
+            else if(classType == TTT_ViewerData.class) {
+                resultSet = statement.executeQuery("select * from viewer;");
+
+                while(resultSet.next())
+                    objs.add(new TTT_ViewerData(resultSet.getString("game_id"),
+                            resultSet.getInt("viewer_id")));
             }
         } catch (SQLException e) {e.printStackTrace();}
         finally {
@@ -308,6 +352,39 @@ public class DBManager implements DataSource {
                             resultSet.getTimestamp("end_time").toLocalDateTime(),
                             resultSet.getInt("player1"), resultSet.getInt("player2"),
                             resultSet.getInt("starting_player"), resultSet.getInt("winner")));
+            }
+            else if(classType == TTT_MoveData.class) {
+                switch (filter) {
+                    case "all":
+                        resultSet = statement.executeQuery("select * from move;");
+                        break;
+                    default:
+                        PreparedStatement preparedStatement = connection.prepareStatement("select * from move where game_id = ?");
+                        preparedStatement.setString(1, filter);
+                        resultSet = preparedStatement.executeQuery();
+                }
+
+                while(resultSet.next())
+                    objs.add(new TTT_MoveData(resultSet.getString("game_id"),
+                            resultSet.getInt("player_id"),
+                            resultSet.getTimestamp("move_time").toLocalDateTime(),
+                            resultSet.getInt("row"), resultSet.getInt("col"),
+                            resultSet.getInt("turn")));
+            }
+            else if(classType == TTT_ViewerData.class) {
+                switch(filter) {
+                    case "all":
+                        resultSet = statement.executeQuery("select * from viewer;");
+                        break;
+                    default:
+                        PreparedStatement preparedStatement = connection.prepareStatement("select * from viewer where game_id = ?");
+                        preparedStatement.setString(1, filter);
+                        resultSet = preparedStatement.executeQuery();
+                }
+
+                while(resultSet.next())
+                    objs.add(new TTT_ViewerData(resultSet.getString("game_id"),
+                            resultSet.getInt("viewer_id")));
             }
         } catch (SQLException e) {e.printStackTrace();}
         finally {

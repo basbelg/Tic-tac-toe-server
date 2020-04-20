@@ -3,26 +3,25 @@ package GameInterfaces;
 import java.io.Serializable;
 import java.util.List;
 
-    public interface Game extends Serializable {
-        void startGame() throws Exception;
-        void endGame() throws Exception;
-        boolean isFinished();
-        void saveGame() throws Exception;
+public interface Game extends Serializable {
+    void startGame() throws Exception;
+    void endGame() throws Exception;
+    boolean isFinished();
+    void saveGame() throws Exception;
 
-        String getGameId();
+    String getGameId();
 
-        void performMove(Move nextMove) throws Exception;
-        void undoMove() throws Exception;
-        void restart() throws Exception;
+    void performMove(Move nextMove) throws Exception;
+    void undoMove() throws Exception;
+    void restart() throws Exception;
 
-        int getNextPlayer();
-        int getWinner() throws Exception;
+    int getNextPlayer();
+    int getWinner() throws Exception;
 
-        <T extends Move> List<T> getMoveHistory();
+    <T extends Move> List<T> getMoveHistory();
 
-        Board getBoard() throws Exception;
+    Board getBoard() throws Exception;
 
-        void addGameListener(GameListener listener);
-        void removeGameListener(GameListener listener);
-    }
+    void addGameListener(GameListener listener);
+    void removeGameListener(GameListener listener);
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="455.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ClientUI.Register">
+   <children>
+      <Button fx:id="registerButton" layoutX="270.0" layoutY="391.0" mnemonicParsing="false" text="Register" />
+      <Label layoutX="81.0" layoutY="78.0" text="First Name:" />
+      <Label layoutX="82.0" layoutY="134.0" text="Last Name:" />
+      <Label layoutX="83.0" layoutY="190.0" text="Username:" />
+      <Label layoutX="85.0" layoutY="249.0" text="Password:" />
+      <Label layoutX="42.0" layoutY="308.0" text="Confirm Password:" />
+      <TextField fx:id="enterFirstName" layoutX="165.0" layoutY="74.0" prefHeight="25.0" prefWidth="270.0" promptText="Enter First Name..." />
+      <TextField fx:id="enterLastName" layoutX="165.0" layoutY="130.0" prefHeight="25.0" prefWidth="270.0" promptText="Enter Last Name..." />
+      <TextField fx:id="enterUsername" layoutX="165.0" layoutY="186.0" prefHeight="25.0" prefWidth="270.0" promptText="Enter Username...." />
+      <TextField fx:id="enterPassword" layoutX="165.0" layoutY="245.0" prefHeight="25.0" prefWidth="270.0" promptText="Enter Password..." />
+      <TextField fx:id="enterConfirmPassword" layoutX="165.0" layoutY="304.0" prefHeight="25.0" prefWidth="270.0" promptText="Confirm Password..." />
+   </children>
+</AnchorPane>

@@ -41,7 +41,7 @@
 4/4/20
 	Riley
 		1. Yes
-		2. I will finish creating the mysql database, and I will continue on inserting and retrieving data
+		2. I will finish creating the mysql Database, and I will continue on inserting and retrieving data
 		3. No
 
 	Bas
@@ -57,17 +57,17 @@
 4/5/20
 	Riley
 		1. Yes
-		2. I will create the TTTGameData table in the mysql database, and I will finish adding and retrieving data from the database.
+		2. I will create the TTTGameData table in the mysql Database, and I will finish adding and retrieving data from the Database.
 		3. No
 
 	Bas
 		1. No
-		2. I will test interactions with the database
+		2. I will test interactions with the Database
 		3. I am waiting on the completion of backend code
 
 	Johnny
 		1. Yes
-		2. I will write test code for inserting/updating/getting from the database into the TTTGameData table
+		2. I will write test code for inserting/updating/getting from the Database into the TTTGameData table
 		3. I am waiting for the creation of the Games table
 		
 4/6/20
@@ -166,3 +166,83 @@
 		1. Yes
 		2. Create more of the client side UI
 		3. no
+
+4/12/20
+	Riley
+		1. Yes
+		2. I will finish the game class, and I will create the move and viewer tables in mysql
+		3. I need the Tic-Tac-Toe move class to finish the game class
+
+	Bas
+		1. Yes
+		2. Start working on the Client class (client side)
+		3. No
+
+	Johnny
+		1. Yes
+		2. Finish hooking up Login and Register windows to code that will send the data to the DB.
+		3. No
+
+4/13/20
+	Riley
+		1. Yes
+		2. I will start on the server code
+		3. No
+
+	Bas
+		1. Yes
+		2. Work on the backend on the Client side
+		3. No
+
+	Johnny
+		1. No
+		2. Work more on UI elements
+		3. No
+			
+4/14/20
+	Riley
+		1. Yes
+		2. Continue working on the server and start on the game microservice
+		3. No
+
+	Bas
+		1. Yes
+		2. Continue on the backend of the Client side code, and implement a MessageFactory
+		3. no
+
+	Johnny
+		1. Yes
+		2. Hook the UI up with code logic
+		3. No
+
+4/16/20
+	Riley
+		1. Yes
+		2. Work on the microservice servers
+		3. No
+
+	Bas
+		1. Yes
+		2. Create and start working on the code for the Client class
+		3. No
+
+	Johnny
+		1. Yes
+		2. Get flow of ui down
+		3. No
+
+4/17/20
+	Riley
+		1. Yes
+		2. Work on message handling on the server
+		3. No
+
+	Bas
+		1. Yes
+		2. Finish the code for the Client class and work on update methods for the UIs
+		3. No
+
+	Johnny
+		1. Yes
+		2. Write update() for all the controllers and client classes.
+		3. No
