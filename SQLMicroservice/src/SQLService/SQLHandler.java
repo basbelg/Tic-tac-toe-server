@@ -66,15 +66,14 @@ public class SQLHandler implements Runnable{
                                 DeactivateAccountMessage DAC = (DeactivateAccountMessage) ENC.getMsg();
 
 
-
-                                SQLServer.getInstance().sendPacket(packet);
                                 break;
                             case "UPA-MSG": // Update Account Info
                                 UpdateAccountInfoMessage UPA = (UpdateAccountInfoMessage) ENC.getMsg();
 
 
 
-                                SQLServer.getInstance().sendPacket(packet);
+                                AccountSuccessfulMessage ACS = (AccountSuccessfulMessage) MessageFactory.getMessage("ACS-MSG");
+                                SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("ACS-MSG", ENC.getidentifier(), ACS)));
                                 break;
                             case "GLG-MSG": // Game Log
                                 GameLogMessage GLG = (GameLogMessage) ENC.getMsg();
@@ -97,6 +96,9 @@ public class SQLHandler implements Runnable{
                     //                                             Login
                     //--------------------------------------------------------------------------------------------------
                     case "LOG-MSG": // login
+                        LoginMessage LOG = (LoginMessage) packet.getData();
+
+
 
                         break;
 
@@ -104,18 +106,48 @@ public class SQLHandler implements Runnable{
                     //                                        Create Account
                     //--------------------------------------------------------------------------------------------------
                     case "CAC-MSG": // create account
+                        CreateAccountMessage CAC = (CreateAccountMessage) packet.getData();
+
+                        List<Object> users = DBManager.getInstance().list(User.class);
+                        boolean CAC_Failed = false;
+
+                        for(Object obj: users) {
+                            User user = (User) obj;
+                            if(user.getUsername() == CAC.getNewUser().getUsername()) {
+                                SQLServer.getInstance().sendPacket(new Packet("ACF-MSG",
+                                        (AccountFailedMessage) MessageFactory.getMessage("ACF-MSG")));
+                                CAC_Failed = true;
+                                break;
+                            }
+                        }
+
+                        if(!CAC_Failed) {
+                            SQLServer.getInstance().sendPacket(new Packet("ACS-MSG",
+                                    (AccountSuccessfulMessage) MessageFactory.getMessage("ACS-MSG")));
+
+                            DBManager.getInstance().insert(CAC.getNewUser());
+                        }
+
                         break;
 
                     //--------------------------------------------------------------------------------------------------
                     //                                          Save Move
                     //--------------------------------------------------------------------------------------------------
                     case "MOV-MSG": // move
+                        MoveMessage MOV = (MoveMessage) packet.getData();
+
+
+
                         break;
 
                     //--------------------------------------------------------------------------------------------------
                     //                                          Save Game
                     //--------------------------------------------------------------------------------------------------
                     case "SAV-MSG": // save
+                        SaveGameMessage SAV = (SaveGameMessage) packet.getData();
+
+
+
                         break;
                 }
             }

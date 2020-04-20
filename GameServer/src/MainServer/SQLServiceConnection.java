@@ -60,6 +60,7 @@ public class SQLServiceConnection implements Runnable{
                     case "ENC-MSG": // encapsulated message
                         EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
                         switch (ENC.getType()) {
+                            case "UPA-MSG": // Update Account Info
                             case "STS-MSG": // Stats
                             case "GLG-MSG": // Game Log
                             case "DAC-MSG": // Deactivate Account
@@ -68,11 +69,6 @@ public class SQLServiceConnection implements Runnable{
                                 // Return to MainServer
                                 MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).
                                         sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
-                                break;
-                            case "UPA-MSG": // Update Account Info
-                                UpdateAccountInfoMessage UPA = (UpdateAccountInfoMessage) ENC.getMsg();
-
-                                SQLServer.getInstance().sendPacket(packet);
                                 break;
                         }
                         break;
