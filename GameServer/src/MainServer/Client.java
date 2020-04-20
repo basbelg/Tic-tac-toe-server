@@ -1,17 +1,16 @@
 package MainServer;
 
-import DataClasses.LobbyInfo;
-import DataClasses.TTT_GameData;
 import DataClasses.User;
-import Messages.*;
+import Messages.CreateAccountMessage;
+import Messages.EncapsulatedMessage;
+import Messages.LoginMessage;
+import Messages.Packet;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
@@ -60,38 +59,40 @@ public class Client implements Runnable, Serializable {
                 Packet packet = (Packet) input.readObject();
 
                 switch (packet.getType()) {
-                    case "CAC-MSG": // Create Account
-                        CreateAccountMessage CAC = (CreateAccountMessage) packet.getData();
-                        user = new User(0, CAC.getNewUser().getUsername(), null, null, null, false);
-                        SQLServiceConnection.getInstance().sendPacket(packet);
-                        break;
-
+                    //--------------------------------------------------------------------------------------------------
+                    //                                  send to publisher thread
+                    //--------------------------------------------------------------------------------------------------
                     case "LOG-MSG": // Login
                         LoginMessage LOG = (LoginMessage) packet.getData();
                         user = new User(LOG.getUsername(), null, null, null);
-                        EncapsulatedMessage ENC_LOG = new EncapsulatedMessage(packet.getType(), this, packet.getData());
-                        requests.add(new Packet("ENC-MSG", ENC_LOG));
                         break;
-
+                        
                     case "AAG-MSG": // All active games
-                        AllActiveGamesMessage AAG = (AllActiveGamesMessage) packet.getData();
-                        List<LobbyInfo> allGames = new ArrayList<>();
-                        synchronized (MainServer.getInstance().getActiveGames()) {
-                            Iterator<TTT_GameData> iterator = MainServer.getInstance().getActiveGames().iterator();
-                            while(iterator.hasNext()) {
-
-                            }
-                        }
-
+                        EncapsulatedMessage ENC_Publisher = new EncapsulatedMessage(packet.getType(), user.getId(),
+                                packet.getData());
+                        requests.add(new Packet("ENC-MSG", ENC_Publisher));
                         break;
 
+                    //--------------------------------------------------------------------------------------------------
+                    //                                  send to game service
+                    //--------------------------------------------------------------------------------------------------
                     case "SPC-MSG": // Spectate
                     case "CNT-MSG": // Connect to lobby
                     case "CAI-MSG": // Create AI Game Lobby
                     case "CLB-MSG": // Create Game Lobby
                     case "MOV-MSG": // Move
-                        EncapsulatedMessage ENC_Game = new EncapsulatedMessage(packet.getType(), Integer.valueOf(user.getId()), packet.getData());
+                        EncapsulatedMessage ENC_Game = new EncapsulatedMessage(packet.getType(), user.getId(),
+                                packet.getData());
                         GameServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC_Game));
+                        break;
+
+                    //--------------------------------------------------------------------------------------------------
+                    //                                  send to sql service
+                    //--------------------------------------------------------------------------------------------------
+                    case "CAC-MSG": // Create Account
+                        CreateAccountMessage CAC = (CreateAccountMessage) packet.getData();
+                        user = new User(0, CAC.getNewUser().getUsername(), null, null, null, false);
+                        SQLServiceConnection.getInstance().sendPacket(packet);
                         break;
 
                     case "GMP-MSG": // Games played
@@ -101,7 +102,8 @@ public class Client implements Runnable, Serializable {
                     case "GLG-MSG": // Game Log
                     case "STS-MSG": // Stats
                     case "IAG-MSG": // Inactive game message
-                        EncapsulatedMessage ENC = new EncapsulatedMessage(packet.getType(), Integer.valueOf(user.getId()), packet.getData());
+                        EncapsulatedMessage ENC = new EncapsulatedMessage(packet.getType(), user.getId(),
+                                packet.getData());
                         SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC));
                         break;
                 }

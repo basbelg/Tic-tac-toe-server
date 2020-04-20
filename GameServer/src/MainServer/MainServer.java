@@ -11,7 +11,6 @@ import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-import static java.util.Collections.checkedCollection;
 import static java.util.Collections.synchronizedList;
 
 public class MainServer implements Runnable {
@@ -28,10 +27,12 @@ public class MainServer implements Runnable {
     // Client
     private int count;
     private List<Client> clients;
+    private Map<Integer, Client> client_by_id;
 
     // Lobby
     private List<TTT_GameData> active_games;
-    private Map<String, List<TTT_ViewerData>>  active_viewers;
+    private Map<String, TTT_GameData> game_by_id;
+    private Map<String, List<TTT_ViewerData>> active_viewers;
 
     private MainServer(int port) {
         try {
@@ -41,10 +42,12 @@ public class MainServer implements Runnable {
             // Client
             clients = synchronizedList(new ArrayList<Client>());
             requests = new ArrayBlockingQueue<>(512);
+            client_by_id = Collections.synchronizedMap(new HashMap<>());
             count = 0;
 
             // active lobby info
             active_games = Collections.synchronizedList(new ArrayList<>());
+            game_by_id = Collections.synchronizedMap(new HashMap<>());
             active_viewers = Collections.synchronizedMap(new HashMap<>());
 
             // Thread
@@ -58,6 +61,8 @@ public class MainServer implements Runnable {
     public List<Client> getClients() {return clients;}
     public List<TTT_GameData> getActiveGames() {return active_games;}
     public Map<String, List<TTT_ViewerData>> getActiveViewers() {return active_viewers;}
+    public Map<Integer, Client> getClientIDMap() {return client_by_id;}
+    public Map<String, TTT_GameData> getGame_by_id() {return game_by_id;}
 
     @Override
     public void run() {
@@ -85,7 +90,4 @@ public class MainServer implements Runnable {
         thread.interrupt();
         try {serverSocket.close();} catch (IOException e) {e.printStackTrace();}
     }
-
-
-
 }
