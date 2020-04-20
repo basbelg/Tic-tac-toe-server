@@ -2,6 +2,7 @@ package SQLService;
 
 import DataClasses.GameInfo;
 import DataClasses.TTT_GameData;
+import DataClasses.TTT_ViewerData;
 import DataClasses.User;
 import Database.DBManager;
 import Messages.*;
@@ -58,7 +59,7 @@ public class SQLHandler implements Runnable{
                             case "GVW-MSG": // Game Viewers
                                 GameViewersMessage GVW = (GameViewersMessage) ENC.getMsg();
 
-
+                                List<Object> viewers = DBManager.getInstance().query(TTT_ViewerData.class, GVW.getGameId());
 
                                 SQLServer.getInstance().sendPacket(packet);
                                 break;
