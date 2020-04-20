@@ -1,9 +1,6 @@
 package SQLService;
 
-import DataClasses.GameInfo;
-import DataClasses.TTT_GameData;
-import DataClasses.TTT_ViewerData;
-import DataClasses.User;
+import DataClasses.*;
 import Database.DBManager;
 import Messages.*;
 
@@ -90,45 +87,67 @@ public class SQLHandler implements Runnable{
 
                                 SQLServer.getInstance().sendPacket(packet);
                                 break;
-                        }
-                        break;
 
-                    //--------------------------------------------------------------------------------------------------
-                    //                                             Login
-                    //--------------------------------------------------------------------------------------------------
-                    case "LOG-MSG": // login
-                        LoginMessage LOG = (LoginMessage) packet.getData();
+                            //------------------------------------------------------------------------------------------
+                            //                                        Create Account
+                            //------------------------------------------------------------------------------------------
+                            case "CAC-MSG": // create account
+                                CreateAccountMessage CAC = (CreateAccountMessage) ENC.getMsg();
 
+                                List<Object> users = DBManager.getInstance().list(User.class);
+                                boolean CAC_Failed = false;
+                                for(Object obj: users) {
+                                    User user = (User) obj;
+                                    if(user.getUsername() == CAC.getNewUser().getUsername()) {
+                                        AccountFailedMessage ACF = (AccountFailedMessage) MessageFactory.
+                                            getMessage("ACF-MSG");
+                                        SQLServer.getInstance().sendPacket(new Packet("ENC-MSG",
+                                                new EncapsulatedMessage("ACF-MSG", ENC.getidentifier(), ACF)));
+                                        CAC_Failed = true;
+                                        break;
+                                    }
+                                }
 
-
-                        break;
-
-                    //--------------------------------------------------------------------------------------------------
-                    //                                        Create Account
-                    //--------------------------------------------------------------------------------------------------
-                    case "CAC-MSG": // create account
-                        CreateAccountMessage CAC = (CreateAccountMessage) packet.getData();
-
-                        List<Object> users = DBManager.getInstance().list(User.class);
-                        boolean CAC_Failed = false;
-
-                        for(Object obj: users) {
-                            User user = (User) obj;
-                            if(user.getUsername() == CAC.getNewUser().getUsername()) {
-                                SQLServer.getInstance().sendPacket(new Packet("ACF-MSG",
-                                        (AccountFailedMessage) MessageFactory.getMessage("ACF-MSG")));
-                                CAC_Failed = true;
+                                if(!CAC_Failed) {
+                                    AccountSuccessfulMessage ACS = (AccountSuccessfulMessage) MessageFactory.
+                                            getMessage("ACS-MSG");
+                                    SQLServer.getInstance().sendPacket(new Packet("ENC-MSG",
+                                            new EncapsulatedMessage("ACS-MSG", ENC.getidentifier(), ACS)));
+                                    SQLServer.getInstance().sendPacket(packet);
+                                    DBManager.getInstance().insert(CAC.getNewUser());
+                                }
                                 break;
-                            }
+
+                            //------------------------------------------------------------------------------------------
+                            //                                             Login
+                            //------------------------------------------------------------------------------------------
+                            case "LOG-MSG": // login
+                                LoginMessage LOG = (LoginMessage) packet.getData();
+
+                                users = DBManager.getInstance().list(User.class);
+                                boolean LOG_Failed = true;
+                                for(Object obj: users) {
+                                    User user = (User) obj;
+                                    if(user.getUsername() == LOG.getUsername() && user.getPassword() == LOG.getPassword()) {
+                                        // Send Login Success
+                                        LoginSuccessfulMessage LOS = (LoginSuccessfulMessage) MessageFactory.getMessage("LOS-MSG");
+                                        LOS.setUser(user);
+                                        SQLServer.getInstance().sendPacket(new Packet("ENC-MSG",
+                                                new EncapsulatedMessage("LOS-MSG", ENC.getidentifier(), LOS)));
+                                        LOG_Failed = false;
+                                        break;
+                                    }
+                                }
+
+                                if(LOG_Failed) {
+                                    // Send Login Failed
+                                    LoginFailedMessage LOF = (LoginFailedMessage) MessageFactory.getMessage("LOF-MSG");
+                                    SQLServer.getInstance().sendPacket(new Packet("ENC-MSG",
+                                            new EncapsulatedMessage("LOF-MSG", ENC.getidentifier(), LOF)));
+                                }
+
+                                break;
                         }
-
-                        if(!CAC_Failed) {
-                            SQLServer.getInstance().sendPacket(new Packet("ACS-MSG",
-                                    (AccountSuccessfulMessage) MessageFactory.getMessage("ACS-MSG")));
-
-                            DBManager.getInstance().insert(CAC.getNewUser());
-                        }
-
                         break;
 
                     //--------------------------------------------------------------------------------------------------
@@ -136,9 +155,10 @@ public class SQLHandler implements Runnable{
                     //--------------------------------------------------------------------------------------------------
                     case "MOV-MSG": // move
                         MoveMessage MOV = (MoveMessage) packet.getData();
-
-
-
+                        TTT_MoveData move = new TTT_MoveData(MOV.getGameId(), MOV.getMovingPlayerId(),
+                                MOV.getMoveInfo().getTimeMade(), MOV.getMoveInfo().getNextMove().getRow(),
+                                MOV.getMoveInfo().getNextMove().getColumn(), 0);
+                        DBManager.getInstance().insert(move);
                         break;
 
                     //--------------------------------------------------------------------------------------------------
@@ -146,9 +166,10 @@ public class SQLHandler implements Runnable{
                     //--------------------------------------------------------------------------------------------------
                     case "SAV-MSG": // save
                         SaveGameMessage SAV = (SaveGameMessage) packet.getData();
-
-
-
+                        if(SAV.isInsert())
+                            DBManager.getInstance().insert(SAV.getGame());
+                        else if(SAV.isUpdate())
+                            DBManager.getInstance().update(SAV.getGame());
                         break;
                 }
             }

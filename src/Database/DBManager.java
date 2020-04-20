@@ -235,7 +235,7 @@ public class DBManager implements DataSource {
             }
             else if(classType == User.class) {
                 statement = connection.prepareStatement("select * from user where id = ?;");
-                statement.setInt(1, Integer.valueOf(id));
+                statement.setInt(1, Integer.parseInt(id));
                 resultSet = statement.executeQuery();
 
                 resultSet.next();

@@ -61,32 +61,8 @@ public class Client implements Runnable, Serializable {
 
                 switch (packet.getType()) {
                     //--------------------------------------------------------------------------------------------------
-                    //                                  send to publisher thread
+                    //                                      Resolve Here
                     //--------------------------------------------------------------------------------------------------
-                    case "LOG-MSG": // Login
-                        LoginMessage LOG = (LoginMessage) packet.getData();
-
-                        boolean LOF = false;
-                        synchronized (MainServer.getInstance().getClients()) {
-                            Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
-                            while (iterator.hasNext()) {
-                                Client client = iterator.next();
-                                if (client.user != null && client.user.getUsername()==LOG.getUsername()) {
-                                    LOF = true;
-                                    break;
-                                }
-                            }
-                        }
-
-                        if (LOF)
-                            sendPacket(new Packet("LOF-MSG", (AccountFailedMessage) MessageFactory.getMessage(
-                                    "LOF-MSG")));
-                        else {
-                            user = new User(LOG.getUsername(), null, null, null);
-                            SQLServiceConnection.getInstance().sendPacket(packet);
-                        }
-                        break;
-
                     case "AAG-MSG": // All active games
                         AllActiveGamesMessage AAG = (AllActiveGamesMessage) packet.getData();
                         List<LobbyInfo> allGames = new ArrayList<>();
@@ -125,7 +101,34 @@ public class Client implements Runnable, Serializable {
                     case "CAC-MSG": // Create Account
                         CreateAccountMessage CAC = (CreateAccountMessage) packet.getData();
                         user = new User(0, CAC.getNewUser().getUsername(), null, null, null, false);
-                        SQLServiceConnection.getInstance().sendPacket(packet);
+                        EncapsulatedMessage ENC_CAC = new EncapsulatedMessage(packet.getType(), user.getUsername(),
+                                packet.getData());
+                        SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC_CAC));
+                        break;
+
+                    case "LOG-MSG": // Login
+                        LoginMessage LOG = (LoginMessage) packet.getData();
+                        boolean LOF = false;
+                        synchronized (MainServer.getInstance().getClients()) {
+                            Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
+                            while (iterator.hasNext()) {
+                                Client client = iterator.next();
+                                if (client.user != null && client.user.getUsername()==LOG.getUsername()) {
+                                    LOF = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (LOF)
+                            sendPacket(new Packet("LOF-MSG", (AccountFailedMessage) MessageFactory.getMessage(
+                                    "LOF-MSG")));
+                        else {
+                            user = new User(0, LOG.getUsername(), null, null, null, false);
+                            EncapsulatedMessage ENC_LOG = new EncapsulatedMessage(packet.getType(), user.getUsername(),
+                                    packet.getData());
+                            SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC_LOG));
+                        }
                         break;
 
                     case "GMP-MSG": // Games played
@@ -155,4 +158,5 @@ public class Client implements Runnable, Serializable {
     }
 
     public User getUser() {return user;}
+    public void setUser(User user) {this.user = user;}
 }
