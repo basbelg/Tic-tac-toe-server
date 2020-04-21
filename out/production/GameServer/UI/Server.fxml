@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="387.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ServerController">
+    <children>
+        <Label layoutX="80.0" layoutY="54.0" text="Registered Players" />
+        <ListView fx:id="registeredPlayersList" layoutX="28.0" layoutY="71.0" prefHeight="222.0" prefWidth="200.0" />
+        <Label layoutX="302.0" layoutY="54.0" text="Active Games" />
+        <ListView fx:id="activeGamesList" layoutX="239.0" layoutY="71.0" prefHeight="222.0" prefWidth="200.0" />
+        <ListView fx:id="inactiveGamesList" layoutX="450.0" layoutY="71.0" prefHeight="222.0" prefWidth="200.0" />
+        <Label layoutX="510.0" layoutY="54.0" text="Inactive Games" />
+        <Button fx:id="inactiveGameDetailsButton" layoutX="482.0" layoutY="311.0" mnemonicParsing="false" onMouseClicked="#onInactiveGameDetailsClicked" prefHeight="25.0" prefWidth="137.0" text="Inactive Game Details" />
+        <Button fx:id="modifyPlayerButton" layoutX="60.0" layoutY="311.0" mnemonicParsing="false" onMouseClicked="#onModifyPlayerClicked" prefHeight="25.0" prefWidth="137.0" text="Modify Player" />
+        <Button fx:id="activeGameDetailsButton" layoutX="271.0" layoutY="311.0" mnemonicParsing="false" onMouseClicked="#onActiveGameDetailsClicked" prefHeight="25.0" prefWidth="137.0" text="Active Game Details" />
+    </children>
+</AnchorPane>
