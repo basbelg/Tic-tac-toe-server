@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/GameMicroservice/src/GameService/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/SQLServiceConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/SQLServiceConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Database/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/DBManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +169,8 @@
       <workItem from="1587202357111" duration="3981000" />
       <workItem from="1587236084162" duration="1672000" />
       <workItem from="1587273099414" duration="37584000" />
-      <workItem from="1587359756487" duration="55475000" />
+      <workItem from="1587359756487" duration="55574000" />
+      <workItem from="1587434836007" duration="622000" />
     </task>
     <servers />
   </component>
@@ -202,30 +202,30 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587274017315" />
-    <state width="2500" height="210" key="GridCell.Tab.0.bottom" timestamp="1587367624903">
+    <state width="2500" height="210" key="GridCell.Tab.0.bottom" timestamp="1587421824475">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2500" height="210" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624903" />
-    <state width="2500" height="210" key="GridCell.Tab.0.center" timestamp="1587367624903">
+    <state width="2500" height="210" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587421824475" />
+    <state width="2500" height="210" key="GridCell.Tab.0.center" timestamp="1587421824475">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2500" height="210" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624903" />
-    <state width="2500" height="210" key="GridCell.Tab.0.left" timestamp="1587367624902">
+    <state width="2500" height="210" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587421824475" />
+    <state width="2500" height="210" key="GridCell.Tab.0.left" timestamp="1587421824475">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2500" height="210" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624902" />
-    <state width="2500" height="210" key="GridCell.Tab.0.right" timestamp="1587367624903">
+    <state width="2500" height="210" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587421824475" />
+    <state width="2500" height="210" key="GridCell.Tab.0.right" timestamp="1587421824475">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2500" height="210" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624903" />
+    <state width="2500" height="210" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587421824475" />
     <state x="623" y="513" key="SettingsEditor" timestamp="1587307170614">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="623" y="513" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587307170614" />
-    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1587359771163">
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1587434839024">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587359771163" />
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587434839024" />
     <state x="662" y="321" key="new project wizard" timestamp="1587137532871">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
