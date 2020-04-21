@@ -1,19 +1,17 @@
 package MainServer;
 
-import DataClasses.LobbyInfo;
 import DataClasses.TTT_GameData;
 import DataClasses.TTT_ViewerData;
-import GameInterfaces.Move;
-import Messages.*;
+import Messages.EncapsulatedMessage;
+import Messages.IllegalMoveMessage;
+import Messages.MoveMessage;
+import Messages.Packet;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 public class GameServiceConnection implements Runnable{
@@ -93,8 +91,7 @@ public class GameServiceConnection implements Runnable{
                     //--------------------------------------------------------------------------------------------------
                     case "ILM-MSG":
                         IllegalMoveMessage ILM = (IllegalMoveMessage) ENC.getMsg();
-
-
+                        MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).sendPacket(new Packet("ILM-MSG", ILM));
                         break;
 
                     //--------------------------------------------------------------------------------------------------
