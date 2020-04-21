@@ -3,15 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/GameDetails.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetails.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayer.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/Server.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/Server.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/Main.class" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -251,6 +244,7 @@
       <workItem from="1587236084162" duration="1672000" />
       <workItem from="1587273099414" duration="37584000" />
       <workItem from="1587359756487" duration="45516000" />
+      <workItem from="1587423241077" duration="240000" />
     </task>
     <servers />
   </component>
