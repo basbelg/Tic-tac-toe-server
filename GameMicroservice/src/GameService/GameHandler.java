@@ -22,7 +22,7 @@ public class GameHandler implements Runnable{
         games = new HashMap<>();
 
         thread = new Thread(this);
-        thread.run();
+        thread.start();
     }
 
     public static GameHandler getInstance() {return instance;}

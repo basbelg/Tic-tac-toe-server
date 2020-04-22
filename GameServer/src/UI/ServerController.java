@@ -2,13 +2,10 @@ package UI;
 
 import DataClasses.User;
 import Database.DBManager;
-import GameInterfaces.Game;
 import MainServer.Client;
 import MainServer.MainServer;
-import MainServer.SQLServiceConnection;
 import Messages.AccountSuccessfulMessage;
 import Messages.LoginSuccessfulMessage;
-import javafx.beans.Observable;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -21,7 +18,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -127,32 +123,26 @@ public class ServerController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        SQLServiceConnection.getInstance().setListener(this);
-
-
-
-        //ALL Players
-        List<Object> players = DBManager.getInstance().list(User.class);
-        for(Object user : players)
-        {
-            if(((User) user).getId() != 0)
-            {
-                allPlayers.add((User) user);
-                registeredPlayersList.getItems().add(new Label(((User) user).getUsername() + " (" + ((User) user).getFullName() + ")"));
-            }
-        }
-
-        //ONLINE Players
-        for(Client c : MainServer.getInstance().getClients())
-        {
-            if(!c.getUser().equals(null))
-            {
-                onlinePlayerList.getItems().add(new Label(c.getUser().getUsername() + " (" + c.getUser().getFullName() + ")"));
-            }
-        }
-
-
-
-        //query for listview data and update UI
+//        SQLServiceConnection.getInstance().setListener(this);
+//
+//        //ALL Players
+//        List<Object> players = DBManager.getInstance().list(User.class);
+//        for(Object user : players)
+//        {
+//            if(((User) user).getId() != 0)
+//            {
+//                allPlayers.add((User) user);
+//                registeredPlayersList.getItems().add(new Label(((User) user).getUsername() + " (" + ((User) user).getFullName() + ")"));
+//            }
+//        }
+//
+//        //ONLINE Players
+//        for(Client c : MainServer.getInstance().getClients())
+//        {
+//            if(!c.getUser().equals(null))
+//            {
+//                onlinePlayerList.getItems().add(new Label(c.getUser().getUsername() + " (" + c.getUser().getFullName() + ")"));
+//            }
+//        }
     }
 }

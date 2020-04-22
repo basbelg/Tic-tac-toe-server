@@ -37,7 +37,7 @@ public class Client implements Runnable, Serializable {
             this.requests = MainServer.getInstance().getRequests();
 
             thread = new Thread(this);
-            thread.run();
+            thread.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -58,7 +58,7 @@ public class Client implements Runnable, Serializable {
         try {
             while (!thread.isInterrupted()) {
                 Packet packet = (Packet) input.readObject();
-
+                System.out.println("Received from Client: " + packet.getType());
                 switch (packet.getType()) {
                     //--------------------------------------------------------------------------------------------------
                     //                                      Resolve Here
@@ -113,7 +113,7 @@ public class Client implements Runnable, Serializable {
                             Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
                             while (iterator.hasNext()) {
                                 Client client = iterator.next();
-                                if (client.user != null && client.user.getUsername()==LOG.getUsername()) {
+                                if (client.user != null && client.user.getUsername().equals(LOG.getUsername())) {
                                     LOF = true;
                                     break;
                                 }
@@ -121,7 +121,7 @@ public class Client implements Runnable, Serializable {
                         }
 
                         if (LOF)
-                            sendPacket(new Packet("LOF-MSG", (AccountFailedMessage) MessageFactory.getMessage(
+                            sendPacket(new Packet("LOF-MSG", (LoginFailedMessage) MessageFactory.getMessage(
                                     "LOF-MSG")));
                         else {
                             user = new User(0, LOG.getUsername(), null, null, null, false);
@@ -145,7 +145,10 @@ public class Client implements Runnable, Serializable {
                 }
             }
         } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
-        finally {synchronized (clients) {clients.remove(this);}}
+        finally {synchronized (clients) {
+            System.out.println("Client terminated: " + user.getUsername());
+            clients.remove(this);}
+        }
     }
 
     public void terminateConnection() {

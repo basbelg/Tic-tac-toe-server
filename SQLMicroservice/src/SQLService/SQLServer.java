@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
-public class SQLServer implements Runnable{
+public class SQLServer implements Runnable {
     private static SQLServer instance = new SQLServer(8002);
 
     private Socket socket;
@@ -28,7 +28,7 @@ public class SQLServer implements Runnable{
             requests = new ArrayBlockingQueue<>(256);
 
             thread = new Thread(this);
-            thread.run();
+            thread.start();
         } catch (IOException e) {e.printStackTrace();}
     }
 
@@ -40,18 +40,23 @@ public class SQLServer implements Runnable{
             output.writeObject(packet);
             output.flush();
             output.reset();
+            System.out.println("Output to MainServer: " + packet.getType());
         } catch (IOException e) {e.printStackTrace();}
     }
 
     @Override
     public void run() {
+        System.out.println("Create SQLServer");
         try {
             socket = serverSocket.accept();
             input = new ObjectInputStream(socket.getInputStream());
             output = new ObjectOutputStream(socket.getOutputStream());
+            System.out.println("MainServer connected to SQLServer");
 
+            SQLHandler.getInstance();
             while(!thread.isInterrupted()) {
                 Packet packet = (Packet) input.readObject();
+                System.out.println("SQLServer: " + packet.getType());
                 requests.add(packet);
             }
         } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}

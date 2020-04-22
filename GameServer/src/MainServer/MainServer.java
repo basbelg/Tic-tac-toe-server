@@ -66,6 +66,8 @@ public class MainServer implements Runnable {
 
     @Override
     public void run() {
+        Publisher.getInstance();
+
         try {
             while(!thread.isInterrupted()) {
                 socket = serverSocket.accept();

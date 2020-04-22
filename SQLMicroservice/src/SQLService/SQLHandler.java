@@ -19,20 +19,24 @@ public class SQLHandler implements Runnable{
         requests = SQLServer.getInstance().getRequests();
 
         thread = new Thread(this);
-        thread.run();
+        thread.start();
     }
 
     public static SQLHandler getInstance() {return instance;}
 
     @Override
     public void run() {
+        System.out.println("Create SQLHandler");
         try {
             while(!thread.isInterrupted()) {
                 Packet packet = requests.take();
 
+                System.out.println("SQLHandler: " + packet.getType());
+
                 switch(packet.getType()) {
                     case "ENC-MSG": // encapsulated message
                         EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
+                        System.out.println("SQLHandler (ENC): " + ENC.getType());
                         switch (ENC.getType()) {
                             case "GMP-MSG": // Games played
                                 GamesPlayedMessage GMP = (GamesPlayedMessage) ENC.getMsg();
@@ -143,7 +147,7 @@ public class SQLHandler implements Runnable{
                             case "CAC-MSG": // create account
                                 CreateAccountMessage CAC = (CreateAccountMessage) ENC.getMsg();
 
-                                users = DBManager.getInstance().list(User.class);
+                                users = DBManager.getInstance().query(User.class, "active");
                                 boolean CAC_Failed = false;
                                 for(Object obj: users) {
                                     User user = (User) obj;
@@ -162,7 +166,6 @@ public class SQLHandler implements Runnable{
                                             getMessage("ACS-MSG");
                                     SQLServer.getInstance().sendPacket(new Packet("ENC-MSG",
                                             new EncapsulatedMessage("ACS-MSG", ENC.getidentifier(), ACS)));
-                                    SQLServer.getInstance().sendPacket(packet);
                                     DBManager.getInstance().insert(CAC.getNewUser());
                                 }
                                 break;
@@ -171,13 +174,15 @@ public class SQLHandler implements Runnable{
                             //                                             Login
                             //------------------------------------------------------------------------------------------
                             case "LOG-MSG": // login
-                                LoginMessage LOG = (LoginMessage) packet.getData();
+                                LoginMessage LOG = (LoginMessage) ENC.getMsg();
 
-                                users = DBManager.getInstance().list(User.class);
+                                users = DBManager.getInstance().query(User.class, "active");
                                 boolean LOG_Failed = true;
                                 for(Object obj: users) {
                                     User user = (User) obj;
-                                    if(user.getUsername() == LOG.getUsername() && user.getPassword() == LOG.getPassword()) {
+                                    System.out.println(user.getUsername() + " " + user.getPassword());
+                                    System.out.println(LOG.getUsername() + " " + LOG.getPassword());
+                                    if(user.getUsername().equals(LOG.getUsername()) && user.getPassword().equals(LOG.getPassword())) {
                                         // Send Login Success
                                         LoginSuccessfulMessage LOS = (LoginSuccessfulMessage) MessageFactory.getMessage("LOS-MSG");
                                         LOS.setUser(user);
@@ -194,7 +199,6 @@ public class SQLHandler implements Runnable{
                                     SQLServer.getInstance().sendPacket(new Packet("ENC-MSG",
                                             new EncapsulatedMessage("LOF-MSG", ENC.getidentifier(), LOF)));
                                 }
-
                                 break;
                         }
                         break;

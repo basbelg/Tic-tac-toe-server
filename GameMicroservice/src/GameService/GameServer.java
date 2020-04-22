@@ -28,7 +28,7 @@ public class GameServer implements Runnable{
             requests = new ArrayBlockingQueue<>(256);
 
             thread = new Thread(this);
-            thread.run();
+            thread.start();
         } catch (IOException e) {e.printStackTrace();}
     }
 
@@ -50,6 +50,7 @@ public class GameServer implements Runnable{
             input = new ObjectInputStream(socket.getInputStream());
             output = new ObjectOutputStream(socket.getOutputStream());
 
+            GameHandler.getInstance();
             while(!thread.isInterrupted()) {
                 Packet packet = (Packet) input.readObject();
                 requests.add(packet);

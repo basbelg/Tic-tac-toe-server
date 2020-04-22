@@ -26,13 +26,14 @@ public class GameServiceConnection implements Runnable{
 
     private GameServiceConnection(int port) {
         try {
+            System.out.println("Create GameServiceConnection");
             socket = new Socket("localhost", port);
-            input = new ObjectInputStream(socket.getInputStream());
             output = new ObjectOutputStream(socket.getOutputStream());
+            input = new ObjectInputStream(socket.getInputStream());
 
             thread = new Thread(this);
-            thread.run();
-        } catch (IOException e) {
+            thread.start();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -55,7 +56,7 @@ public class GameServiceConnection implements Runnable{
             while (!thread.isInterrupted()) {
                 Packet packet = (Packet) input.readObject();
 
-                if (packet.getType() != "ENC-MSG")
+                if (!packet.getType().equals("ENC-MSG"))
                     continue;
 
                 EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();

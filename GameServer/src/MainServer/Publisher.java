@@ -17,10 +17,11 @@ public class Publisher implements Runnable{
     private Thread thread;
 
     private Publisher() {
+        System.out.println("Create Publisher");
         requests = MainServer.getInstance().getRequests();
 
         thread = new Thread(this);
-        thread.run();
+        thread.start();
     }
 
     public static Publisher getInstance() {return instance;}
@@ -36,13 +37,6 @@ public class Publisher implements Runnable{
 
                 EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
                 switch (ENC.getType()) {
-                    //--------------------------------------------------------------------------------------------------
-                    //                                        Login Message
-                    //--------------------------------------------------------------------------------------------------
-                    case "LOG-MSG": // Login
-
-                        break;
-
                     //--------------------------------------------------------------------------------------------------
                     //                                      Connect to Lobby
                     //--------------------------------------------------------------------------------------------------

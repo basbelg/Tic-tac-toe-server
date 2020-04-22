@@ -11,7 +11,6 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.nio.channels.ClosedByInterruptException;
 import java.util.Iterator;
-import java.util.concurrent.BlockingQueue;
 
 public class SQLServiceConnection implements Runnable{
     private static SQLServiceConnection instance = new SQLServiceConnection(8002);
@@ -22,17 +21,16 @@ public class SQLServiceConnection implements Runnable{
     private ObjectOutputStream output;
 
     private Thread thread;
-    private BlockingQueue<Packet> requests;
 
     private SQLServiceConnection(int port) {
         try {
             socket = new Socket("localhost", port);
+            output = new ObjectOutputStream(socket.getOutputStream()); // OUTPUT HAS TO COME FIRST
             input = new ObjectInputStream(socket.getInputStream());
-            output = new ObjectOutputStream(socket.getOutputStream());
 
             thread = new Thread(this);
-            thread.run();
-        } catch (IOException e) {
+            thread.start();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -44,11 +42,12 @@ public class SQLServiceConnection implements Runnable{
         this.listener = listener;
     }
 
-    public synchronized void sendPacket(Packet packet) {
+    public void sendPacket(Packet packet) {
         try {
             output.writeObject(packet);
             output.flush();
             output.reset();
+            System.out.println("Output to SQL Microservice: " + packet.getType());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -57,13 +56,17 @@ public class SQLServiceConnection implements Runnable{
     @Override
     public void run() {
         try {
+            System.out.println("Create SQLServiceConnection");
             while (!thread.isInterrupted()) {
                 Packet packet = (Packet) input.readObject();
 
-                if(packet.getType() != "ENC-MSG")
+
+                if(!packet.getType().equals("ENC-MSG"))
                     continue;
 
                 EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
+
+                System.out.println("Received from SQLConnection: " + ENC.getType());
                 switch (ENC.getType()) {
                     case "UPA-MSG": // Update Account Info
                     case "STS-MSG": // Stats
@@ -85,7 +88,7 @@ public class SQLServiceConnection implements Runnable{
                         Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
                         while(iterator.hasNext()) {
                             client = iterator.next();
-                            if(client.getUser().getUsername() == ENC.getidentifier() && client.getUser().
+                            if(client.getUser().getUsername().equals(ENC.getidentifier()) && client.getUser().
                                     getId() == 0) {
                                 client.sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
                                 break;
@@ -108,7 +111,7 @@ public class SQLServiceConnection implements Runnable{
                             iterator = MainServer.getInstance().getClients().iterator();
                             while(iterator.hasNext()) {
                                 client = iterator.next();
-                                if(client.getUser().getUsername() == ENC.getidentifier() && client.getUser().
+                                if(client.getUser().getUsername().equals(ENC.getidentifier()) && client.getUser().
                                         getId() == 0) {
                                     client.sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
                                     break;

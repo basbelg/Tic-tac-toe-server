@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameMicroservice/src/GameService/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/src/GameService/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +19,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1a6xLAja2iKBWTfNIgGVwGG4LrC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -32,10 +30,10 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/Tic-Tac-Toe-Merged_Messages_UI/Tic-Tac-Toe-Merged_Messages_UI" />
+    <property name="last_opened_file_path" value="R:/CS4B/Tic_Tac_Toe_Server/ServerClasses.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="project.structure.side.proportion" value="0.28235295" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
@@ -45,26 +43,13 @@
       <recent name="R:\CS4B\Tic-Tac-Toe\src\DataClasses" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main (1)">
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="GameService.Main" />
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="GameMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GameService.GameMain" />
       <module name="GameMicroservice" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="GameService.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="SQLService.Main" />
-      <module name="SQLMicroservice" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="SQLService.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -79,6 +64,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="UI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SQLMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="SQLService.SQLMain" />
+      <module name="SQLMicroservice" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="SQLService.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -122,14 +120,14 @@
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.DBManagerTest.addGame" />
       <item itemvalue="JUnit.DBManagerTest.addUser" />
-      <item itemvalue="Application.Main (1)" />
-      <item itemvalue="Application.Main (2)" />
+      <item itemvalue="Application.SQLMain" />
+      <item itemvalue="Application.GameMain" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Main (2)" />
+        <item itemvalue="Application.SQLMain" />
+        <item itemvalue="Application.GameMain" />
         <item itemvalue="JUnit.DBManagerTest.addUser" />
         <item itemvalue="JUnit.DBManagerTest.addGame" />
       </list>
@@ -166,24 +164,39 @@
       <workItem from="1587202357111" duration="3981000" />
       <workItem from="1587236084162" duration="1672000" />
       <workItem from="1587273099414" duration="37584000" />
-      <workItem from="1587359756487" duration="55574000" />
-      <workItem from="1587434836007" duration="5002000" />
-      <workItem from="1587527981693" duration="557000" />
+      <workItem from="1587359756487" duration="45516000" />
+      <workItem from="1587423241077" duration="240000" />
+      <workItem from="1587508733462" duration="153000" />
+      <workItem from="1587519323545" duration="8972000" />
+      <workItem from="1587559771846" duration="7996000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
     <state x="872" y="359" key="#Project_Structure" timestamp="1587280590594">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="872" y="359" key="#Project_Structure/0.0.2560.1400@0.0.2560.1400" timestamp="1587280590594" />
-    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587528214705">
+    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587436092142">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587528214705" />
+    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587436092142" />
     <state x="562" y="610" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586194498698">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -192,42 +205,42 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1085" y="410" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1587005897707" />
-    <state x="1128" y="589" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1587435788151">
+    <state x="1128" y="589" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1587559780781">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1128" y="589" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587435788151" />
+    <state x="1128" y="589" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587559780781" />
     <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586801492447">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586801492447" />
-    <state x="586" y="530" key="FileChooserDialogImpl" timestamp="1587528043720">
+    <state x="586" y="530" key="FileChooserDialogImpl" timestamp="1587559844696">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587528043720" />
-    <state width="1234" height="210" key="GridCell.Tab.0.bottom" timestamp="1587528437791">
+    <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587559844696" />
+    <state width="1234" height="391" key="GridCell.Tab.0.bottom" timestamp="1587567907741">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1234" height="210" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587528437791" />
-    <state width="1234" height="210" key="GridCell.Tab.0.center" timestamp="1587528437791">
+    <state width="1234" height="391" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587567907741" />
+    <state width="1234" height="391" key="GridCell.Tab.0.center" timestamp="1587567907741">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1234" height="210" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587528437791" />
-    <state width="1234" height="210" key="GridCell.Tab.0.left" timestamp="1587528437790">
+    <state width="1234" height="391" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587567907741" />
+    <state width="1234" height="391" key="GridCell.Tab.0.left" timestamp="1587567907741">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1234" height="210" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587528437790" />
-    <state width="1234" height="210" key="GridCell.Tab.0.right" timestamp="1587528437791">
+    <state width="1234" height="391" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587567907741" />
+    <state width="1234" height="391" key="GridCell.Tab.0.right" timestamp="1587567907741">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1234" height="210" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587528437791" />
-    <state x="623" y="513" key="SettingsEditor" timestamp="1587435932098">
+    <state width="1234" height="391" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587567907741" />
+    <state x="623" y="513" key="SettingsEditor" timestamp="1587566012670">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="623" y="513" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587435932098" />
-    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1587527983955">
+    <state x="623" y="513" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587566012670" />
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1587434839024">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587527983955" />
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587434839024" />
     <state x="662" y="321" key="new project wizard" timestamp="1587137532871">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

@@ -1,9 +1,9 @@
 package sample;
 
-import DataClasses.*;
+import DataClasses.TTT_GameData;
+import DataClasses.User;
 import Database.DBManager;
 
-import javax.imageio.stream.ImageOutputStream;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
