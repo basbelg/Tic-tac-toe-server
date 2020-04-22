@@ -3,6 +3,7 @@ package MainServer;
 import Messages.EncapsulatedMessage;
 import Messages.LoginSuccessfulMessage;
 import Messages.Packet;
+import UI.ServerController;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,6 +17,7 @@ public class SQLServiceConnection implements Runnable{
     private static SQLServiceConnection instance = new SQLServiceConnection(8002);
 
     private Socket socket;
+    private ServerController listener;
     private ObjectInputStream input;
     private ObjectOutputStream output;
 
@@ -36,6 +38,11 @@ public class SQLServiceConnection implements Runnable{
     }
 
     public static SQLServiceConnection getInstance() {return instance;}
+
+    public void setListener(ServerController listener)
+    {
+        this.listener = listener;
+    }
 
     public synchronized void sendPacket(Packet packet) {
         try {
@@ -95,6 +102,7 @@ public class SQLServiceConnection implements Runnable{
                     //                                        Create Account
                     //------------------------------------------------------------------------------------------
                     case "ACS-MSG": // create account
+
                     case "ACF-MSG": // create account
                         synchronized (MainServer.getInstance().getClients()) {
                             iterator = MainServer.getInstance().getClients().iterator();
