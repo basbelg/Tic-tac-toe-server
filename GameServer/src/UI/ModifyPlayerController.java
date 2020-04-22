@@ -1,6 +1,7 @@
 package UI;
 
 import DataClasses.User;
+import Database.DBManager;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,6 +38,8 @@ public class ModifyPlayerController implements Initializable
             player.setFirstName(enterFirstName.getText());
             player.setLastName(enterLastName.getText());
             player.setPassword(enterPassword.getText());
+
+            DBManager.getInstance().update(player);
 
             try
             {

@@ -2,6 +2,7 @@ package UI;
 
 import DataClasses.TTT_GameData;
 import GameInterfaces.Game;
+import GameInterfaces.GameListener;
 import TicTacToe.TTT_Game;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -67,6 +68,13 @@ public class GameDetailsController implements Initializable
             int x = game.getMoveHistory().get(0).getRow();
             int y = game.getMoveHistory().get(0).getColumn();
             board.add(new Label("X"), y, x);
+
+            //FIND WAY TO DIFFERENTIATE BETWEEN SPECTATORS AND USERS (INSTANCEOF OR IDS) \\ SINGLETON MAINSERVER GET PUBLISHER
+            /* POPULATE SPECTATOR LIST
+            for(GameListener gl: game.getObservers())
+            {
+                spectatorsList.getItems().add(new Label(gl.getObserverUsername()));
+            }*/
 
             //set other fxml elements
             previousButton.setDisable(true);

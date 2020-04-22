@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DBManager implements DataSource {
+public class DBManager implements database.DataSource {
     private static DBManager instance = new DBManager();
     private String sql_password;
 
