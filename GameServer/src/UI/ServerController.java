@@ -30,10 +30,11 @@ public class ServerController implements Initializable
 
     public void onModifyPlayerClicked()
     {
-        int usernameIndex = registeredPlayersList.getSelectionModel().getSelectedIndex();
-        User selectedPlayer = playerList.get(usernameIndex);
         try
         {
+            int usernameIndex = registeredPlayersList.getSelectionModel().getSelectedIndex();
+            User selectedPlayer = playerList.get(usernameIndex);
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifyPlayer.fxml"));
             Parent root = loader.load();
             ModifyPlayerController mpc = loader.getController();
@@ -44,7 +45,7 @@ public class ServerController implements Initializable
             stage.setScene(new Scene(root));
             stage.show();
         }
-        catch(IOException e)
+        catch(IOException | NullPointerException e)
         {
             e.printStackTrace();
         }

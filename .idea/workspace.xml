@@ -2,13 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/GameMicroservice/src/GameService/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/ServerClasses.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/ServerClasses.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/GameServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/GameServer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic-Tac-Toe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Tic-Tac-Toe.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/GameServiceConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/GameServiceConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/SQLServiceConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/SQLServiceConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/GameServiceConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/GameServiceConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/MainServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/MainServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/SQLServiceConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/SQLServiceConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/Controller.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/GameDetailsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/GameDetailsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/ServerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ServerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Database/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Database/DBManager.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,7 +36,6 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
-        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -65,10 +79,16 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="UI.Main" />
       <module name="GameServer" />
-      <option name="VM_PARAMETERS" value="--module-path C:\Users\basbe\Downloads\openjfx-13.0.2_windows-x64_bin-sdk\javafx-sdk-13.0.2\lib --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\Smart\Documents\javafx-sdk-13.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="UI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -100,22 +120,6 @@
       <option name="PACKAGE_NAME" value="sample" />
       <option name="MAIN_CLASS_NAME" value="sample.DBManagerTest" />
       <option name="METHOD_NAME" value="addUser" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DBManagerTest.clearUsers" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Tic-Tac-Toe" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Database.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="sample" />
-      <option name="MAIN_CLASS_NAME" value="sample.DBManagerTest" />
-      <option name="METHOD_NAME" value="clearUsers" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -153,56 +157,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <module name="Tic-Tac-Toe" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
-      <module name="Tic-Tac-Toe" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="WORKING_DIRECTORY" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="JUnit.DBManagerTest.clearUsers" />
       <item itemvalue="JUnit.DBManagerTest.addGame" />
       <item itemvalue="JUnit.DBManagerTest.addUser" />
       <item itemvalue="JUnit.DBManagerTest.printAllActiveUsers" />
@@ -210,11 +166,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.DBManagerTest.addUser" />
         <item itemvalue="JUnit.DBManagerTest.addGame" />
         <item itemvalue="JUnit.DBManagerTest.printAllActiveUsers" />
         <item itemvalue="JUnit.DBManagerTest.updateUser" />
-        <item itemvalue="JUnit.DBManagerTest.clearUsers" />
       </list>
     </recent_temporary>
   </component>
@@ -258,28 +214,15 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="WindowStateProjectService">
     <state x="872" y="359" key="#Project_Structure" timestamp="1587280590594">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="872" y="359" key="#Project_Structure/0.0.2560.1400@0.0.2560.1400" timestamp="1587280590594" />
-    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587236741617">
+    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587436092142">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587236741617" />
+    <state x="734" y="355" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587436092142" />
     <state x="562" y="610" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586194498698">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -288,38 +231,42 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1085" y="410" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1587005897707" />
+    <state x="1128" y="589" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1587435788151">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1128" y="589" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587435788151" />
     <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586801492447">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586801492447" />
-    <state x="586" y="530" key="FileChooserDialogImpl" timestamp="1587274017315">
+    <state x="586" y="530" key="FileChooserDialogImpl" timestamp="1587435922955">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587274017315" />
-    <state width="2500" height="210" key="GridCell.Tab.0.bottom" timestamp="1587367624903">
+    <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1587435922955" />
+    <state width="2517" height="211" key="GridCell.Tab.0.bottom" timestamp="1587436301786">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2500" height="210" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624903" />
-    <state width="2500" height="210" key="GridCell.Tab.0.center" timestamp="1587367624903">
+    <state width="2517" height="211" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1587436301786" />
+    <state width="2517" height="211" key="GridCell.Tab.0.center" timestamp="1587436301786">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2500" height="210" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624903" />
-    <state width="2500" height="210" key="GridCell.Tab.0.left" timestamp="1587367624902">
+    <state width="2517" height="211" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1587436301786" />
+    <state width="2517" height="211" key="GridCell.Tab.0.left" timestamp="1587436301786">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2500" height="210" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624902" />
-    <state width="2500" height="210" key="GridCell.Tab.0.right" timestamp="1587367624903">
+    <state width="2517" height="211" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1587436301786" />
+    <state width="2517" height="211" key="GridCell.Tab.0.right" timestamp="1587436301786">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2500" height="210" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587367624903" />
-    <state x="623" y="513" key="SettingsEditor" timestamp="1587307170614">
+    <state width="2517" height="211" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1587436301786" />
+    <state x="623" y="513" key="SettingsEditor" timestamp="1587435932098">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="623" y="513" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587307170614" />
-    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1587359771163">
+    <state x="623" y="513" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587435932098" />
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1587434839024">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587359771163" />
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587434839024" />
     <state x="662" y="321" key="new project wizard" timestamp="1587137532871">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

@@ -1,18 +1,15 @@
 package MainServer;
 
-import DataClasses.GameInfo;
-import DataClasses.TTT_GameData;
-import DataClasses.User;
-import Database.DBManager;
-import Messages.*;
+import Messages.EncapsulatedMessage;
+import Messages.LoginSuccessfulMessage;
+import Messages.Packet;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.nio.channels.ClosedByInterruptException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
 import java.util.concurrent.BlockingQueue;
 
 public class SQLServiceConnection implements Runnable{
@@ -56,46 +53,60 @@ public class SQLServiceConnection implements Runnable{
             while (!thread.isInterrupted()) {
                 Packet packet = (Packet) input.readObject();
 
-                switch (packet.getType()) {
-                    case "ENC-MSG": // encapsulated message
-                        EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
-                        switch (ENC.getType()) {
-                            case "UPA-MSG": // Update Account Info
-                            case "STS-MSG": // Stats
-                            case "GLG-MSG": // Game Log
-                            case "DAC-MSG": // Deactivate Account
-                            case "GVW-MSG": // Game Viewers
-                            case "GMP-MSG": // Games played
-                                // Return to MainServer
-                                MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).
-                                        sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
-                                break;
-                        }
+                if(packet.getType() != "ENC-MSG")
+                    continue;
+
+                EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
+                switch (ENC.getType()) {
+                    case "UPA-MSG": // Update Account Info
+                    case "STS-MSG": // Stats
+                    case "GLG-MSG": // Game Log
+                    case "DAC-MSG": // Deactivate Account
+                    case "GVW-MSG": // Game Viewers
+                    case "GMP-MSG": // Games played
+                        // Return to MainServer
+                        MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).
+                                sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
                         break;
 
-                    //--------------------------------------------------------------------------------------------------
+                    //------------------------------------------------------------------------------------------
                     //                                             Login
-                    //--------------------------------------------------------------------------------------------------
-                    case "LOG-MSG": // login
-
+                    //------------------------------------------------------------------------------------------
+                    case "LOS-MSG": // login succeeded
+                        LoginSuccessfulMessage LOS = (LoginSuccessfulMessage) ENC.getMsg();
+                        Client client = null;
+                        Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
+                        while(iterator.hasNext()) {
+                            client = iterator.next();
+                            if(client.getUser().getUsername() == ENC.getidentifier() && client.getUser().
+                                    getId() == 0) {
+                                client.sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
+                                break;
+                            }
+                        }
+                        client.setUser(LOS.getUser());
+                        MainServer.getInstance().getClientIDMap().put(client.getUser().getId(), client);
                         break;
 
-                    //--------------------------------------------------------------------------------------------------
+                    case "LOF-MSG": // login failed
+
+
+                    // -----------------------------------------------------------------------------------------
                     //                                        Create Account
-                    //--------------------------------------------------------------------------------------------------
-                    case "CAC-MSG": // create account
-                        break;
-
-                    //--------------------------------------------------------------------------------------------------
-                    //                                          Save Move
-                    //--------------------------------------------------------------------------------------------------
-                    case "MOV-MSG": // move
-                        break;
-
-                    //--------------------------------------------------------------------------------------------------
-                    //                                          Save Game
-                    //--------------------------------------------------------------------------------------------------
-                    case "SAV-MSG": // save
+                    //------------------------------------------------------------------------------------------
+                    case "ACS-MSG": // create account
+                    case "ACF-MSG": // create account
+                        synchronized (MainServer.getInstance().getClients()) {
+                            iterator = MainServer.getInstance().getClients().iterator();
+                            while(iterator.hasNext()) {
+                                client = iterator.next();
+                                if(client.getUser().getUsername() == ENC.getidentifier() && client.getUser().
+                                        getId() == 0) {
+                                    client.sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
+                                    break;
+                                }
+                            }
+                        }
                         break;
                 }
             }
