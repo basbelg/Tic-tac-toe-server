@@ -124,11 +124,12 @@ public class ServerController implements Initializable
         }
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
         SQLServiceConnection.getInstance().setListener(this);
+
+
 
         //ALL Players
         List<Object> players = DBManager.getInstance().list(User.class);
