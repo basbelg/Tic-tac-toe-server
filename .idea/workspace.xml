@@ -2,29 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetails.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayer.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/Server.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/GameServer/UI/GameDetails.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayer.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayerController.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/GameServer/UI/Server.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameServer/GameServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/GameServer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tic-Tac-Toe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Tic-Tac-Toe.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/GameServiceConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/GameServiceConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/MainServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/MainServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/SQLServiceConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/SQLServiceConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/Main.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +39,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.19.jar!/" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/openjfx-12.0.2_windows-x64_bin-sdk/javafx-sdk-12.0.2/lib" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -267,6 +251,7 @@
       <workItem from="1587273099414" duration="37584000" />
       <workItem from="1587359756487" duration="45516000" />
       <workItem from="1587423241077" duration="240000" />
+      <workItem from="1587508733462" duration="153000" />
     </task>
     <servers />
   </component>
