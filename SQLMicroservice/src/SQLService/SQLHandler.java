@@ -89,7 +89,7 @@ public class SQLHandler implements Runnable{
 
                                 for(Object obj: users) {
                                     User user = (User) obj;
-                                    if(user.getUsername() == UPA.getUpdatedUser().getUsername()) {
+                                    if(user.getUsername().equals(UPA.getUpdatedUser().getUsername())) {
                                         AccountFailedMessage ACF = (AccountFailedMessage) MessageFactory.getMessage("ACF-MSG");
                                         SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("ACF-MSG", ENC.getidentifier(), ACF)));
                                         UAC_Failed = true;
@@ -151,7 +151,7 @@ public class SQLHandler implements Runnable{
                                 boolean CAC_Failed = false;
                                 for(Object obj: users) {
                                     User user = (User) obj;
-                                    if(user.getUsername() == CAC.getNewUser().getUsername()) {
+                                    if(user.getUsername().equals(CAC.getNewUser().getUsername())) {
                                         AccountFailedMessage ACF = (AccountFailedMessage) MessageFactory.
                                             getMessage("ACF-MSG");
                                         SQLServer.getInstance().sendPacket(new Packet("ENC-MSG",
