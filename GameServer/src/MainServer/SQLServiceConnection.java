@@ -98,26 +98,29 @@ public class SQLServiceConnection implements Runnable{
                         MainServer.getInstance().getClientIDMap().put(client.getUser().getId(), client);
                         break;
 
-                    case "LOF-MSG": // login failed
-
-
                     // -----------------------------------------------------------------------------------------
                     //                                        Create Account
                     //------------------------------------------------------------------------------------------
                     case "ACS-MSG": // create account
 
                     case "ACF-MSG": // create account
-                        synchronized (MainServer.getInstance().getClients()) {
-                            iterator = MainServer.getInstance().getClients().iterator();
-                            while(iterator.hasNext()) {
-                                client = iterator.next();
-                                if(client.getUser().getUsername().equals(ENC.getidentifier()) && client.getUser().
-                                        getId() == 0) {
-                                    client.sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
-                                    break;
+                        if(!(ENC.getidentifier() instanceof String))
+                            MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).
+                                    sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
+
+                    case "LOF-MSG": // login failed
+                        if(ENC.getidentifier() instanceof String)
+                            synchronized (MainServer.getInstance().getClients()) {
+                                iterator = MainServer.getInstance().getClients().iterator();
+                                while(iterator.hasNext()) {
+                                    client = iterator.next();
+                                    if(client.getUser().getUsername().equals(ENC.getidentifier()) && client.getUser().
+                                            getId() == 0) {
+                                        client.sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
+                                        break;
+                                    }
                                 }
                             }
-                        }
                         break;
                 }
             }
