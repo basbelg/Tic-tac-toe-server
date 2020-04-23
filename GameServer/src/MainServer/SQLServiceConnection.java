@@ -1,5 +1,6 @@
 package MainServer;
 
+import Messages.DeactivateAccountMessage;
 import Messages.EncapsulatedMessage;
 import Messages.LoginSuccessfulMessage;
 import Messages.Packet;
@@ -41,6 +42,8 @@ public class SQLServiceConnection implements Runnable{
     {
         this.listener = listener;
     }
+
+    public void updateUI() { listener.update(new DeactivateAccountMessage()); }
 
     public void sendPacket(Packet packet) {
         try {
@@ -85,33 +88,39 @@ public class SQLServiceConnection implements Runnable{
                     case "LOS-MSG": // login succeeded
                         LoginSuccessfulMessage LOS = (LoginSuccessfulMessage) ENC.getMsg();
                         Client client = null;
-                        Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
-                        while(iterator.hasNext()) {
-                            client = iterator.next();
-                            if(client.getUser().getUsername().equals(ENC.getidentifier()) && client.getUser().
-                                    getId() == 0) {
-                                client.sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
-                                break;
+                        synchronized (MainServer.getInstance().getClients()) {
+                            Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
+                            while (iterator.hasNext()) {
+                                client = iterator.next();
+                                if (client.getUser().getUsername().equals(ENC.getidentifier()) && client.getUser().
+                                        getId() == 0) {
+                                    client.sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
+                                    break;
+                                }
                             }
                         }
-                        client.setUser(LOS.getUser());
-                        MainServer.getInstance().getClientIDMap().put(client.getUser().getId(), client);
+                            client.setUser(LOS.getUser());
+                            MainServer.getInstance().getClientIDMap().put(client.getUser().getId(), client);
+                            listener.update(ENC.getMsg());
+
                         break;
 
                     // -----------------------------------------------------------------------------------------
                     //                                        Create Account
                     //------------------------------------------------------------------------------------------
-                    case "ACS-MSG": // create account
+                    case "ACS-MSG": // create/update account
 
-                    case "ACF-MSG": // create account
-                        if(!(ENC.getidentifier() instanceof String))
+                    case "ACF-MSG": // create/update account
+                        if(!(ENC.getidentifier() instanceof String)) {
                             MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).
                                     sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
+
+                        }
 
                     case "LOF-MSG": // login failed
                         if(ENC.getidentifier() instanceof String)
                             synchronized (MainServer.getInstance().getClients()) {
-                                iterator = MainServer.getInstance().getClients().iterator();
+                                Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
                                 while(iterator.hasNext()) {
                                     client = iterator.next();
                                     if(client.getUser().getUsername().equals(ENC.getidentifier()) && client.getUser().

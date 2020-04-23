@@ -147,7 +147,8 @@ public class Client implements Runnable, Serializable {
         } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
         finally {synchronized (clients) {
             System.out.println("Client terminated: " + user.getUsername());
-            clients.remove(this);}
+            clients.remove(this);
+            SQLServiceConnection.getInstance().updateUI();}
         }
     }
 
