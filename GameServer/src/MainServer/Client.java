@@ -44,6 +44,11 @@ public class Client implements Runnable, Serializable {
     }
 
     public synchronized void sendPacket(Packet packet) {
+        // Used to set this client socket's user to null if they tried to CREATE an account with an already existing username
+        if(packet.getType().equals("ACF-MSG") && user.getId() == 0) {
+            user = null;
+        }
+
         try {
             output.writeObject(packet);
             output.flush();
@@ -146,7 +151,9 @@ public class Client implements Runnable, Serializable {
             }
         } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
         finally {synchronized (clients) {
-            System.out.println("Client terminated: " + user.getUsername());
+            if(user != null) {
+                System.out.println("Client terminated: " + user.getUsername());
+            }
             clients.remove(this);
             SQLServiceConnection.getInstance().updateUI();}
         }
