@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" filepath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" />
       <module fileurl="file://$PROJECT_DIR$/GameServer/GameServer.iml" filepath="$PROJECT_DIR$/GameServer/GameServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" filepath="$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ServerClasses/ServerClasses.iml" filepath="$PROJECT_DIR$/ServerClasses/ServerClasses.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tic-Tac-Toe.iml" filepath="$PROJECT_DIR$/Tic-Tac-Toe.iml" />
     </modules>
   </component>
