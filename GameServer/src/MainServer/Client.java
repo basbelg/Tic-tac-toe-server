@@ -118,9 +118,11 @@ public class Client implements Runnable, Serializable {
                             Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
                             while (iterator.hasNext()) {
                                 Client client = iterator.next();
-                                if (client.user != null && client.user.getUsername().equals(LOG.getUsername())) {
-                                    LOF = true;
-                                    break;
+                                if(client.user != null) {
+                                    if (client.user.getId() != 0 && client.user.getUsername().equals(LOG.getUsername())) {
+                                        LOF = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
