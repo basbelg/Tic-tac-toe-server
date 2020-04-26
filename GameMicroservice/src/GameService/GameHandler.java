@@ -33,7 +33,7 @@ public class GameHandler implements Runnable{
             while(!thread.isInterrupted()) {
                 Packet packet = requests.take();
 
-                if(packet.getType() != "ENC-MSG")
+                if(!packet.getType().equals("ENC-MSG"))
                     continue;
 
                 EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
