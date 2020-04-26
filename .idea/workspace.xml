@@ -7,8 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameMicroservice/src/GameService/GameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/src/GameService/GameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Publisher.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -198,6 +197,7 @@
       <workItem from="1587718351575" duration="673000" />
       <workItem from="1587796377820" duration="3986000" />
       <workItem from="1587865890961" duration="6026000" />
+      <workItem from="1587895483498" duration="269000" />
     </task>
     <servers />
   </component>
