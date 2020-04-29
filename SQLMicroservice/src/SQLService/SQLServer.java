@@ -40,7 +40,7 @@ public class SQLServer implements Runnable {
             output.writeObject(packet);
             output.flush();
             output.reset();
-            System.out.println("Output to MainServer: " + packet.getType());
+            System.out.println("Output to Main Server: " + packet.getType());
         } catch (IOException e) {e.printStackTrace();}
     }
 
@@ -51,7 +51,7 @@ public class SQLServer implements Runnable {
             socket = serverSocket.accept();
             input = new ObjectInputStream(socket.getInputStream());
             output = new ObjectOutputStream(socket.getOutputStream());
-            System.out.println("MainServer connected to SQLServer");
+            System.out.println("Main Server connected to SQL Server");
 
             SQLHandler.getInstance();
             while(!thread.isInterrupted()) {

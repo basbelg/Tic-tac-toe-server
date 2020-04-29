@@ -36,6 +36,7 @@ public class Publisher implements Runnable{
                     continue;
 
                 EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
+                System.out.println("Received by publisher: " + ENC.getType());
                 switch (ENC.getType()) {
                     //--------------------------------------------------------------------------------------------------
                     //                                      Connect to Lobby
@@ -156,6 +157,7 @@ public class Publisher implements Runnable{
                     //--------------------------------------------------------------------------------------------------
                     case "GRE-MSG":
                         GameResultMessage GRE = (GameResultMessage) ENC.getMsg();
+                        InactiveGameMessage IAG = (InactiveGameMessage) MessageFactory.getMessage("IAG-MSG");
 
                         // Create Save Game Message and update Game Result Message
                         current_game = MainServer.getInstance().getGame_by_id().get(ENC.getidentifier());
@@ -174,6 +176,7 @@ public class Publisher implements Runnable{
                         }
 
                         current_game.setEndTime(LocalDateTime.now());
+                        IAG.setFinishedGameId(current_game.getId());
                         SAV = new SaveGameMessage(current_game);
                         SAV.setUpdate();
 
@@ -189,6 +192,15 @@ public class Publisher implements Runnable{
                                 TTT_ViewerData viewer = i.next();
                                 Client c = MainServer.getInstance().getClientIDMap().get(viewer.getViewer_id());
                                 c.sendPacket(new Packet("GRE-MSG", GRE));
+                            }
+                        }
+
+                        // Notify all clients that the game has ended
+                        synchronized (MainServer.getInstance().getClients()) {
+                            Iterator<Client> i = MainServer.getInstance().getClients().iterator();
+                            while (i.hasNext()) {
+                                Client client = i.next();
+                                client.sendPacket(new Packet("IAG-MSG", IAG));
                             }
                         }
 
