@@ -72,6 +72,7 @@ public class Publisher implements Runnable{
                                     client.sendPacket(new Packet("FUL-MSG", FUL));
                             }
                         }
+                        
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
                         break;
 
@@ -132,14 +133,13 @@ public class Publisher implements Runnable{
                         MainServer.getInstance().getActiveViewers().put(current_game.getId(),
                                 Collections.synchronizedList(new ArrayList<>()));
 
-                        // create new ai lobby message
+                        // create new lobby message
                         NewLobbyMessage NLB = (NewLobbyMessage) MessageFactory.getMessage("NLB-MSG");
                         NLB.setCreatorUsername(MainServer.getInstance().getClientIDMap().get(CLB.getPlayer1Id()).
                                 getUser().getUsername());
                         NLB.setGameLobbyId(current_game.getId());
 
-                        // Send a create ai lobby message to the player, a new ai lobby message to all clients, and a
-                        // save game message to the sql microservice
+                        // Send a create lobby message to the player and a new lobby message to all clients
                         synchronized (MainServer.getInstance().getClients()) {
                             Iterator<Client> i = MainServer.getInstance().getClients().iterator();
                             while (i.hasNext()) {
