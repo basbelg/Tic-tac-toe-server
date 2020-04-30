@@ -13,6 +13,10 @@ public final class MessageFactory {
 
             case "AAG-MSG": return new AllActiveGamesMessage();
 
+            case "CNC-MSG": return new ConcedeMessage();
+
+            case "COF-MSG": return new ConnectFailedMessage();
+
             case "CNT-MSG": return new ConnectToLobbyMessage();
 
             case "CAC-MSG": return new CreateAccountMessage();
