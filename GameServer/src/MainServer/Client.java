@@ -87,6 +87,20 @@ public class Client implements Runnable, Serializable {
                         sendPacket(new Packet("AAG-MSG", AAG));
                         break;
 
+                    case "CNC-MSG": // Concede
+                        ConcedeMessage CNC = (ConcedeMessage) packet.getData();
+
+                        TTT_GameData game = MainServer.getInstance().getGame_by_id().get(CNC.getID());
+
+                        if(user.getId() == game.getPlayer1Id() || user.getId() == game.getPlayer2Id()) {
+                            GameResultMessage GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
+                            GRE.setWinner(String.valueOf());
+                            EncapsulatedMessage ENC_GRE = new EncapsulatedMessage("GRE-MSG",
+                                    game.getId(), GRE);
+                            MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC_GRE));
+                        }
+                        break;
+
                     //--------------------------------------------------------------------------------------------------
                     //                                  send to game service
                     //--------------------------------------------------------------------------------------------------
