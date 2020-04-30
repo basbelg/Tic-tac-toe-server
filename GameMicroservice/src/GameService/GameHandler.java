@@ -1,6 +1,5 @@
 package GameService;
 
-import MainServer.Client;
 import Messages.*;
 import TicTacToe.TTT_Board;
 import TicTacToe.TTT_Game;
@@ -37,7 +36,7 @@ public class GameHandler implements Runnable{
                     continue;
 
                 EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
-
+                System.out.println("Received from Client: " + ENC.getType());
                 switch (ENC.getType()) {
                     //--------------------------------------------------------------------------------------------------
                     //                                      Connect to Lobby
@@ -53,7 +52,8 @@ public class GameHandler implements Runnable{
 
                             // return updated encapsulated connect-to-lobby message
                             GameServer.getInstance().sendPacket(packet);
-                        } catch (Exception e) {e.printStackTrace();}
+                        } catch (NullPointerException e) {System.out.println("Invalid game id: " + CNT.getLobbyGameId());}
+                        catch (Exception e) {e.printStackTrace();}
                         break;
 
                     //--------------------------------------------------------------------------------------------------
@@ -68,6 +68,7 @@ public class GameHandler implements Runnable{
                             ttt_game.startGame();
                             games.putIfAbsent(ttt_game.getGameId(), ttt_game);
                             CAI.setGameLobbyId(ttt_game.getGameId());
+                            System.out.println("New ai game: " + ttt_game.getGameId());
 
                             // return updated encapsulated create-ai-game message
                             GameServer.getInstance().sendPacket(packet);
@@ -84,9 +85,11 @@ public class GameHandler implements Runnable{
                         TTT_Game ttt_game = new TTT_Game();
                         games.putIfAbsent(ttt_game.getGameId(), ttt_game);
                         CLB.setGameLobbyId(ttt_game.getGameId());
+                        System.out.println("New pvp game: " + ttt_game.getGameId());
 
                         // return updated encapsulated create-game-lobby message
                         GameServer.getInstance().sendPacket(packet);
+
                         break;
 
                     //--------------------------------------------------------------------------------------------------

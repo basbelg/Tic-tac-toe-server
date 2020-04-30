@@ -62,7 +62,7 @@ public class TTT_GameData implements Serializable {
 
     public void setId() {this.id = id;}
 
-    public void setStartingTime(LocalDateTime setStartingTime) {this.startingTime = startingTime;}
+    public void setStartingTime(LocalDateTime startingTime) {this.startingTime = startingTime;}
 
     public void setEndTime(LocalDateTime endTime) {this.endTime = endTime;}
 

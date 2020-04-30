@@ -40,6 +40,7 @@ public class GameServer implements Runnable{
             output.writeObject(packet);
             output.flush();
             output.reset();
+            System.out.println("Output to Main Server: " + packet.getType());
         } catch (IOException e) {e.printStackTrace();}
     }
 
@@ -49,6 +50,7 @@ public class GameServer implements Runnable{
             socket = serverSocket.accept();
             input = new ObjectInputStream(socket.getInputStream());
             output = new ObjectOutputStream(socket.getOutputStream());
+            System.out.println("Main Server connected to Game Server");
 
             GameHandler.getInstance();
             while(!thread.isInterrupted()) {

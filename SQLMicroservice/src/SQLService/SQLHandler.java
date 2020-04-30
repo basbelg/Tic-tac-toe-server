@@ -136,7 +136,27 @@ public class SQLHandler implements Runnable{
                             case "STS-MSG": // Stats
                                 StatsMessage STS = (StatsMessage) ENC.getMsg();
 
+                                int id = (int) ENC.getidentifier();
+                                int[] stats = new int[3];
 
+                                // Update Message with list of gameinfo
+                                List<Object> all_games = DBManager.getInstance().list(TTT_GameData.class);
+                                for(Object obj: all_games) {
+                                    TTT_GameData game = (TTT_GameData) obj;
+                                    if(game.getWinningPlayerId() != -1 && (game.getPlayer1Id() == id || game.getPlayer2Id() == id)) {
+                                        if(game.getWinningPlayerId() == id)
+                                            ++stats[0];
+                                        else if(game.getWinningPlayerId() == 0)
+                                            ++stats[1];
+                                        else
+                                            ++stats[2];
+                                    }
+                                }
+
+                                // update sts message
+                                STS.setWins(stats[0]);
+                                STS.setTies(stats[1]);
+                                STS.setLosses(stats[2]);
 
                                 SQLServer.getInstance().sendPacket(packet);
                                 break;

@@ -60,6 +60,7 @@ public class GameServiceConnection implements Runnable{
                     continue;
 
                 EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
+                System.out.println("Received from Game Microservice: " + ENC.getType());
                 switch (ENC.getType()) {
                     //--------------------------------------------------------------------------------------------------
                     //                                             Move
