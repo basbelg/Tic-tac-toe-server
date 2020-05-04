@@ -154,8 +154,8 @@ public class GameHandler implements Runnable{
                     case "CNC-MSG": // Concede
                         ConcedeMessage CNC = (ConcedeMessage) packet.getData();
 
+                        // end the game if it was active, or delete the game if it was a vs player lobby 
                         try {
-                            // attempt to start game
                             ttt_game = games.get(CNC.getGameId());
 
                             if(ttt_game.isActive())
