@@ -63,7 +63,7 @@ public class Client implements Runnable, Serializable {
         try {
             while (!thread.isInterrupted()) {
                 Packet packet = (Packet) input.readObject();
-                System.out.println("Received from Client: " + packet.getType());
+                System.out.println("Received from Client-side: " + packet.getType());
                 switch (packet.getType()) {
                     //--------------------------------------------------------------------------------------------------
                     //                                      Resolve Here

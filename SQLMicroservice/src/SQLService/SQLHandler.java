@@ -239,10 +239,16 @@ public class SQLHandler implements Runnable{
                     //--------------------------------------------------------------------------------------------------
                     case "SAV-MSG": // save
                         SaveGameMessage SAV = (SaveGameMessage) packet.getData();
-                        if(SAV.isInsert())
+                        if(SAV.isInsert()) {
+                            System.out.println("is insert");
                             DBManager.getInstance().insert(SAV.getGame());
-                        else if(SAV.isUpdate())
+                        }
+                        else if(SAV.isUpdate()) {
+                            System.out.println("is update");
                             DBManager.getInstance().update(SAV.getGame());
+                        }
+                        else
+                            System.out.println("KONO BITCH");
                         break;
                 }
             }

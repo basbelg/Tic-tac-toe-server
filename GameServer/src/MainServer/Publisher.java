@@ -162,17 +162,26 @@ public class Publisher implements Runnable{
                         // Create Save Game Message and update Game Result Message
                         current_game = MainServer.getInstance().getGame_by_id().get(ENC.getidentifier());
                         Client player1 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer1Id());
-                        Client player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
+                        Client player2 = null;
 
-                        if(GRE.getWinner() == "0") {
+                        if(GRE.getWinner().equals("0")) {
                             current_game.setWinningPlayerId(0);
                             GRE.setWinner(null);
                         }
                         else {
-                            current_game.setWinningPlayerId((GRE.getWinner() == "1")? current_game.getPlayer1Id():
+                            current_game.setWinningPlayerId((GRE.getWinner().equals("1"))? current_game.getPlayer1Id():
                                     current_game.getPlayer2Id());
-                            GRE.setWinner((GRE.getWinner() == "1")? player1.getUser().getUsername():
-                                    player2.getUser().getUsername());
+                            if(current_game.getPlayer2Id() != 1)
+                            {
+                                player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
+                                GRE.setWinner((GRE.getWinner().equals("1"))? player1.getUser().getUsername():
+                                        player2.getUser().getUsername());
+                            }
+                            else
+                            {
+                                GRE.setWinner((GRE.getWinner().equals("1"))? player1.getUser().getUsername():
+                                        "AI Player");
+                            }
                         }
 
                         current_game.setEndTime(LocalDateTime.now());
@@ -182,8 +191,10 @@ public class Publisher implements Runnable{
 
                         // Send result message to players
                         player1.sendPacket(new Packet("GRE-MSG", GRE));
-                        player2.sendPacket(new Packet("GRE-MSG", GRE));
-
+                        if(current_game.getPlayer2Id() != 1)
+                        {
+                            player2.sendPacket(new Packet("GRE-MSG", GRE));
+                        }
                         // Send result to viewers
                         synchronized (MainServer.getInstance().getActiveViewers().get(current_game.getId())) {
                             Iterator<TTT_ViewerData> i = MainServer.getInstance().getActiveViewers().
@@ -217,9 +228,19 @@ public class Publisher implements Runnable{
                         // Set player usernames
                         current_game = MainServer.getInstance().getGame_by_id().get(SPC.getGameId());
                         player1 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer1Id());
-                        player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer1Id());
                         SPC.setPlayer1Username(player1.getUser().getUsername());
-                        SPC.setPlayer1Username(player2.getUser().getUsername());
+
+                        if(current_game.getPlayer2Id() != 1)
+                        {
+                            player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
+                            SPC.setPlayer2Username(player2.getUser().getUsername());
+                        }
+                        else
+                        {
+                            SPC.setPlayer2Username("AI Player");
+                        }
+
+
 
                         // Add viewer to list of viewers
                         TTT_ViewerData viewer = new TTT_ViewerData(SPC.getGameId(), SPC.getSpectatorId());
