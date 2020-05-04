@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" afterDir="false" />
     </list>
@@ -25,19 +27,19 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Tic-Tac-Toe-C" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.28235295" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -120,9 +122,9 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.GameMain" />
       <item itemvalue="Application.Main" />
       <item itemvalue="Application.SQLMain" />
-      <item itemvalue="Application.GameMain" />
       <item itemvalue="JUnit.DBManagerTest.addGame" />
       <item itemvalue="JUnit.DBManagerTest.addUser" />
     </list>
@@ -177,6 +179,7 @@
       <workItem from="1588042700148" duration="4233000" />
       <workItem from="1588137503607" duration="19353000" />
       <workItem from="1588215940862" duration="4459000" />
+      <workItem from="1588223881140" duration="2202000" />
     </task>
     <servers />
   </component>
@@ -188,13 +191,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="872" y="359" key="#Project_Structure" timestamp="1588189839178">
@@ -213,18 +215,18 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1085" y="410" key="#com.intellij.ide.util.MemberChooser/0.0.2560.1400@0.0.2560.1400" timestamp="1587005897707" />
-    <state x="1128" y="589" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1587559780781">
+    <state x="1128" y="589" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1588223894955">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="1128" y="589" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1587559780781" />
+    <state x="1128" y="589" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1588223894955" />
     <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586801492447">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586801492447" />
-    <state x="586" y="530" key="FileChooserDialogImpl" timestamp="1588139979399">
+    <state x="586" y="530" key="FileChooserDialogImpl" timestamp="1588348828110">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1588139979399" />
+    <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1588348828110" />
     <state width="2517" height="139" key="GridCell.Tab.0.bottom" timestamp="1588191874474">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -241,14 +243,14 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="2517" height="139" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1588191874473" />
-    <state x="623" y="513" key="SettingsEditor" timestamp="1587983422628">
+    <state x="905" y="539" key="SettingsEditor" timestamp="1588267794102">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="623" y="513" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1587983422628" />
-    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1588137566460">
+    <state x="905" y="539" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1588267794102" />
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1588223881320">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1588137566460" />
+    <state x="976" y="524" key="com.intellij.ide.util.TipDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1588223881320" />
     <state x="662" y="321" key="new project wizard" timestamp="1587137532871">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

@@ -90,11 +90,11 @@ public class Client implements Runnable, Serializable {
                     case "CNC-MSG": // Concede
                         ConcedeMessage CNC = (ConcedeMessage) packet.getData();
 
-                        TTT_GameData game = MainServer.getInstance().getGame_by_id().get(CNC.getID());
+                        TTT_GameData game = MainServer.getInstance().getGame_by_id().get(CNC.getGameId());
 
                         if(user.getId() == game.getPlayer1Id() || user.getId() == game.getPlayer2Id()) {
                             GameResultMessage GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
-                            GRE.setWinner(String.valueOf());
+                            GRE.setWinner(String.valueOf((user.getId() == game.getPlayer1Id())? 1 : 2));
                             EncapsulatedMessage ENC_GRE = new EncapsulatedMessage("GRE-MSG",
                                     game.getId(), GRE);
                             MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC_GRE));
@@ -169,6 +169,13 @@ public class Client implements Runnable, Serializable {
         finally {synchronized (clients) {
             if(user != null) {
                 System.out.println("Client terminated: " + user.getUsername());
+                synchronized (MainServer.getInstance().getActiveGames()) {
+                    Iterator<TTT_GameData> iterator = MainServer.getInstance().getActiveGames().iterator();
+                    while(iterator.hasNext()) {
+                        // if only player in lobby close
+                        // if both players end game and dc player loses
+                    }
+                }
             }
             clients.remove(this);
             SQLServiceConnection.getInstance().updateUI();}
