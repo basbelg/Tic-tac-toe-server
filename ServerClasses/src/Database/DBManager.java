@@ -16,8 +16,9 @@ public class DBManager implements DataSource {
 
     private DBManager() {
         try {
-            //File file = new File("C:\\Users\\basbe\\OneDrive\\Documents\\CS 4B\\SQL_Password.txt");
-            File file = new File("C:\\Users\\jtols\\Documents\\SQLPassword.txt");
+            File file = new File("R:\\CS4B\\SQL_Password.txt");
+			// File file = new File("C:\\Users\\basbe\\OneDrive\\Documents\\CS 4B\\SQL_Password.txt");
+            // File file = new File("C:\\Users\\jtols\\Documents\\SQLPassword.txt");
             Scanner scanner = new Scanner(file);
             sql_password = scanner.next();
         } catch (FileNotFoundException e) {e.printStackTrace();}
@@ -86,10 +87,11 @@ public class DBManager implements DataSource {
                 user.setId(resultSet.getInt("id"));
             }
             else if(obj instanceof TTT_MoveData) {
-                // insert move into database
+                // insert user into database
                 TTT_MoveData ttt_moveData = (TTT_MoveData) obj;
 
-                statement = connection.prepareStatement("insert into move (game_id, player_id, move_time, row, col, turn) values (?,?,?,?,?,?);");
+                statement = connection.prepareStatement("insert into move (game_id, player_id, move_time, m_row," +
+                        " m_col, turn) values (?,?,?,?,?,?);");
                 statement.setString(1, ttt_moveData.getGame_id());
                 statement.setInt(2, ttt_moveData.getPlayer_id());
                 statement.setTimestamp(3, Timestamp.valueOf(ttt_moveData.getTime()));
