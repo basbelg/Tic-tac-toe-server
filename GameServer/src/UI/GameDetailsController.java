@@ -81,6 +81,17 @@ public class GameDetailsController implements Initializable
         });
     }
 
+    public void onNextClicked()
+    {
+
+    }
+
+    public void onPreviousClicked()
+    {
+
+    }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {}

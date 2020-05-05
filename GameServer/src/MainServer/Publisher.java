@@ -127,6 +127,11 @@ public class Publisher implements Runnable{
                         current_game = new TTT_GameData(CLB.getGameLobbyId(), null,
                                 CLB.getPlayer1Id(), 0, CLB.getPlayer1Id());
 
+                        //ADDED
+                        // create save message to save to database
+                        SAV = new SaveGameMessage(current_game);
+                        SAV.setInsert();
+
                         // update server
                         MainServer.getInstance().getActiveGames().add(current_game);
                         MainServer.getInstance().getGame_by_id().put(current_game.getId(), current_game);
@@ -142,7 +147,7 @@ public class Publisher implements Runnable{
                         // Send a create lobby message to the player and a new lobby message to all clients
                         synchronized (MainServer.getInstance().getClients()) {
                             Iterator<Client> i = MainServer.getInstance().getClients().iterator();
-                            while (i.hasNext()) {
+                            while (i != null && i.hasNext()) {
                                 Client client = i.next();
                                 if(CLB.getPlayer1Id() == client.getUser().getId())
                                     client.sendPacket(new Packet("CLB-MSG", CLB));
@@ -150,6 +155,9 @@ public class Publisher implements Runnable{
                                     client.sendPacket(new Packet("NLB-MSG", NLB));
                             }
                         }
+
+                        //ADDED
+                        SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
                         break;
 
                     //--------------------------------------------------------------------------------------------------
@@ -164,6 +172,11 @@ public class Publisher implements Runnable{
                         Client player1 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer1Id());
                         Client player2 = null;
 
+                        if(current_game.getPlayer2Id() != 1)
+                        {
+                            player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
+                        }
+
                         if(GRE.getWinner().equals("0")) {
                             current_game.setWinningPlayerId(0);
                             GRE.setWinner(null);
@@ -173,7 +186,6 @@ public class Publisher implements Runnable{
                                     current_game.getPlayer2Id());
                             if(current_game.getPlayer2Id() != 1)
                             {
-                                player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
                                 GRE.setWinner((GRE.getWinner().equals("1"))? player1.getUser().getUsername():
                                         player2.getUser().getUsername());
                             }
@@ -215,8 +227,23 @@ public class Publisher implements Runnable{
                             }
                         }
 
+
                         // Update game in history
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
+
+                        synchronized (MainServer.getInstance().getActiveGames())
+                        {
+                            Iterator<TTT_GameData> i = MainServer.getInstance().getActiveGames().iterator();
+                            while (i.hasNext())
+                            {
+                                TTT_GameData game = i.next();
+                                if(game.getId().equals(IAG.getFinishedGameId()))
+                                {
+                                    MainServer.getInstance().getActiveGames().remove(game);
+                                    break;
+                                }
+                            }
+                        }
                         break;
 
                     //--------------------------------------------------------------------------------------------------
