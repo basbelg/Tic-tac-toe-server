@@ -45,9 +45,8 @@ public class Client implements Runnable, Serializable {
 
     public synchronized void sendPacket(Packet packet) {
         // Used to set this client socket's user to null if they tried to CREATE an account with an already existing username
-        if(packet.getType().equals("ACF-MSG") && user.getId() == 0) {
+        if(packet.getType().equals("ACF-MSG") && user.getId() == 0)
             user = null;
-        }
 
         try {
             output.writeObject(packet);
@@ -90,6 +89,18 @@ public class Client implements Runnable, Serializable {
                     //--------------------------------------------------------------------------------------------------
                     //                                  send to game service
                     //--------------------------------------------------------------------------------------------------
+                    case "CNC-MSG": // Concede
+                        ConcedeMessage CNC = (ConcedeMessage) packet.getData();
+
+                        TTT_GameData game = MainServer.getInstance().getGame_by_id().get(CNC.getGameId());
+
+                        if(user.getId() == game.getPlayer1Id() || user.getId() == game.getPlayer2Id()) {
+                            GameResultMessage GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
+                            GRE.setWinner(String.valueOf((user.getId() == game.getPlayer1Id())? 2 : 1));
+                            EncapsulatedMessage ENC_GRE = new EncapsulatedMessage("GRE-MSG", game.getId(), GRE);
+                            MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC_GRE));
+                        }
+
                     case "SPC-MSG": // Spectate
                     case "CNT-MSG": // Connect to lobby
                     case "CAI-MSG": // Create AI Game Lobby
@@ -152,12 +163,41 @@ public class Client implements Runnable, Serializable {
                 }
             }
         } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
-        finally {synchronized (clients) {
+        finally {
             if(user != null) {
                 System.out.println("Client terminated: " + user.getUsername());
+                // handle current players active game (can be moved to publisher thread if finally block doesn't run)
+                synchronized (MainServer.getInstance().getActiveGames()) {
+                    Iterator<TTT_GameData> iterator = MainServer.getInstance().getActiveGames().iterator();
+                    while(iterator.hasNext()) {
+                        TTT_GameData game = iterator.next();
+                        if(user.getId() == game.getPlayer1Id() || user.getId() == game.getPlayer2Id()) {
+                            if (game.getPlayer2Id() == 0) { // lobby that has only one player
+                                // notify all clients that lobby no longer exists (might need a new message for this)
+                                // ...
+
+                                iterator.remove();
+                            } else {
+                                // send a GRE message to notify the other player if applicable, and to save the game to
+                                // the db
+                                GameResultMessage GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
+                                GRE.setWinner(String.valueOf((user.getId() == game.getPlayer1Id()) ? 2 : 1));
+                                EncapsulatedMessage ENC_GRE = new EncapsulatedMessage("GRE-MSG", game.getId(), GRE);
+                                MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC_GRE));
+                            }
+
+                            // end the game on the GameServer to prevent new players from joining, etc.
+                            ConcedeMessage CNC = (ConcedeMessage) MessageFactory.getMessage("CNC-MSG");
+                            CNC.setGameId(game.getId());
+                            EncapsulatedMessage ENC_CNC = new EncapsulatedMessage("CNC-MSG", game.getId(), CNC);
+                            GameServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC_CNC));
+                            break;
+                        }
+                    }
+                }
             }
             clients.remove(this);
-            SQLServiceConnection.getInstance().updateUI();}
+            SQLServiceConnection.getInstance().updateUI();
         }
     }
 

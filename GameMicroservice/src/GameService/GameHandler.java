@@ -1,5 +1,7 @@
 package GameService;
 
+import DataClasses.TTT_GameData;
+import MainServer.MainServer;
 import Messages.*;
 import TicTacToe.TTT_Board;
 import TicTacToe.TTT_Game;
@@ -52,7 +54,8 @@ public class GameHandler implements Runnable{
 
                             // return updated encapsulated connect-to-lobby message
                             GameServer.getInstance().sendPacket(packet);
-                        } catch (NullPointerException e) {System.out.println("Invalid game id: " + CNT.getLobbyGameId());}
+                        }
+                        catch (NullPointerException e) {System.out.println("Invalid game id: " + CNT.getLobbyGameId());}
                         catch (Exception e) {e.printStackTrace();}
                         break;
 
@@ -139,11 +142,29 @@ public class GameHandler implements Runnable{
                                         arrayBoard[i/3][i%3] = (board.getPlayerAt(i/3, i%3) == 2)?
                                                 -1: board.getPlayerAt(i/3, i%3);
                                 SPC.setGameBoard(arrayBoard);
-                            } catch (Exception e) {e.printStackTrace();}
 
-                            // Send encapsulated spectate message
-                            GameServer.getInstance().sendPacket(packet);
+                                // Send encapsulated spectate message
+                                GameServer.getInstance().sendPacket(packet);
+                            }
+                            catch (NullPointerException e) {System.out.println("Invalid game id: " + SPC.getGameId());}
+                            catch (Exception e) {e.printStackTrace();}
                         }
+                        break;
+
+                    case "CNC-MSG": // Concede
+                        ConcedeMessage CNC = (ConcedeMessage) packet.getData();
+
+                        // end the game if it was active, or delete the game if it was a vs player lobby 
+                        try {
+                            ttt_game = games.get(CNC.getGameId());
+
+                            if(ttt_game.isActive())
+                                ttt_game.endGame();
+                            else
+                                games.remove(ttt_game.getGameId());
+                        }
+                        catch (NullPointerException e) {System.out.println("Invalid game id: " + CNC.getGameId());}
+                        catch (Exception e) {e.printStackTrace();}
                         break;
                 }
             }

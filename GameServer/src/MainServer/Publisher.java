@@ -49,7 +49,7 @@ public class Publisher implements Runnable{
                         current_game.setPlayer2Id((int) ENC.getidentifier());
                         current_game.setStartingTime(CNT.getStartTime());
                         SaveGameMessage SAV = new SaveGameMessage(current_game);
-                        SAV.setUpdate();
+                        SAV.setInsert();
 
                         // Create Full Lobby Message
                         FullLobbyMessage FUL = (FullLobbyMessage) MessageFactory.getMessage("FUL-MSG");
@@ -184,16 +184,13 @@ public class Publisher implements Runnable{
                         else {
                             current_game.setWinningPlayerId((GRE.getWinner().equals("1"))? current_game.getPlayer1Id():
                                     current_game.getPlayer2Id());
-                            if(current_game.getPlayer2Id() != 1)
-                            {
+                            if(current_game.getPlayer2Id() != 1) {
+                                player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
                                 GRE.setWinner((GRE.getWinner().equals("1"))? player1.getUser().getUsername():
                                         player2.getUser().getUsername());
                             }
                             else
-                            {
-                                GRE.setWinner((GRE.getWinner().equals("1"))? player1.getUser().getUsername():
-                                        "AI Player");
-                            }
+                                GRE.setWinner((GRE.getWinner().equals("1"))? player1.getUser().getUsername(): "AI Player");
                         }
 
                         current_game.setEndTime(LocalDateTime.now());
@@ -204,9 +201,8 @@ public class Publisher implements Runnable{
                         // Send result message to players
                         player1.sendPacket(new Packet("GRE-MSG", GRE));
                         if(current_game.getPlayer2Id() != 1)
-                        {
                             player2.sendPacket(new Packet("GRE-MSG", GRE));
-                        }
+
                         // Send result to viewers
                         synchronized (MainServer.getInstance().getActiveViewers().get(current_game.getId())) {
                             Iterator<TTT_ViewerData> i = MainServer.getInstance().getActiveViewers().
@@ -228,21 +224,14 @@ public class Publisher implements Runnable{
                         }
 
 
+
                         // Update game in history
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
 
                         synchronized (MainServer.getInstance().getActiveGames())
                         {
-                            Iterator<TTT_GameData> i = MainServer.getInstance().getActiveGames().iterator();
-                            while (i.hasNext())
-                            {
-                                TTT_GameData game = i.next();
-                                if(game.getId().equals(IAG.getFinishedGameId()))
-                                {
-                                    MainServer.getInstance().getActiveGames().remove(game);
-                                    break;
-                                }
-                            }
+                            // remove game from active games list
+                            MainServer.getInstance().getActiveGames().remove(current_game);
                         }
                         break;
 
@@ -257,17 +246,12 @@ public class Publisher implements Runnable{
                         player1 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer1Id());
                         SPC.setPlayer1Username(player1.getUser().getUsername());
 
-                        if(current_game.getPlayer2Id() != 1)
-                        {
+                        if(current_game.getPlayer2Id() != 1) {
                             player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
                             SPC.setPlayer2Username(player2.getUser().getUsername());
                         }
                         else
-                        {
                             SPC.setPlayer2Username("AI Player");
-                        }
-
-
 
                         // Add viewer to list of viewers
                         TTT_ViewerData viewer = new TTT_ViewerData(SPC.getGameId(), SPC.getSpectatorId());
