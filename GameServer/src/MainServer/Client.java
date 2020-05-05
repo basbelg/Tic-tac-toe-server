@@ -86,6 +86,12 @@ public class Client implements Runnable, Serializable {
                         sendPacket(new Packet("AAG-MSG", AAG));
                         break;
 
+                    case "IAG-MSG": // Inactive game message
+                        EncapsulatedMessage ENC_IAG = new EncapsulatedMessage(packet.getType(), user.getId(),
+                                packet.getData());
+                        MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC_IAG));
+                        break;
+
                     //--------------------------------------------------------------------------------------------------
                     //                                  send to game service
                     //--------------------------------------------------------------------------------------------------
@@ -155,7 +161,6 @@ public class Client implements Runnable, Serializable {
                     case "UPA-MSG": // Update Account Info
                     case "GLG-MSG": // Game Log
                     case "STS-MSG": // Stats
-                    case "IAG-MSG": // Inactive game message
                         EncapsulatedMessage ENC = new EncapsulatedMessage(packet.getType(), user.getId(),
                                 packet.getData());
                         SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC));
@@ -166,35 +171,8 @@ public class Client implements Runnable, Serializable {
         finally {
             if(user != null) {
                 System.out.println("Client terminated: " + user.getUsername());
-                // handle current players active game (can be moved to publisher thread if finally block doesn't run)
-                synchronized (MainServer.getInstance().getActiveGames()) {
-                    Iterator<TTT_GameData> iterator = MainServer.getInstance().getActiveGames().iterator();
-                    while(iterator.hasNext()) {
-                        TTT_GameData game = iterator.next();
-                        if(user.getId() == game.getPlayer1Id() || user.getId() == game.getPlayer2Id()) {
-                            if (game.getPlayer2Id() == 0) { // lobby that has only one player
-                                // notify all clients that lobby no longer exists (might need a new message for this)
-                                // ...
-
-                                iterator.remove();
-                            } else {
-                                // send a GRE message to notify the other player if applicable, and to save the game to
-                                // the db
-                                GameResultMessage GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
-                                GRE.setWinner(String.valueOf((user.getId() == game.getPlayer1Id()) ? 2 : 1));
-                                EncapsulatedMessage ENC_GRE = new EncapsulatedMessage("GRE-MSG", game.getId(), GRE);
-                                MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC_GRE));
-                            }
-
-                            // end the game on the GameServer to prevent new players from joining, etc.
-                            ConcedeMessage CNC = (ConcedeMessage) MessageFactory.getMessage("CNC-MSG");
-                            CNC.setGameId(game.getId());
-                            EncapsulatedMessage ENC_CNC = new EncapsulatedMessage("CNC-MSG", game.getId(), CNC);
-                            GameServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC_CNC));
-                            break;
-                        }
-                    }
-                }
+                EncapsulatedMessage ENC = new EncapsulatedMessage("DIS-MSG", user.getId(), null);
+                MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC));
             }
             clients.remove(this);
             SQLServiceConnection.getInstance().updateUI();

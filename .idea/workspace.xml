@@ -2,7 +2,87 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/ServerClasses.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/ServerClasses.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameMicroservice/src/GameService/GameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/src/GameService/GameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Publisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameMicroservice/GameService/GameHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameMicroservice/GameService/GameHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/GameDetailsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/GameDetailsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SQLMicroservice/SQLService/SQLHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SQLMicroservice/SQLService/SQLHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/DataClasses/GameInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/DataClasses/LobbyInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/DataClasses/MoveInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/DataClasses/Spectator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/DataClasses/TTT_GameData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/DataClasses/TTT_MoveData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/DataClasses/TTT_ViewerData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/DataClasses/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Database/DBManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Database/DataSource.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/GameInterfaces/Board.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/GameInterfaces/Evaluator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/GameInterfaces/Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/GameInterfaces/GameListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/GameInterfaces/Move.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/AccountFailedMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/AccountSuccessfulMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/AllActiveGamesMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/ConcedeMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/ConnectFailedMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/ConnectToLobbyMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/CreateAIGameMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/CreateAccountMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/CreateLobbyMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/DeactivateAccountMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/EncapsulatedMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/FullLobbyMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/GameLogMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/GameResultMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/GameViewersMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/GamesPlayedMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/IllegalMoveMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/InactiveGameMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/LegalMoveMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/LoginFailedMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/LoginMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/LoginSuccessfulMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/MessageFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/MoveMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/NewAILobbyMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/NewLobbyMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/Packet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/SaveGameMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/SpectateMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/StatsMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/UpdateAccountInfoMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/ViewGameHistoryMessage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/TicTacToe/TTT_Board.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/TicTacToe/TTT_Evaluator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/TicTacToe/TTT_Game.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/TicTacToe/TTT_Move.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/ClientUI/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/ClientUI/Login.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/ClientUI/Register.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/ClientUI/Register.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/TTT_GameData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/TTT_GameData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/TTT_MoveData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/TTT_MoveData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/TTT_ViewerData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/TTT_ViewerData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/Evaluator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/Evaluator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/GameListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/GameListener.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/Move.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Evaluator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Evaluator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Move.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Move.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/database/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/database/DBManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/database/DataSource.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/database/DataSource.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/sample/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/sample/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/sample/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/sample/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,30 +300,30 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586801492447" />
-    <state x="586" y="530" key="FileChooserDialogImpl" timestamp="1588570483491">
+    <state x="586" y="530" key="FileChooserDialogImpl" timestamp="1588702905465">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1588570483491" />
-    <state width="2517" height="233" key="GridCell.Tab.0.bottom" timestamp="1588611416238">
+    <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1588702905465" />
+    <state width="1340" height="259" key="GridCell.Tab.0.bottom" timestamp="1588703488512">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="233" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1588611416238" />
-    <state width="2517" height="233" key="GridCell.Tab.0.center" timestamp="1588611416238">
+    <state width="1340" height="259" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1588703488512" />
+    <state width="1340" height="259" key="GridCell.Tab.0.center" timestamp="1588703488512">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="233" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1588611416238" />
-    <state width="2517" height="233" key="GridCell.Tab.0.left" timestamp="1588611416238">
+    <state width="1340" height="259" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1588703488512" />
+    <state width="1340" height="259" key="GridCell.Tab.0.left" timestamp="1588703488512">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="233" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1588611416238" />
-    <state width="2517" height="233" key="GridCell.Tab.0.right" timestamp="1588611416238">
+    <state width="1340" height="259" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1588703488512" />
+    <state width="1340" height="259" key="GridCell.Tab.0.right" timestamp="1588703488512">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="233" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1588611416238" />
-    <state x="905" y="539" key="SettingsEditor" timestamp="1588586737677">
+    <state width="1340" height="259" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1588703488512" />
+    <state x="905" y="539" key="SettingsEditor" timestamp="1588702907639">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="905" y="539" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1588586737677" />
+    <state x="905" y="539" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1588702907639" />
     <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1588223881320">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
