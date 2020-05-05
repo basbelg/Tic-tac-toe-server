@@ -16,9 +16,9 @@ public class DBManager implements DataSource {
 
     private DBManager() {
         try {
-            File file = new File("R:\\CS4B\\SQL_Password.txt");
+            // File file = new File("R:\\CS4B\\SQL_Password.txt");
 			// File file = new File("C:\\Users\\basbe\\OneDrive\\Documents\\CS 4B\\SQL_Password.txt");
-            // File file = new File("C:\\Users\\jtols\\Documents\\SQLPassword.txt");
+            File file = new File("C:\\Users\\jtols\\Documents\\SQLPassword.txt");
             Scanner scanner = new Scanner(file);
             sql_password = scanner.next();
         } catch (FileNotFoundException e) {e.printStackTrace();}
@@ -55,7 +55,7 @@ public class DBManager implements DataSource {
                 statement = connection.prepareStatement("insert into game (id, start_time, end_time, player1," +
                         " player2, starting_player, winner) values (?,?,?,?,?,?,?);");
                 statement.setString(1, TTTGameData.getId());
-                statement.setTimestamp(2, Timestamp.valueOf(TTTGameData.getStartingTime()));
+                statement.setTimestamp(2, (TTTGameData.getStartingTime() == null)? null :Timestamp.valueOf(TTTGameData.getStartingTime()));
                 statement.setTimestamp(3, null);
                 statement.setInt(4, TTTGameData.getPlayer1Id());
                 statement.setInt(5, TTTGameData.getPlayer2Id());

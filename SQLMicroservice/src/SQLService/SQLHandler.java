@@ -247,8 +247,6 @@ public class SQLHandler implements Runnable{
                             System.out.println("is update");
                             DBManager.getInstance().update(SAV.getGame());
                         }
-                        else
-                            System.out.println("KONO BITCH");
                         break;
                 }
             }

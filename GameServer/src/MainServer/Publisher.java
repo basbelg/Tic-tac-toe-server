@@ -65,11 +65,15 @@ public class Publisher implements Runnable{
                             Iterator<Client> i = MainServer.getInstance().getClients().iterator();
                             while(i.hasNext()) {
                                 Client client = i.next();
-                                if(client.getUser().getId() == SAV.getGame().getPlayer1Id() ||
-                                        client.getUser().getId() == SAV.getGame().getPlayer2Id())
-                                    client.sendPacket(new Packet("CNT-MSG", CNT));
-                                else
-                                    client.sendPacket(new Packet("FUL-MSG", FUL));
+                                if(client.getUser() != null)
+                                {
+                                    if(client.getUser().getId() == SAV.getGame().getPlayer1Id() ||
+                                            client.getUser().getId() == SAV.getGame().getPlayer2Id())
+                                        client.sendPacket(new Packet("CNT-MSG", CNT));
+                                    else
+                                        client.sendPacket(new Packet("FUL-MSG", FUL));
+                                }
+
                             }
                         }
                         
@@ -108,10 +112,14 @@ public class Publisher implements Runnable{
                             Iterator<Client> i = MainServer.getInstance().getClients().iterator();
                             while (i.hasNext()) {
                                 Client client = i.next();
-                                if(CAI.getPlayer1Id() == client.getUser().getId())
-                                    client.sendPacket(new Packet("CAI-MSG", CAI));
-                                else
-                                    client.sendPacket(new Packet("NAI-MSG", NAI));
+                                if(client.getUser() != null)
+                                {
+                                    if(CAI.getPlayer1Id() == client.getUser().getId())
+                                        client.sendPacket(new Packet("CAI-MSG", CAI));
+                                    else
+                                        client.sendPacket(new Packet("NAI-MSG", NAI));
+                                }
+
                             }
                         }
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
@@ -126,6 +134,7 @@ public class Publisher implements Runnable{
                         // create new game object
                         current_game = new TTT_GameData(CLB.getGameLobbyId(), null,
                                 CLB.getPlayer1Id(), 0, CLB.getPlayer1Id());
+
 
                         // update server
                         MainServer.getInstance().getActiveGames().add(current_game);
@@ -142,14 +151,20 @@ public class Publisher implements Runnable{
                         // Send a create lobby message to the player and a new lobby message to all clients
                         synchronized (MainServer.getInstance().getClients()) {
                             Iterator<Client> i = MainServer.getInstance().getClients().iterator();
-                            while (i.hasNext()) {
+                            while (i != null && i.hasNext()) {
                                 Client client = i.next();
-                                if(CLB.getPlayer1Id() == client.getUser().getId())
-                                    client.sendPacket(new Packet("CLB-MSG", CLB));
-                                else
-                                    client.sendPacket(new Packet("NLB-MSG", NLB));
+                                if (client.getUser() != null)
+                                {
+                                    if(CLB.getPlayer1Id() == client.getUser().getId())
+                                        client.sendPacket(new Packet("CLB-MSG", CLB));
+                                    else
+                                        client.sendPacket(new Packet("NLB-MSG", NLB));
+                                }
+
                             }
                         }
+
+
                         break;
 
                     //--------------------------------------------------------------------------------------------------
@@ -163,6 +178,11 @@ public class Publisher implements Runnable{
                         current_game = MainServer.getInstance().getGame_by_id().get(ENC.getidentifier());
                         Client player1 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer1Id());
                         Client player2 = null;
+
+                        if(current_game.getPlayer2Id() != 1)
+                        {
+                            player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
+                        }
 
                         if(GRE.getWinner().equals("0")) {
                             current_game.setWinningPlayerId(0);
@@ -206,15 +226,24 @@ public class Publisher implements Runnable{
                             Iterator<Client> i = MainServer.getInstance().getClients().iterator();
                             while (i.hasNext()) {
                                 Client client = i.next();
-                                client.sendPacket(new Packet("IAG-MSG", IAG));
+                                if(client.getUser() != null)
+                                {
+                                    client.sendPacket(new Packet("IAG-MSG", IAG));
+                                }
+
                             }
                         }
 
-                        // remove game from active games list
-                        MainServer.getInstance().getActiveGames().remove(current_game);
+
 
                         // Update game in history
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
+
+                        synchronized (MainServer.getInstance().getActiveGames())
+                        {
+                            // remove game from active games list
+                            MainServer.getInstance().getActiveGames().remove(current_game);
+                        }
                         break;
 
                     //--------------------------------------------------------------------------------------------------
