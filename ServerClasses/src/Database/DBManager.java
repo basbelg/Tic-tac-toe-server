@@ -292,7 +292,7 @@ public class DBManager implements DataSource {
                     objs.add(new TTT_MoveData(resultSet.getString("game_id"),
                             resultSet.getInt("player_id"),
                             resultSet.getTimestamp("move_time").toLocalDateTime(),
-                            resultSet.getInt("row"), resultSet.getInt("col"),
+                            resultSet.getInt("m_row"), resultSet.getInt("m_col"),
                             resultSet.getInt("turn")));
             }
             else if(classType == TTT_ViewerData.class) {
@@ -375,7 +375,7 @@ public class DBManager implements DataSource {
                     objs.add(new TTT_MoveData(resultSet.getString("game_id"),
                             resultSet.getInt("player_id"),
                             resultSet.getTimestamp("move_time").toLocalDateTime(),
-                            resultSet.getInt("row"), resultSet.getInt("col"),
+                            resultSet.getInt("m_row"), resultSet.getInt("m_col"),
                             resultSet.getInt("turn")));
             }
             else if(classType == TTT_ViewerData.class) {

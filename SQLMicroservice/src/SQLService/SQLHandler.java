@@ -48,7 +48,7 @@ public class SQLHandler implements Runnable{
                                     TTT_GameData game = (TTT_GameData) obj;
                                     User second_player = null;
                                     if(game.getPlayer1Id() == GMP.getPlayerId())
-                                        second_player = (User) DBManager.getInstance().get(User.class, String.valueOf(game.getPlayer1Id()));
+                                        second_player = (User) DBManager.getInstance().get(User.class, String.valueOf(game.getPlayer2Id()));
                                     else if(game.getPlayer2Id() == GMP.getPlayerId())
                                         second_player = (User) DBManager.getInstance().get(User.class, String.valueOf(game.getPlayer1Id()));
                                     infoList.add(new GameInfo(second_player.getUsername(), game.getStartingTime(), game.getId()));
@@ -117,8 +117,16 @@ public class SQLHandler implements Runnable{
                                 GLG.setPlayer1Username(player.getUsername());
                                 player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getPlayer2Id()));
                                 GLG.setPlayer2Username(player.getUsername());
-                                player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getWinningPlayerId()));
-                                GLG.setWinner(player.getUsername());
+                                if(gameData.getWinningPlayerId() != 0)
+                                {
+                                    player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getWinningPlayerId()));
+                                    GLG.setWinner(player.getUsername() + " has won the game");
+                                }
+                                else
+                                {
+                                    GLG.setWinner("It's a tie!");
+                                }
+
 
                                 List<Object> moveData = DBManager.getInstance().query(TTT_MoveData.class, GLG.getGameId());
                                 List<MoveInfo> moves = new ArrayList<>();
@@ -131,6 +139,7 @@ public class SQLHandler implements Runnable{
                                     moves.add(new MoveInfo(new TTT_Move((playerNum == 1 ? playerNum++ : playerNum--), move.getRow(), move.getColumn()), move.getTime()));
                                 }
 
+                                GLG.setMoveHistory(moves);
                                 SQLServer.getInstance().sendPacket(packet);
                                 break;
                             case "STS-MSG": // Stats
