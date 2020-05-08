@@ -22,7 +22,7 @@ public class StatsMessage implements Serializable {
         return losses;
     }
 
-    public void setLosses(int loses) {
+    public void setLosses(int losses) {
         this.losses = losses;
     }
 

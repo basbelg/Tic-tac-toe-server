@@ -2,10 +2,7 @@ package MainServer;
 
 import DataClasses.TTT_GameData;
 import DataClasses.TTT_ViewerData;
-import Messages.EncapsulatedMessage;
-import Messages.IllegalMoveMessage;
-import Messages.MoveMessage;
-import Messages.Packet;
+import Messages.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -67,13 +64,20 @@ public class GameServiceConnection implements Runnable{
                     //--------------------------------------------------------------------------------------------------
                     case "MOV-MSG":
                         MoveMessage MOV = (MoveMessage) ENC.getMsg();
+                        LegalMoveMessage LEM = (LegalMoveMessage) MessageFactory.getMessage("LEM-MSG");
+                        LEM.setNextMove(MOV.getMoveInfo().getNextMove());
 
                         // Send move to players
                         TTT_GameData current_game = MainServer.getInstance().getGame_by_id().get(MOV.getGameId());
                         Client player1 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer1Id());
-                        Client player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
-                        player1.sendPacket(new Packet("MOV-MSG", MOV));
-                        player2.sendPacket(new Packet("MOV-MSG", MOV));
+
+                        if(MainServer.getInstance().getGame_by_id().get(MOV.getGameId()).getPlayer2Id() != 1)
+                        {
+                            Client player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
+                            player2.sendPacket(new Packet("LEM-MSG", LEM));
+                        }
+
+                        player1.sendPacket(new Packet("LEM-MSG", LEM));
 
                         // Send move to viewers
                         synchronized (MainServer.getInstance().getActiveViewers().get(MOV.getGameId())) {
@@ -82,7 +86,7 @@ public class GameServiceConnection implements Runnable{
                             while (i.hasNext()) {
                                 TTT_ViewerData viewer = i.next();
                                 Client c = MainServer.getInstance().getClientIDMap().get(viewer.getViewer_id());
-                                c.sendPacket(new Packet("MOV-MSG", MOV));
+                                c.sendPacket(new Packet("LEM-MSG", LEM));
                             }
                         }
                         SQLServiceConnection.getInstance().sendPacket(new Packet("MOV-MSG", MOV));
@@ -105,6 +109,7 @@ public class GameServiceConnection implements Runnable{
                     case "GRE-MSG":
                     case "SPC-MSG":
                         MainServer.getInstance().getRequests().add(packet);
+
                         break;
                 }
             }

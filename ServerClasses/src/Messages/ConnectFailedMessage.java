@@ -1,6 +1,8 @@
 package Messages;
 
-public class ConnectFailedMessage {
+import java.io.Serializable;
+
+public class ConnectFailedMessage implements Serializable {
     private boolean isGameActive;
 
     public ConnectFailedMessage() {

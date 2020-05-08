@@ -1,6 +1,8 @@
 package Messages;
 
-public class ConcedeMessage {
+import java.io.Serializable;
+
+public class ConcedeMessage implements Serializable {
     private String gameId;
 
     public ConcedeMessage() {

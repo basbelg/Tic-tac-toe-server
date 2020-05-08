@@ -2,7 +2,9 @@ package TicTacToe;
 
 import GameInterfaces.Move;
 
-public class TTT_Move implements Move {
+import java.io.Serializable;
+
+public class TTT_Move implements Move, Serializable {
     private int player;
     private int row;
     private int col;

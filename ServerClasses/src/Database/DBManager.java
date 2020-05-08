@@ -16,7 +16,9 @@ public class DBManager implements DataSource {
 
     private DBManager() {
         try {
-            File file = new File("C:\\Users\\basbe\\OneDrive\\Documents\\CS 4B\\SQL_Password.txt");
+            // File file = new File("R:\\CS4B\\SQL_Password.txt");
+			// File file = new File("C:\\Users\\basbe\\OneDrive\\Documents\\CS 4B\\SQL_Password.txt");
+            File file = new File("C:\\Users\\jtols\\Documents\\SQLPassword.txt");
             Scanner scanner = new Scanner(file);
             sql_password = scanner.next();
         } catch (FileNotFoundException e) {e.printStackTrace();}
@@ -53,7 +55,7 @@ public class DBManager implements DataSource {
                 statement = connection.prepareStatement("insert into game (id, start_time, end_time, player1," +
                         " player2, starting_player, winner) values (?,?,?,?,?,?,?);");
                 statement.setString(1, TTTGameData.getId());
-                statement.setTimestamp(2, Timestamp.valueOf(TTTGameData.getStartingTime()));
+                statement.setTimestamp(2, (TTTGameData.getStartingTime() == null)? null :Timestamp.valueOf(TTTGameData.getStartingTime()));
                 statement.setTimestamp(3, null);
                 statement.setInt(4, TTTGameData.getPlayer1Id());
                 statement.setInt(5, TTTGameData.getPlayer2Id());
@@ -88,8 +90,8 @@ public class DBManager implements DataSource {
                 // insert user into database
                 TTT_MoveData ttt_moveData = (TTT_MoveData) obj;
 
-                statement = connection.prepareStatement("insert into move (game_id, player_id, move_time, row," +
-                        " col, turn) values (?,?,?,?,?, ?);");
+                statement = connection.prepareStatement("insert into move (game_id, player_id, move_time, m_row," +
+                        " m_col, turn) values (?,?,?,?,?,?);");
                 statement.setString(1, ttt_moveData.getGame_id());
                 statement.setInt(2, ttt_moveData.getPlayer_id());
                 statement.setTimestamp(3, Timestamp.valueOf(ttt_moveData.getTime()));
@@ -191,8 +193,8 @@ public class DBManager implements DataSource {
                 statement.setInt(3, TTTGameData.getPlayer1Id());
                 statement.setInt(4, TTTGameData.getPlayer2Id());
                 statement.setInt(5, TTTGameData.getStartingPlayerId());
-                statement.setInt(5, TTTGameData.getWinningPlayerId());
-                statement.setString(6, TTTGameData.getId());
+                statement.setInt(6, TTTGameData.getWinningPlayerId());
+                statement.setString(7, TTTGameData.getId());
 
                 statement.executeUpdate();
             }
@@ -290,7 +292,7 @@ public class DBManager implements DataSource {
                     objs.add(new TTT_MoveData(resultSet.getString("game_id"),
                             resultSet.getInt("player_id"),
                             resultSet.getTimestamp("move_time").toLocalDateTime(),
-                            resultSet.getInt("row"), resultSet.getInt("col"),
+                            resultSet.getInt("m_row"), resultSet.getInt("m_col"),
                             resultSet.getInt("turn")));
             }
             else if(classType == TTT_ViewerData.class) {
@@ -373,7 +375,7 @@ public class DBManager implements DataSource {
                     objs.add(new TTT_MoveData(resultSet.getString("game_id"),
                             resultSet.getInt("player_id"),
                             resultSet.getTimestamp("move_time").toLocalDateTime(),
-                            resultSet.getInt("row"), resultSet.getInt("col"),
+                            resultSet.getInt("m_row"), resultSet.getInt("m_col"),
                             resultSet.getInt("turn")));
             }
             else if(classType == TTT_ViewerData.class) {

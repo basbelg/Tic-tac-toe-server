@@ -45,9 +45,8 @@ public class Client implements Runnable, Serializable {
 
     public synchronized void sendPacket(Packet packet) {
         // Used to set this client socket's user to null if they tried to CREATE an account with an already existing username
-        if(packet.getType().equals("ACF-MSG") && user.getId() == 0) {
+        if(packet.getType().equals("ACF-MSG") && user.getId() == 0)
             user = null;
-        }
 
         try {
             output.writeObject(packet);
@@ -63,7 +62,7 @@ public class Client implements Runnable, Serializable {
         try {
             while (!thread.isInterrupted()) {
                 Packet packet = (Packet) input.readObject();
-                System.out.println("Received from Client: " + packet.getType());
+                System.out.println("Received from Client-side: " + packet.getType());
                 switch (packet.getType()) {
                     //--------------------------------------------------------------------------------------------------
                     //                                      Resolve Here
@@ -87,9 +86,27 @@ public class Client implements Runnable, Serializable {
                         sendPacket(new Packet("AAG-MSG", AAG));
                         break;
 
+                    case "IAG-MSG": // Inactive game message
+                        EncapsulatedMessage ENC_IAG = new EncapsulatedMessage(packet.getType(), user.getId(),
+                                packet.getData());
+                        MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC_IAG));
+                        break;
+
                     //--------------------------------------------------------------------------------------------------
                     //                                  send to game service
                     //--------------------------------------------------------------------------------------------------
+                    case "CNC-MSG": // Concede
+                        ConcedeMessage CNC = (ConcedeMessage) packet.getData();
+
+                        TTT_GameData game = MainServer.getInstance().getGame_by_id().get(CNC.getGameId());
+
+                        if(user.getId() == game.getPlayer1Id() || user.getId() == game.getPlayer2Id()) {
+                            GameResultMessage GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
+                            GRE.setWinner(String.valueOf((user.getId() == game.getPlayer1Id())? 2 : 1));
+                            EncapsulatedMessage ENC_GRE = new EncapsulatedMessage("GRE-MSG", game.getId(), GRE);
+                            MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC_GRE));
+                        }
+
                     case "SPC-MSG": // Spectate
                     case "CNT-MSG": // Connect to lobby
                     case "CAI-MSG": // Create AI Game Lobby
@@ -127,9 +144,11 @@ public class Client implements Runnable, Serializable {
                             }
                         }
 
-                        if (LOF)
-                            sendPacket(new Packet("LOF-MSG", (LoginFailedMessage) MessageFactory.getMessage(
-                                    "LOF-MSG")));
+                        if (LOF) {
+                            LoginFailedMessage loginFailedMessage = (LoginFailedMessage) MessageFactory.getMessage("LOF-MSG");
+                            loginFailedMessage.setOnline(true);
+                            sendPacket(new Packet("LOF-MSG", loginFailedMessage));
+                        }
                         else {
                             user = new User(0, LOG.getUsername(), null, null, null, false);
                             EncapsulatedMessage ENC_LOG = new EncapsulatedMessage(packet.getType(), user.getUsername(),
@@ -144,7 +163,6 @@ public class Client implements Runnable, Serializable {
                     case "UPA-MSG": // Update Account Info
                     case "GLG-MSG": // Game Log
                     case "STS-MSG": // Stats
-                    case "IAG-MSG": // Inactive game message
                         EncapsulatedMessage ENC = new EncapsulatedMessage(packet.getType(), user.getId(),
                                 packet.getData());
                         SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC));
@@ -152,12 +170,14 @@ public class Client implements Runnable, Serializable {
                 }
             }
         } catch (IOException | ClassNotFoundException e) {e.printStackTrace();}
-        finally {synchronized (clients) {
+        finally {
             if(user != null) {
                 System.out.println("Client terminated: " + user.getUsername());
+                EncapsulatedMessage ENC = new EncapsulatedMessage("DIS-MSG", user.getId(), null);
+                MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC));
             }
             clients.remove(this);
-            SQLServiceConnection.getInstance().updateUI();}
+            SQLServiceConnection.getInstance().updateUI();
         }
     }
 

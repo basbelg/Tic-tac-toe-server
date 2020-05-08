@@ -49,7 +49,7 @@ public class Publisher implements Runnable{
                         current_game.setPlayer2Id((int) ENC.getidentifier());
                         current_game.setStartingTime(CNT.getStartTime());
                         SaveGameMessage SAV = new SaveGameMessage(current_game);
-                        SAV.setUpdate();
+                        SAV.setInsert();
 
                         // Create Full Lobby Message
                         FullLobbyMessage FUL = (FullLobbyMessage) MessageFactory.getMessage("FUL-MSG");
@@ -65,11 +65,15 @@ public class Publisher implements Runnable{
                             Iterator<Client> i = MainServer.getInstance().getClients().iterator();
                             while(i.hasNext()) {
                                 Client client = i.next();
-                                if(client.getUser().getId() == SAV.getGame().getPlayer1Id() ||
-                                        client.getUser().getId() == SAV.getGame().getPlayer2Id())
-                                    client.sendPacket(new Packet("CNT-MSG", CNT));
-                                else
-                                    client.sendPacket(new Packet("FUL-MSG", FUL));
+                                if(client.getUser() != null)
+                                {
+                                    if(client.getUser().getId() == SAV.getGame().getPlayer1Id() ||
+                                            client.getUser().getId() == SAV.getGame().getPlayer2Id())
+                                        client.sendPacket(new Packet("CNT-MSG", CNT));
+                                    else
+                                        client.sendPacket(new Packet("FUL-MSG", FUL));
+                                }
+
                             }
                         }
                         
@@ -108,10 +112,14 @@ public class Publisher implements Runnable{
                             Iterator<Client> i = MainServer.getInstance().getClients().iterator();
                             while (i.hasNext()) {
                                 Client client = i.next();
-                                if(CAI.getPlayer1Id() == client.getUser().getId())
-                                    client.sendPacket(new Packet("CAI-MSG", CAI));
-                                else
-                                    client.sendPacket(new Packet("NAI-MSG", NAI));
+                                if(client.getUser() != null)
+                                {
+                                    if(CAI.getPlayer1Id() == client.getUser().getId())
+                                        client.sendPacket(new Packet("CAI-MSG", CAI));
+                                    else
+                                        client.sendPacket(new Packet("NAI-MSG", NAI));
+                                }
+
                             }
                         }
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
@@ -126,6 +134,7 @@ public class Publisher implements Runnable{
                         // create new game object
                         current_game = new TTT_GameData(CLB.getGameLobbyId(), null,
                                 CLB.getPlayer1Id(), 0, CLB.getPlayer1Id());
+
 
                         // update server
                         MainServer.getInstance().getActiveGames().add(current_game);
@@ -142,14 +151,20 @@ public class Publisher implements Runnable{
                         // Send a create lobby message to the player and a new lobby message to all clients
                         synchronized (MainServer.getInstance().getClients()) {
                             Iterator<Client> i = MainServer.getInstance().getClients().iterator();
-                            while (i.hasNext()) {
+                            while (i != null && i.hasNext()) {
                                 Client client = i.next();
-                                if(CLB.getPlayer1Id() == client.getUser().getId())
-                                    client.sendPacket(new Packet("CLB-MSG", CLB));
-                                else
-                                    client.sendPacket(new Packet("NLB-MSG", NLB));
+                                if (client.getUser() != null)
+                                {
+                                    if(CLB.getPlayer1Id() == client.getUser().getId())
+                                        client.sendPacket(new Packet("CLB-MSG", CLB));
+                                    else
+                                        client.sendPacket(new Packet("NLB-MSG", NLB));
+                                }
+
                             }
                         }
+
+
                         break;
 
                     //--------------------------------------------------------------------------------------------------
@@ -162,17 +177,27 @@ public class Publisher implements Runnable{
                         // Create Save Game Message and update Game Result Message
                         current_game = MainServer.getInstance().getGame_by_id().get(ENC.getidentifier());
                         Client player1 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer1Id());
-                        Client player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
+                        Client player2 = null;
 
-                        if(GRE.getWinner() == "0") {
+                        if(current_game.getPlayer2Id() != 1)
+                        {
+                            player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
+                        }
+
+                        if(GRE.getWinner().equals("0")) {
                             current_game.setWinningPlayerId(0);
                             GRE.setWinner(null);
                         }
                         else {
-                            current_game.setWinningPlayerId((GRE.getWinner() == "1")? current_game.getPlayer1Id():
+                            current_game.setWinningPlayerId((GRE.getWinner().equals("1"))? current_game.getPlayer1Id():
                                     current_game.getPlayer2Id());
-                            GRE.setWinner((GRE.getWinner() == "1")? player1.getUser().getUsername():
-                                    player2.getUser().getUsername());
+                            if(current_game.getPlayer2Id() != 1) {
+                                player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
+                                GRE.setWinner((GRE.getWinner().equals("1"))? player1.getUser().getUsername():
+                                        player2.getUser().getUsername());
+                            }
+                            else
+                                GRE.setWinner((GRE.getWinner().equals("1"))? player1.getUser().getUsername(): "AI Player");
                         }
 
                         current_game.setEndTime(LocalDateTime.now());
@@ -182,7 +207,8 @@ public class Publisher implements Runnable{
 
                         // Send result message to players
                         player1.sendPacket(new Packet("GRE-MSG", GRE));
-                        player2.sendPacket(new Packet("GRE-MSG", GRE));
+                        if(current_game.getPlayer2Id() != 1)
+                            player2.sendPacket(new Packet("GRE-MSG", GRE));
 
                         // Send result to viewers
                         synchronized (MainServer.getInstance().getActiveViewers().get(current_game.getId())) {
@@ -200,12 +226,19 @@ public class Publisher implements Runnable{
                             Iterator<Client> i = MainServer.getInstance().getClients().iterator();
                             while (i.hasNext()) {
                                 Client client = i.next();
-                                client.sendPacket(new Packet("IAG-MSG", IAG));
+                                if(client.getUser() != null)
+                                {
+                                    client.sendPacket(new Packet("IAG-MSG", IAG));
+                                }
+
                             }
                         }
 
                         // Update game in history
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
+
+                        // remove game from active games list
+                        MainServer.getInstance().getActiveGames().remove(current_game); // remove is already synchronized
                         break;
 
                     //--------------------------------------------------------------------------------------------------
@@ -217,9 +250,14 @@ public class Publisher implements Runnable{
                         // Set player usernames
                         current_game = MainServer.getInstance().getGame_by_id().get(SPC.getGameId());
                         player1 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer1Id());
-                        player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer1Id());
                         SPC.setPlayer1Username(player1.getUser().getUsername());
-                        SPC.setPlayer1Username(player2.getUser().getUsername());
+
+                        if(current_game.getPlayer2Id() != 1) {
+                            player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
+                            SPC.setPlayer2Username(player2.getUser().getUsername());
+                        }
+                        else
+                            SPC.setPlayer2Username("AI Player");
 
                         // Add viewer to list of viewers
                         TTT_ViewerData viewer = new TTT_ViewerData(SPC.getGameId(), SPC.getSpectatorId());
@@ -228,6 +266,57 @@ public class Publisher implements Runnable{
                         // Send to viewer
                         MainServer.getInstance().getClientIDMap().get(SPC.getSpectatorId()).sendPacket(
                                 new Packet("SPC-MSG", SPC));
+                        break;
+
+                    case "DIS-MSG":
+                    case "IAG-MSG":
+                        int user_id = (int) ENC.getidentifier();
+                        TTT_GameData user_game = null;
+
+                        // Locate client's game
+                        if(ENC.getType().equals("DIS-MSG"))
+                            synchronized (MainServer.getInstance().getActiveGames()) {
+                                Iterator<TTT_GameData> iterator = MainServer.getInstance().getActiveGames().iterator();
+                                while(iterator.hasNext()) {
+                                    TTT_GameData game = iterator.next();
+                                    if(user_id == game.getPlayer1Id() || user_id == game.getPlayer2Id()) {
+                                        user_game = game;
+                                        break;
+                                    }
+                                }
+                            }
+                        else if(ENC.getType().equals("IAG-MSG"))
+                            user_game = MainServer.getInstance().getGame_by_id()
+                                    .get(((InactiveGameMessage) ENC.getMsg()).getFinishedGameId());
+
+                        // If the client was in a game
+                        if(user_game != null) {
+                            if (user_game.getPlayer2Id() == 0) { // if lobby has only one player
+                                // notify all clients that lobby no longer exists
+                                IAG = (InactiveGameMessage) MessageFactory.getMessage("IAG-MSG");
+                                IAG.setFinishedGameId(user_game.getId());
+                                synchronized (MainServer.getInstance().getClients()) {
+                                    Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
+                                    while(iterator.hasNext())
+                                        iterator.next().sendPacket(new Packet("IAG-MSG", IAG));
+                                }
+
+                                MainServer.getInstance().getActiveGames().remove(user_game);
+                            } else {
+                                // send a GRE message to notify the other player if applicable, and save the game to
+                                // the db
+                                GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
+                                GRE.setWinner(String.valueOf((user_id == user_game.getPlayer1Id()) ? 2 : 1));
+                                EncapsulatedMessage ENC_GRE = new EncapsulatedMessage("GRE-MSG", user_game.getId(), GRE);
+                                MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC_GRE));
+                            }
+
+                            // end the game on the GameServer to prevent new players from joining, etc.
+                            ConcedeMessage CNC = (ConcedeMessage) MessageFactory.getMessage("CNC-MSG");
+                            CNC.setGameId(user_game.getId());
+                            EncapsulatedMessage ENC_CNC = new EncapsulatedMessage("CNC-MSG", user_game.getId(), CNC);
+                            GameServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC_CNC));
+                        }
                         break;
                 }
             }
