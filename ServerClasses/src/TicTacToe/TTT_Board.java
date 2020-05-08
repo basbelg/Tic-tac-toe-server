@@ -62,6 +62,10 @@ public class TTT_Board implements Board {
         return player;
     }
 
+    public int[][] getCurrentBoard() {
+        return currentBoard.clone();
+    }
+
     @Override
     public void setPosition(int player, int row, int col) throws Exception {
         if(player == 1 && currentBoard[row][col] == 0)

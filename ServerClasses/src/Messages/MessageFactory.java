@@ -57,6 +57,8 @@ public final class MessageFactory {
 
             case "SPC-MSG": return new SpectateMessage();
 
+            case "SSP-MSG": return new StopSpectatingMessage();
+
             case "STS-MSG": return new StatsMessage();
 
             case "UPA-MSG": return new UpdateAccountInfoMessage();
