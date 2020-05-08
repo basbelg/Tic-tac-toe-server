@@ -55,7 +55,10 @@ public class GameHandler implements Runnable{
                             // return updated encapsulated connect-to-lobby message
                             GameServer.getInstance().sendPacket(packet);
                         }
-                        catch (NullPointerException e) {System.out.println("Invalid game id: " + CNT.getLobbyGameId());}
+                        catch (NullPointerException e) {
+                            System.out.println("Invalid game id: " + CNT.getLobbyGameId());
+                            // connection failed message
+                        }
                         catch (Exception e) {e.printStackTrace();}
                         break;
 
@@ -92,7 +95,6 @@ public class GameHandler implements Runnable{
 
                         // return updated encapsulated create-game-lobby message
                         GameServer.getInstance().sendPacket(packet);
-
                         break;
 
                     //--------------------------------------------------------------------------------------------------
@@ -100,27 +102,28 @@ public class GameHandler implements Runnable{
                     //--------------------------------------------------------------------------------------------------
                     case "MOV-MSG":
                         MoveMessage MOV = (MoveMessage) ENC.getMsg();
+
                         TTT_Game current_game = games.get(MOV.getGameId());
 
                         try {
-                            // attempt move
-                            current_game.performMove(MOV.getMoveInfo().getNextMove());
+                                // attempt move
+                                current_game.performMove(MOV.getMoveInfo().getNextMove());
 
-                            // If the game is over: send game result and end the game
-                            if(current_game.isFinished()) {
-                                current_game.endGame();
-                                GameResultMessage GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
-                                GRE.setWinner(String.valueOf(current_game.getWinner()));
-                                EncapsulatedMessage ENC_GRE = new EncapsulatedMessage("GRE-MSG",
-                                        current_game.getGameId(), GRE);
-                                GameServer.getInstance().sendPacket(new Packet("ENC-MSG", ENC_GRE));
-                            }
+                                // If the game is over: send game result and end the game
+                                if (current_game.isFinished()) {
+                                    games.remove(current_game.getGameId());
+                                    GameResultMessage GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
+                                    GRE.setWinner(String.valueOf(current_game.getWinner()));
+                                    EncapsulatedMessage ENC_GRE = new EncapsulatedMessage("GRE-MSG",
+                                            current_game.getGameId(), GRE);
+                                    GameServer.getInstance().sendPacket(new Packet("ENC-MSG", ENC_GRE));
+                                }
 
-                            // send move message
-                            GameServer.getInstance().sendPacket(packet);
+                                // send move message
+                                GameServer.getInstance().sendPacket(packet);
                         } catch (Exception e) {
                             // if the move is invalid: send an illegal move message
-                            e.printStackTrace();
+                            System.out.println("Illegal move received from client");
                             IllegalMoveMessage ILM = (IllegalMoveMessage) MessageFactory.getMessage("ILM-MSG");
                             EncapsulatedMessage ENC_ILM = new EncapsulatedMessage("ILM-MSG", ENC.getidentifier(), ILM);
                             GameServer.getInstance().sendPacket(new Packet("ENC-MSG", ENC_ILM));
@@ -134,8 +137,8 @@ public class GameHandler implements Runnable{
                         SpectateMessage SPC = (SpectateMessage) ENC.getMsg();
 
                         // If the game is not over: send spectate message back with the current board
-                        if(games.get(SPC.getGameId()).isActive()) {
-                            try {
+                        try {
+                            if(games.get(SPC.getGameId()).isActive()) {
                                 TTT_Board board = (TTT_Board) games.get(SPC.getGameId()).getBoard();
                                 int[][] arrayBoard = new int[3][3];
                                 for(int i = 0; i < 9; i++)
@@ -146,25 +149,14 @@ public class GameHandler implements Runnable{
                                 // Send encapsulated spectate message
                                 GameServer.getInstance().sendPacket(packet);
                             }
-                            catch (NullPointerException e) {System.out.println("Invalid game id: " + SPC.getGameId());}
-                            catch (Exception e) {e.printStackTrace();}
                         }
+                        catch (NullPointerException e) {System.out.println("Invalid game id: " + SPC.getGameId());}
+                        catch (Exception e) {e.printStackTrace();}
                         break;
 
                     case "CNC-MSG": // Concede
                         ConcedeMessage CNC = (ConcedeMessage) ENC.getMsg();
-
-                        // end the game if it was active, or delete the game if it was a vs player lobby 
-                        try {
-                            ttt_game = games.get(CNC.getGameId());
-
-                            if(ttt_game.isActive())
-                                ttt_game.endGame();
-                            else
-                                games.remove(ttt_game.getGameId());
-                        }
-                        catch (NullPointerException e) {System.out.println("Invalid game id: " + CNC.getGameId());}
-                        catch (Exception e) {e.printStackTrace();}
+                        games.remove(CNC.getGameId());
                         break;
                 }
             }
