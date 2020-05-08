@@ -51,7 +51,9 @@ public class SQLHandler implements Runnable{
                                         second_player = (User) DBManager.getInstance().get(User.class, String.valueOf(game.getPlayer2Id()));
                                     else if(game.getPlayer2Id() == GMP.getPlayerId())
                                         second_player = (User) DBManager.getInstance().get(User.class, String.valueOf(game.getPlayer1Id()));
-                                    infoList.add(new GameInfo(second_player.getUsername(), game.getStartingTime(), game.getId()));
+
+                                    if(second_player != null)
+                                        infoList.add(new GameInfo(second_player.getUsername(), game.getStartingTime(), game.getId()));
                                 }
                                 GMP.setGameInfoList(infoList);
 

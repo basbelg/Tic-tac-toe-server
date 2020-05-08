@@ -86,7 +86,7 @@ public class GameServiceConnection implements Runnable{
                             while (i.hasNext()) {
                                 TTT_ViewerData viewer = i.next();
                                 Client c = MainServer.getInstance().getClientIDMap().get(viewer.getViewer_id());
-                                c.sendPacket(new Packet("MOV-MSG", MOV));
+                                c.sendPacket(new Packet("LEM-MSG", LEM));
                             }
                         }
                         SQLServiceConnection.getInstance().sendPacket(new Packet("MOV-MSG", MOV));

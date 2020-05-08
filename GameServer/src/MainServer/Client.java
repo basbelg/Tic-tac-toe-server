@@ -144,9 +144,11 @@ public class Client implements Runnable, Serializable {
                             }
                         }
 
-                        if (LOF)
-                            sendPacket(new Packet("LOF-MSG", (LoginFailedMessage) MessageFactory.getMessage(
-                                    "LOF-MSG")));
+                        if (LOF) {
+                            LoginFailedMessage loginFailedMessage = (LoginFailedMessage) MessageFactory.getMessage("LOF-MSG");
+                            loginFailedMessage.setOnline(true);
+                            sendPacket(new Packet("LOF-MSG", loginFailedMessage));
+                        }
                         else {
                             user = new User(0, LOG.getUsername(), null, null, null, false);
                             EncapsulatedMessage ENC_LOG = new EncapsulatedMessage(packet.getType(), user.getUsername(),

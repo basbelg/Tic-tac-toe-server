@@ -137,11 +137,8 @@ public class GameHandler implements Runnable{
                         if(games.get(SPC.getGameId()).isActive()) {
                             try {
                                 TTT_Board board = (TTT_Board) games.get(SPC.getGameId()).getBoard();
-                                int[][] arrayBoard = new int[3][3];
-                                for(int i = 0; i < 9; i++)
-                                        arrayBoard[i/3][i%3] = (board.getPlayerAt(i/3, i%3) == 2)?
-                                                -1: board.getPlayerAt(i/3, i%3);
-                                SPC.setGameBoard(arrayBoard);
+
+                                SPC.setGameBoard(board.getCurrentBoard());
 
                                 // Send encapsulated spectate message
                                 GameServer.getInstance().sendPacket(packet);
