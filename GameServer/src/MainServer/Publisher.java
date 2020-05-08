@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 public class Publisher implements Runnable{
@@ -266,6 +267,12 @@ public class Publisher implements Runnable{
                         // Send to viewer
                         MainServer.getInstance().getClientIDMap().get(SPC.getSpectatorId()).sendPacket(
                                 new Packet("SPC-MSG", SPC));
+                        break;
+
+                    case "SSP-MSG":
+                        StopSpectatingMessage SSP = (StopSpectatingMessage) ENC.getMsg();
+                        List<TTT_ViewerData> viewers = MainServer.getInstance().getActiveViewers().get(SSP.getGameId());
+                        viewers.remove((int)ENC.getidentifier());
                         break;
 
                     case "DIS-MSG":

@@ -86,7 +86,8 @@ public class Client implements Runnable, Serializable {
                         sendPacket(new Packet("AAG-MSG", AAG));
                         break;
 
-                    case "IAG-MSG": // Inactive game message
+                    case "SSP-MSG": // Stop Spectating Message
+                    case "IAG-MSG": // Inactive Game Message
                         EncapsulatedMessage ENC_IAG = new EncapsulatedMessage(packet.getType(), user.getId(),
                                 packet.getData());
                         MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC_IAG));
