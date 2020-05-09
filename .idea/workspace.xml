@@ -7,26 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServerClasses/src/Messages/StopSpectatingMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameMicroservice/src/GameService/GameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/src/GameService/GameHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/GameServiceConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/GameServiceConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/GameServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/GameServer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Publisher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerClasses/src/Messages/LoginFailedMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerClasses/src/Messages/LoginFailedMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerClasses/src/Messages/MessageFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerClasses/src/Messages/MessageFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerClasses/src/Messages/StatsMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerClasses/src/Messages/StatsMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerClasses/src/TicTacToe/TTT_Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerClasses/src/TicTacToe/TTT_Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerClasses/src/Database/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerClasses/src/Database/DBManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/ServerClasses_jar/ServerClasses.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/ServerClasses_jar/ServerClasses.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameMicroservice/GameService/GameHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameMicroservice/GameService/GameHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/GameServiceConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/GameServiceConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SQLMicroservice/SQLService/SQLHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SQLMicroservice/SQLService/SQLHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/LoginFailedMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClasses/Messages/LoginFailedMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/MessageFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClasses/Messages/MessageFactory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Messages/StatsMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClasses/Messages/StatsMessage.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/TicTacToe/TTT_Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClasses/TicTacToe/TTT_Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Database/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClasses/Database/DBManager.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +47,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/out/artifacts/ServerClasses_jar/ServerClasses.jar!/" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/openjfx-13.0.2_windows-x64_bin-sdk/javafx-sdk-13.0.2/lib" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.28235295" />
@@ -99,7 +89,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="UI.Main" />
       <module name="GameServer" />
-      <option name="VM_PARAMETERS" value="--module-path C:\Users\jtols\Downloads\openjfx-12.0.2_windows-x64_bin-sdk\javafx-sdk-12.0.2\lib --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path C:\Users\basbe\Downloads\openjfx-13.0.2_windows-x64_bin-sdk\javafx-sdk-13.0.2\lib --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="UI.*" />

@@ -263,6 +263,9 @@ public class Publisher implements Runnable{
                         TTT_ViewerData viewer = new TTT_ViewerData(SPC.getGameId(), SPC.getSpectatorId());
                         MainServer.getInstance().getActiveViewers().get(SPC.getGameId()).add(viewer);
 
+                        // Send viewer information to the SQL microservice
+                        SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC));
+
                         // Send to viewer
                         MainServer.getInstance().getClientIDMap().get(SPC.getSpectatorId()).sendPacket(
                                 new Packet("SPC-MSG", SPC));
