@@ -55,8 +55,15 @@ public class GameHandler implements Runnable{
                             // return updated encapsulated connect-to-lobby message
                             GameServer.getInstance().sendPacket(packet);
                         }
-                        catch (Exception e) {
-                            // connection failed message
+                        catch (NullPointerException e) {
+                            // game no longer exists
+                            ConnectFailedMessage COF = (ConnectFailedMessage) MessageFactory.getMessage("COF-MSG");
+                            COF.setGameActive(false);
+                            EncapsulatedMessage ENC_COF = new EncapsulatedMessage("COF-MSG",
+                                    ENC.getidentifier(), COF);
+                            GameServer.getInstance().sendPacket(new Packet("ENC-MSG", ENC_COF));
+                        } catch (Exception e) {
+                            // game is full
                             ConnectFailedMessage COF = (ConnectFailedMessage) MessageFactory.getMessage("COF-MSG");
                             COF.setGameActive(true);
                             EncapsulatedMessage ENC_COF = new EncapsulatedMessage("COF-MSG",
