@@ -172,6 +172,13 @@ public class SQLHandler implements Runnable{
                                 SQLServer.getInstance().sendPacket(packet);
                                 break;
 
+                            case "SPC-MSG": //Spectator
+                                SpectateMessage SPC = (SpectateMessage) ENC.getMsg();
+
+                                TTT_ViewerData viewer = new TTT_ViewerData(SPC.getGameId(), SPC.getSpectatorId());
+                                DBManager.getInstance().insert(viewer);
+                                break;
+
                             //------------------------------------------------------------------------------------------
                             //                                        Create Account
                             //------------------------------------------------------------------------------------------
