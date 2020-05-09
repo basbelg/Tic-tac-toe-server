@@ -55,11 +55,14 @@ public class GameHandler implements Runnable{
                             // return updated encapsulated connect-to-lobby message
                             GameServer.getInstance().sendPacket(packet);
                         }
-                        catch (NullPointerException e) {
-                            System.out.println("Invalid game id: " + CNT.getLobbyGameId());
+                        catch (Exception e) {
                             // connection failed message
+                            ConnectFailedMessage COF = (ConnectFailedMessage) MessageFactory.getMessage("COF-MSG");
+                            COF.setGameActive(true);
+                            EncapsulatedMessage ENC_COF = new EncapsulatedMessage("COF-MSG",
+                                    ENC.getidentifier(), COF);
+                            GameServer.getInstance().sendPacket(new Packet("ENC-MSG", ENC_COF));
                         }
-                        catch (Exception e) {e.printStackTrace();}
                         break;
 
                     //--------------------------------------------------------------------------------------------------
@@ -106,21 +109,21 @@ public class GameHandler implements Runnable{
                         TTT_Game current_game = games.get(MOV.getGameId());
 
                         try {
-                                // attempt move
-                                current_game.performMove(MOV.getMoveInfo().getNextMove());
+                            // attempt move
+                            current_game.performMove(MOV.getMoveInfo().getNextMove());
 
-                                // If the game is over: send game result and end the game
-                                if (current_game.isFinished()) {
-                                    games.remove(current_game.getGameId());
-                                    GameResultMessage GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
-                                    GRE.setWinner(String.valueOf(current_game.getWinner()));
-                                    EncapsulatedMessage ENC_GRE = new EncapsulatedMessage("GRE-MSG",
-                                            current_game.getGameId(), GRE);
-                                    GameServer.getInstance().sendPacket(new Packet("ENC-MSG", ENC_GRE));
-                                }
+                            // If the game is over: send game result and end the game
+                            if (current_game.isFinished()) {
+                                games.remove(current_game.getGameId());
+                                GameResultMessage GRE = (GameResultMessage) MessageFactory.getMessage("GRE-MSG");
+                                GRE.setWinner(String.valueOf(current_game.getWinner()));
+                                EncapsulatedMessage ENC_GRE = new EncapsulatedMessage("GRE-MSG",
+                                        current_game.getGameId(), GRE);
+                                GameServer.getInstance().sendPacket(new Packet("ENC-MSG", ENC_GRE));
+                            }
 
-                                // send move message
-                                GameServer.getInstance().sendPacket(packet);
+                            // send move message
+                            GameServer.getInstance().sendPacket(packet);
                         } catch (Exception e) {
                             // if the move is invalid: send an illegal move message
                             System.out.println("Illegal move received from client");

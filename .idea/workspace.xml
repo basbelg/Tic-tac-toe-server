@@ -2,26 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/ServerClasses.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/ServerClasses.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/GameServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/GameServer.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerClasses/ServerClasses.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ServerClasses/ServerClasses.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerClasses/src/Database/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerClasses/src/Database/DBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tic-Tac-Toe.mwb.beforefix" beforeDir="false" afterPath="$PROJECT_DIR$/Tic-Tac-Toe.mwb.beforefix" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameMicroservice/GameService/GameHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameMicroservice/GameService/GameHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/GameServiceConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/GameServiceConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/MainServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/MainServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/SQLServiceConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/SQLServiceConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/GameDetailsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/GameDetailsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/ServerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ServerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SQLMicroservice/SQLService/SQLHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SQLMicroservice/SQLService/SQLHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Database/DataSource.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameMicroservice/src/GameService/GameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/src/GameService/GameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/GameServiceConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/GameServiceConnection.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
