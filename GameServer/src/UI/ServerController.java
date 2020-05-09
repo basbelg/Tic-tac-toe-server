@@ -109,47 +109,18 @@ public class ServerController implements Initializable
                     Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
                     while (iterator.hasNext()) {
                         client = iterator.next();
-                        if (client.getUser() != null) {
-                            if (client.getUser().getId() != 0) {
+                        if (client.getUser() != null && client.getUser().getId() != 0) {
                                 allPlayers.add(client.getUser());
                                 onlinePlayerList.getItems().add(new Label(client.getUser().getUsername() + " (" + client.getUser().getFullName() + ")"));
-                            }
                         }
                     }
                 }
-            }/* else if (msg instanceof LoginSuccessfulMessage) {
-                for (Client c : MainServer.getInstance().getClients()) {
-                    if (!c.getUser().equals(null)) {
-                        onlinePlayerList.getItems().add(new Label(c.getUser().getUsername() + " (" + c.getUser().getFullName() + ")"));
-                    }
-                }
-            }*/
+            }
         });
     }
 
+
+
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
-       SQLServiceConnection.getInstance().setListener(this);
-
-       /*  //ALL Players
-        List<Object> players = DBManager.getInstance().list(User.class);
-        for(Object user : players)
-        {
-            if(((User) user).getId() != 0)
-            {
-                allPlayers.add((User) user);
-                registeredPlayersList.getItems().add(new Label(((User) user).getUsername() + " (" + ((User) user).getFullName() + ")"));
-            }
-        }
-
-        //ONLINE Players
-        for(Client c : MainServer.getInstance().getClients())
-        {
-            if(!c.getUser().equals(null))
-            {
-                onlinePlayerList.getItems().add(new Label(c.getUser().getUsername() + " (" + c.getUser().getFullName() + ")"));
-            }
-        }*/
-    }
+    public void initialize(URL url, ResourceBundle resourceBundle) {SQLServiceConnection.getInstance().setListener(this);}
 }

@@ -17,8 +17,8 @@ public class DBManager implements DataSource {
     private DBManager() {
         try {
             // File file = new File("R:\\CS4B\\SQL_Password.txt");
-			File file = new File("C:\\Users\\basbe\\OneDrive\\Documents\\CS 4B\\SQL_Password.txt");
-            //File file = new File("C:\\Users\\jtols\\Documents\\SQLPassword.txt");
+			// File file = new File("C:\\Users\\basbe\\OneDrive\\Documents\\CS 4B\\SQL_Password.txt");
+            // File file = new File("C:\\Users\\jtols\\Documents\\SQLPassword.txt");
             Scanner scanner = new Scanner(file);
             sql_password = scanner.next();
         } catch (FileNotFoundException e) {e.printStackTrace();}
