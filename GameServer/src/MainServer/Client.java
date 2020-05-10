@@ -158,8 +158,20 @@ public class Client implements Runnable, Serializable {
                         }
                         break;
 
-                    case "GMP-MSG": // Games played
                     case "GVW-MSG": // Game Viewers
+                        if(((GameViewersMessage) packet.getData()).isGameActive())
+                        {
+                            EncapsulatedMessage ENC = new EncapsulatedMessage(packet.getType(), user.getId(), packet.getData());
+                            MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC));
+                        }
+                        else
+                        {
+                            EncapsulatedMessage ENC = new EncapsulatedMessage(packet.getType(), user.getId(),
+                                    packet.getData());
+                            SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC));
+                        }
+                        break;
+                    case "GMP-MSG": // Games played
                     case "DAC-MSG": // Deactivate Account
                     case "UPA-MSG": // Update Account Info
                     case "GLG-MSG": // Game Log
