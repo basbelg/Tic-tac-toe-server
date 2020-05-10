@@ -1,8 +1,10 @@
 package MainServer;
 
+import DataClasses.Spectator;
 import DataClasses.TTT_GameData;
 import DataClasses.TTT_ViewerData;
 import Messages.*;
+import UI.Main;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -272,6 +274,23 @@ public class Publisher implements Runnable{
                                 new Packet("SPC-MSG", SPC));
                         break;
 
+                    case "GVW-MSG":
+                        GameViewersMessage GVW = (GameViewersMessage) ENC.getMsg();
+                        List<TTT_ViewerData> currentViewers = MainServer.getInstance().getActiveViewers().get(GVW.getGameId());
+                        synchronized (currentViewers)
+                        {
+                            Iterator<TTT_ViewerData> iterator = currentViewers.iterator();
+                            List<Spectator> spectators = new ArrayList<>();
+                            while(iterator.hasNext())
+                            {
+                                TTT_ViewerData v = iterator.next();
+                                spectators.add(new Spectator(MainServer.getInstance().getClientIDMap().get(v.getViewer_id()).getUser().getUsername()));
+                            }
+                            GVW.setSpectators(spectators);
+                        }
+                        MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).sendPacket(new Packet("GVW-MSG", GVW));
+                        break;
+
                     case "SSP-MSG":
                         StopSpectatingMessage SSP = (StopSpectatingMessage) ENC.getMsg();
                         List<TTT_ViewerData> viewers = MainServer.getInstance().getActiveViewers().get(SSP.getGameId());
@@ -286,7 +305,7 @@ public class Publisher implements Runnable{
                             }
                         }
 
-                        MainServer.getInstance().getClientIDMap().get((int)ENC.getidentifier()).sendPacket(
+                        MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).sendPacket(
                                 new Packet("SSP-MSG", SSP));
                         break;
 

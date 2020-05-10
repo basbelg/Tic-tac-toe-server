@@ -9,6 +9,7 @@ public class GameViewersMessage implements Serializable {
     private int userId;
     private String gameId;
     private List<Spectator> spectators;
+    private boolean isGameActive;
 
     public GameViewersMessage() {}
 
@@ -34,5 +35,13 @@ public class GameViewersMessage implements Serializable {
 
     public void setSpectators(List<Spectator> spectators) {
         this.spectators = spectators;
+    }
+
+    public boolean isGameActive() {
+        return isGameActive;
+    }
+
+    public void setGameActive(boolean gameActive) {
+        isGameActive = gameActive;
     }
 }
