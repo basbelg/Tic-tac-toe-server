@@ -172,6 +172,25 @@ public class SQLHandler implements Runnable{
                                 SQLServer.getInstance().sendPacket(packet);
                                 break;
 
+                            case "SPC-MSG": //Spectator
+                                SpectateMessage SPC = (SpectateMessage) ENC.getMsg();
+                                boolean isDuplicate = false;
+
+                                List<Object> current_spectators = DBManager.getInstance().list(TTT_ViewerData.class);
+                                for(Object obj: current_spectators) {
+                                    TTT_ViewerData cv = (TTT_ViewerData) obj;
+                                    if(cv.getViewer_id() == SPC.getSpectatorId() && cv.getGame_id().equals(SPC.getGameId())) {
+                                        isDuplicate = true;
+                                        break;
+                                    }
+                                }
+
+                                if(!isDuplicate) {
+                                    TTT_ViewerData viewer = new TTT_ViewerData(SPC.getGameId(), SPC.getSpectatorId());
+                                    DBManager.getInstance().insert(viewer);
+                                }
+                                break;
+
                             //------------------------------------------------------------------------------------------
                             //                                        Create Account
                             //------------------------------------------------------------------------------------------

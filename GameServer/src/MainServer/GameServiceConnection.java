@@ -93,11 +93,11 @@ public class GameServiceConnection implements Runnable{
                         break;
 
                     //--------------------------------------------------------------------------------------------------
-                    //                                       Illegal Move
+                    //                                Illegal Move/Connect Failed
                     //--------------------------------------------------------------------------------------------------
                     case "ILM-MSG":
-                        IllegalMoveMessage ILM = (IllegalMoveMessage) ENC.getMsg();
-                        MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).sendPacket(new Packet("ILM-MSG", ILM));
+                    case "COF-MSG":
+                        MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
                         break;
 
                     //--------------------------------------------------------------------------------------------------
