@@ -275,7 +275,19 @@ public class Publisher implements Runnable{
                     case "SSP-MSG":
                         StopSpectatingMessage SSP = (StopSpectatingMessage) ENC.getMsg();
                         List<TTT_ViewerData> viewers = MainServer.getInstance().getActiveViewers().get(SSP.getGameId());
-                        viewers.remove((int)ENC.getidentifier());
+                        synchronized (viewers) {
+                            Iterator<TTT_ViewerData> iterator = viewers.iterator();
+                            while(iterator.hasNext()) {
+                                TTT_ViewerData spectator = iterator.next();
+                                if(((int)ENC.getidentifier()) == spectator.getViewer_id()) {
+                                    viewers.remove(spectator);
+                                    break;
+                                }
+                            }
+                        }
+
+                        MainServer.getInstance().getClientIDMap().get((int)ENC.getidentifier()).sendPacket(
+                                new Packet("SSP-MSG", SSP));
                         break;
 
                     case "DIS-MSG":
