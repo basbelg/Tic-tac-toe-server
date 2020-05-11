@@ -232,7 +232,8 @@ public class SQLHandler implements Runnable{
                                     User user = (User) obj;
                                     System.out.println(user.getUsername() + " " + user.getPassword());
                                     System.out.println(LOG.getUsername() + " " + LOG.getPassword());
-                                    if(user.getUsername().equals(LOG.getUsername()) && user.getPassword().equals(LOG.getPassword())) {
+                                    if(user.getUsername().equals(LOG.getUsername()) && user.getPassword().equals(LOG.getPassword()) &&
+                                            user.getId() != 1) {
                                         // Send Login Success
                                         LoginSuccessfulMessage LOS = (LoginSuccessfulMessage) MessageFactory.getMessage("LOS-MSG");
                                         LOS.setUser(user);

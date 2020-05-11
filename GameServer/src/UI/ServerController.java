@@ -5,9 +5,7 @@ import Database.DBManager;
 import MainServer.Client;
 import MainServer.MainServer;
 import MainServer.SQLServiceConnection;
-import Messages.AccountSuccessfulMessage;
-import Messages.DeactivateAccountMessage;
-import Messages.LoginSuccessfulMessage;
+import Messages.*;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -115,6 +113,15 @@ public class ServerController implements Initializable
                         }
                     }
                 }
+            }
+            else if(msg instanceof AccountSuccessfulMessage) {
+                // update registered player list from db
+            }
+            else if(msg instanceof ConnectToLobbyMessage || msg instanceof CreateAIGameMessage) {
+                // update active games
+            }
+            else if(msg instanceof GameResultMessage) {
+                // update completed games list from db
             }
         });
     }
