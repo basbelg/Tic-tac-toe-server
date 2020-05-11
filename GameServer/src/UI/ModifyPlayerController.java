@@ -65,21 +65,16 @@ public class ModifyPlayerController implements Initializable, ServerListener
         {
             Platform.runLater(() -> {
                 StringBuffer error = new StringBuffer();
-                if (enterFirstName.getText().equals("")) {
+                if (enterFirstName.getText().equals(""))
                     error.append("Please enter a first name!\n");
-                }
-                if (enterLastName.getText().equals("")) {
+                if (enterLastName.getText().equals(""))
                     error.append("Please enter a last name!\n");
-                }
-                if (enterUsername.getText().equals("")) {
+                if (enterUsername.getText().equals(""))
                     error.append("Please enter a valid username!\n");
-                }
-                if (enterPassword.getText().equals("")) {
+                if (enterPassword.getText().equals(""))
                     error.append("Please enter a valid password!\n");
-                }
-                if (!enterPassword.getText().equals(enterConfirmPassword.getText()) && !enterPassword.getText().equals("")) {
+                if (!enterPassword.getText().equals(enterConfirmPassword.getText()) && !enterPassword.getText().equals(""))
                     error.append("Passwords do NOT match!\n");
-                }
 
                 errorLabel.setText(error.toString());
             });
@@ -87,34 +82,25 @@ public class ModifyPlayerController implements Initializable, ServerListener
 
     }
 
-    public void onCancelClicked()
-    {
-        try
-        {
+    public void onCancelClicked() {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Server.fxml"));
             Parent root = loader.load();
             ServerController sc = loader.getController();
+            MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(sc);
             Stage stage = (Stage) cancelButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Server");
             stage.setScene(new Scene(root));
             stage.show();
         }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
+        catch(IOException e) {e.printStackTrace();}
     }
 
-    public void passInfo(User player)
-    {
-        this.player = player;
-
-        enterUsername.setText(player.getUsername());
-        enterFirstName.setText(player.getFirstName());
-        enterLastName.setText(player.getLastName());
-        enterPassword.setText(player.getPassword());
-        enterConfirmPassword.setText(player.getPassword());
+    public void passInfo(int player_id) {
+        /*need a new message to pull user's info from the db using player_id*/
+        SQLServiceConnection.getInstance().sendPacket(new Packet("New Message Type", /*new message*/null));
     }
 
     @Override
@@ -124,16 +110,19 @@ public class ModifyPlayerController implements Initializable, ServerListener
     public void update(Serializable msg, Object data) {
 //        Platform.runLater(() -> {
 //            switch (msg.getClass().getSimpleName()) {
-//                case "AccountSuccessfulMessage":
+//                case "AccountSuccessfulMessage": // If user changes their info while it is being changed on the server
+//                                                 // (Probably should be removed because this could delete changes made by the admin when it updates)
 //                    SQLServiceConnection.getInstance().sendPacket(new Packet("SomeNewMessage", new SomeNewMessage()));
 //                    break;
 //
 //                case "SomeNewMessage":
-//                    enterUsername.setText(SomeNewMessage.getUsername());
-//                    enterFirstName.setText(SomeNewMessage.getFirstName());
-//                    enterLastName.setText(SomeNewMessage.getLastName());
-//                    enterPassword.setText(SomeNewMessage.getPassword());
-//                    enterConfirmPassword.setText(SomeNewMessage.getPassword());
+//                    this.player =  NewMessage.getUser;
+//
+//                    enterUsername.setText(player.getUsername());
+//                    enterFirstName.setText(player.getFirstName());
+//                    enterLastName.setText(player.getLastName());
+//                    enterPassword.setText(player.getPassword());
+//                    enterConfirmPassword.setText(player.getPassword());
 //                    break;
 //            }
 //        });

@@ -113,8 +113,9 @@ public class SQLServiceConnection implements Runnable{
                         MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
                     case "ACF-MSG": // create/update account
                         if(!(ENC.getidentifier() instanceof String)) {
-                            MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).
-                                    sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
+                            Client account_creator = MainServer.getInstance().getClientIDMap().get(ENC.getidentifier());
+                            if(account_creator != null)
+                                account_creator.sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
                         }
 
                     case "LOF-MSG": // login failed
