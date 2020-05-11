@@ -7,47 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Publisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/src/SQLService/SQLHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerClasses/ServerClasses.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ServerClasses/ServerClasses.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/ServerClasses_jar/ServerClasses.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/ServerClasses_jar/ServerClasses.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameMicroservice/GameService/GameHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameMicroservice/GameService/GameHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameMicroservice/GameService/GameServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameMicroservice/GameService/GameServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/GameServiceConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/GameServiceConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/MainServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/MainServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/SQLServiceConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/SQLServiceConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/GameDetailsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/GameDetailsController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/ServerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ServerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SQLMicroservice/SQLService/SQLHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SQLMicroservice/SQLService/SQLHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SQLMicroservice/SQLService/SQLMain.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SQLMicroservice/SQLService/SQLMain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SQLMicroservice/SQLService/SQLServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SQLMicroservice/SQLService/SQLServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/ClientUI/Login.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/ClientUI/Register.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/TTT_GameData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/TTT_MoveData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/TTT_ViewerData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/DataClasses/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/Board.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/Evaluator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/GameListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/GameInterfaces/Move.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Board.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Evaluator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/TicTacToe/TTT_Move.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/database/DBManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/database/DataSource.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/sample/Controller.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Tic-Tac-Toe/sample/Main.class" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -239,6 +199,7 @@
       <workItem from="1588745264881" duration="6521000" />
       <workItem from="1588797933257" duration="14751000" />
       <workItem from="1589169982065" duration="1482000" />
+      <workItem from="1589239150910" duration="251000" />
     </task>
     <servers />
   </component>
