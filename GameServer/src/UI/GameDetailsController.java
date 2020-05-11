@@ -1,8 +1,10 @@
 package UI;
 
 import DataClasses.TTT_GameData;
-import GameInterfaces.Game;
-import GameInterfaces.GameListener;
+import Messages.GameLogMessage;
+import Messages.GameResultMessage;
+import Messages.MoveMessage;
+import ServerInterfaces.ServerListener;
 import TicTacToe.TTT_Game;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +18,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameDetailsController implements Initializable
+public class GameDetailsController implements Initializable, ServerListener
 {
     public GridPane board;
     public Button previousButton;
@@ -95,4 +98,22 @@ public class GameDetailsController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {}
+
+    @Override
+    public void update(Serializable msg, Object data) {
+        if(data instanceof String && gameData.getId().equals(data)) {
+            Platform.runLater(() -> {
+                switch (msg.getClass().getSimpleName()) {
+                    case "MoveMessage": // If a new move comes in while observing active game
+                        break;
+
+                    case "GameResultMessage": // If active game concludes
+                        break;
+
+                    case "GameLogMessage": // Pull Game Information
+                        break;
+                }
+            });
+        }
+    }
 }

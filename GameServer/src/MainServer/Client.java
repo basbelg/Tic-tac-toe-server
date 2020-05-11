@@ -183,7 +183,7 @@ public class Client implements Runnable, Serializable {
                 MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC));
             }
             clients.remove(this);
-            SQLServiceConnection.getInstance().updateUI();
+            MainServer.getInstance().notifyObservers((DeactivateAccountMessage)MessageFactory.getMessage("DAC-MSG"), null);
         }
     }
 

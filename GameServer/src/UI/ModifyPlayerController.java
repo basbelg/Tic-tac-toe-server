@@ -1,7 +1,9 @@
 package UI;
 
+import MainServer.*;
 import DataClasses.User;
-import Database.DBManager;
+import Messages.*;
+import ServerInterfaces.ServerListener;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,10 +15,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ModifyPlayerController implements Initializable
+public class ModifyPlayerController implements Initializable, ServerListener
 {
     public Button confirmButton;
     public Button cancelButton;
@@ -39,23 +42,24 @@ public class ModifyPlayerController implements Initializable
             player.setLastName(enterLastName.getText());
             player.setPassword(enterPassword.getText());
 
-            DBManager.getInstance().update(player);
+            UpdateAccountInfoMessage UPA = (UpdateAccountInfoMessage) MessageFactory.getMessage("UPA-MSG");
+            UPA.setUpdatedUser(player);
 
-            try
-            {
+            try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Server.fxml"));
                 Parent root = loader.load();
                 ServerController sc = loader.getController();
+                MainServer.getInstance().removeObserver(this);
+                MainServer.getInstance().addObserver(sc);
                 Stage stage = (Stage) confirmButton.getScene().getWindow();
                 stage.close();
                 stage.setTitle("Server");
                 stage.setScene(new Scene(root));
                 stage.show();
             }
-            catch(IOException e)
-            {
-                e.printStackTrace();
-            }
+            catch(IOException e) {e.printStackTrace();}
+
+            SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("UPA-MSG", player.getId(), UPA)));
         }
         else
         {
@@ -115,4 +119,23 @@ public class ModifyPlayerController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {}
+
+    @Override
+    public void update(Serializable msg, Object data) {
+//        Platform.runLater(() -> {
+//            switch (msg.getClass().getSimpleName()) {
+//                case "AccountSuccessfulMessage":
+//                    SQLServiceConnection.getInstance().sendPacket(new Packet("SomeNewMessage", new SomeNewMessage()));
+//                    break;
+//
+//                case "SomeNewMessage":
+//                    enterUsername.setText(SomeNewMessage.getUsername());
+//                    enterFirstName.setText(SomeNewMessage.getFirstName());
+//                    enterLastName.setText(SomeNewMessage.getLastName());
+//                    enterPassword.setText(SomeNewMessage.getPassword());
+//                    enterConfirmPassword.setText(SomeNewMessage.getPassword());
+//                    break;
+//            }
+//        });
+    }
 }
