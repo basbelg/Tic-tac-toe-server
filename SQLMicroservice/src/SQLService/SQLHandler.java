@@ -102,7 +102,6 @@ public class SQLHandler implements Runnable{
                                 if(!UAC_Failed) {
                                     AccountSuccessfulMessage ACS = (AccountSuccessfulMessage) MessageFactory.getMessage("ACS-MSG");
                                     SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("ACS-MSG", ENC.getidentifier(), ACS)));
-
                                     DBManager.getInstance().update(UPA.getUpdatedUser());
                                 }
 
@@ -119,15 +118,12 @@ public class SQLHandler implements Runnable{
                                 GLG.setPlayer1Username(player.getUsername());
                                 player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getPlayer2Id()));
                                 GLG.setPlayer2Username(player.getUsername());
-                                if(gameData.getWinningPlayerId() != 0)
-                                {
+                                if(gameData.getWinningPlayerId() != 0) {
                                     player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getWinningPlayerId()));
                                     GLG.setWinner(player.getUsername() + " has won the game");
                                 }
                                 else
-                                {
                                     GLG.setWinner("It's a tie!");
-                                }
 
 
                                 List<Object> moveData = DBManager.getInstance().query(TTT_MoveData.class, GLG.getGameId());
@@ -137,7 +133,6 @@ public class SQLHandler implements Runnable{
 
                                 for(Object obj : moveData) {
                                     TTT_MoveData move = (TTT_MoveData) obj;
-
                                     moves.add(new MoveInfo(new TTT_Move((playerNum == 1 ? playerNum++ : playerNum--), move.getRow(), move.getColumn()), move.getTime()));
                                 }
 
@@ -278,6 +273,18 @@ public class SQLHandler implements Runnable{
                             System.out.println("is update");
                             DBManager.getInstance().update(SAV.getGame());
                         }
+                        break;
+
+                    case "AGS-MSG":
+                        AllGamesMessage AGS = (AllGamesMessage) packet.getData();
+                        AGS.setGames(DBManager.getInstance().list(TTT_GameData.class));
+                        SQLServer.getInstance().sendPacket(packet);
+                        break;
+
+                    case "RUS-MSG":
+                        RegisteredUsersMessage RUS = (RegisteredUsersMessage) packet.getData();
+                        RUS.setUsers(DBManager.getInstance().list(User.class));
+                        SQLServer.getInstance().sendPacket(packet);
                         break;
                 }
             }

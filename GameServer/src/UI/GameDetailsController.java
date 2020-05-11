@@ -1,9 +1,11 @@
 package UI;
 
-import DataClasses.TTT_GameData;
-import GameInterfaces.Game;
-import GameInterfaces.GameListener;
-import TicTacToe.TTT_Game;
+import DataClasses.Spectator;
+import DataClasses.TTT_ViewerData;
+import MainServer.*;
+import Messages.AllGameInfoMessage;
+import Messages.Packet;
+import ServerInterfaces.ServerListener;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,10 +18,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameDetailsController implements Initializable
+public class GameDetailsController implements Initializable, ServerListener
 {
     public GridPane board;
     public Button previousButton;
@@ -34,8 +37,7 @@ public class GameDetailsController implements Initializable
     public Label winnerLabel;
     public Label moveTimeLabel;
     public ListView spectatorsList;
-    private TTT_GameData gameData;
-    private TTT_Game game;
+    private AllGameInfoMessage gameData;
 
     public void onCancelClicked()
     {
@@ -44,6 +46,8 @@ public class GameDetailsController implements Initializable
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Server.fxml"));
             Parent root = loader.load();
             ServerController sc = loader.getController();
+            MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(sc);
             Stage stage = (Stage) cancelButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Server");
@@ -56,29 +60,10 @@ public class GameDetailsController implements Initializable
         }
     }
 
-    public void passInfo(TTT_Game game, TTT_GameData gameData)
-    {
-        this.gameData = gameData;
-        this.game = game;
-
-        Platform.runLater(() -> {
-            startTimeLabel.setText(gameData.getStartingTime().toString());
-            endTimeLabel.setText(gameData.getEndTime().toString());
-
-            int x = game.getMoveHistory().get(0).getRow();
-            int y = game.getMoveHistory().get(0).getColumn();
-            board.add(new Label("X"), y, x);
-
-            //FIND WAY TO DIFFERENTIATE BETWEEN SPECTATORS AND USERS (INSTANCEOF OR IDS) \\ SINGLETON MAINSERVER GET PUBLISHER
-            /* POPULATE SPECTATOR LIST
-            for(GameListener gl: game.getObservers())
-            {
-                spectatorsList.getItems().add(new Label(gl.getObserverUsername()));
-            }*/
-
-            //set other fxml elements
-            previousButton.setDisable(true);
-        });
+    public void passInfo(String game_id) {
+        gameData = new AllGameInfoMessage();
+        gameData.setId(game_id);
+        SQLServiceConnection.getInstance().sendPacket(new Packet("AGI-MSG", gameData));
     }
 
     public void onNextClicked()
@@ -95,4 +80,45 @@ public class GameDetailsController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {}
+
+    @Override
+    public void update(Serializable msg, Object data) {
+        if(data instanceof String && gameData.getId().equals(data)) {
+            Platform.runLater(() -> {
+                switch (msg.getClass().getSimpleName()) {
+                    case "MoveMessage": // If a new move comes in while observing active game
+                        // add new move to move list
+                        break;
+
+                    case "GameResultMessage": // If active game concludes
+                        
+                        break;
+
+                    case "AllGameInfoMessage": // Pull game information from db
+                        this.gameData = (AllGameInfoMessage) msg;
+
+                        startTimeLabel.setText(gameData.getGameLog().getGameStarted().toString());
+                        endTimeLabel.setText(gameData.getGameLog().getGameEnded().toString());
+
+                        int x = gameData.getGameLog().getMoveHistory().get(0).getNextMove().getRow();
+                        int y = gameData.getGameLog().getMoveHistory().get(0).getNextMove().getColumn();
+                        board.add(new Label("X"), y, x);
+
+                        for(Spectator viewer: gameData.getGameViewers().getSpectators())
+                            spectatorsList.getItems().add(new Label(viewer.getUsername()));
+
+                        //FIND WAY TO DIFFERENTIATE BETWEEN SPECTATORS AND USERS (INSTANCEOF OR IDS) \\ SINGLETON MAINSERVER GET PUBLISHER
+                        /* POPULATE SPECTATOR LIST
+                        for(GameListener gl: game.getObservers())
+                        {
+                            spectatorsList.getItems().add(new Label(gl.getObserverUsername()));
+                        }*/
+
+                        //set other fxml elements
+                        previousButton.setDisable(true);
+                        break;
+                }
+            });
+        }
+    }
 }

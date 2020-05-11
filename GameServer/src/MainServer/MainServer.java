@@ -2,9 +2,14 @@ package MainServer;
 
 import DataClasses.TTT_GameData;
 import DataClasses.TTT_ViewerData;
+import Database.DBManager;
+import Messages.AccountSuccessfulMessage;
+import Messages.EncapsulatedMessage;
 import Messages.Packet;
+import ServerInterfaces.ServerListener;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -34,6 +39,9 @@ public class MainServer implements Runnable {
     private Map<String, TTT_GameData> game_by_id;
     private Map<String, List<TTT_ViewerData>> active_viewers;
 
+    // UI
+    private List<ServerListener> observers;
+
     private MainServer(int port) {
         try {
             // Server
@@ -49,6 +57,9 @@ public class MainServer implements Runnable {
             active_games = Collections.synchronizedList(new ArrayList<>());
             game_by_id = Collections.synchronizedMap(new HashMap<>());
             active_viewers = Collections.synchronizedMap(new HashMap<>());
+
+            // UI
+            observers = Collections.synchronizedList(new ArrayList<>());
 
             // Thread
             thread = new Thread(this);
@@ -92,4 +103,17 @@ public class MainServer implements Runnable {
         thread.interrupt();
         try {serverSocket.close();} catch (IOException e) {e.printStackTrace();}
     }
+
+    // UI
+    public void addObserver(ServerListener listener) {observers.add(listener);}
+    public void removeObserver(ServerListener listener) {observers.remove(listener);}
+    public void notifyObservers(Serializable msg, Object data) {
+        synchronized (observers) {
+            Iterator<ServerListener> iterator = observers.iterator();
+            while(iterator.hasNext())
+                iterator.next().update(msg, data);
+        }
+    }
+
+
 }

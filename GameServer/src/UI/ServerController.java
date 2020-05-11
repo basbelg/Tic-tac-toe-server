@@ -1,11 +1,12 @@
 package UI;
 
+import DataClasses.TTT_GameData;
 import DataClasses.User;
 import Database.DBManager;
 import MainServer.Client;
-import MainServer.MainServer;
-import MainServer.SQLServiceConnection;
+import MainServer.*;
 import Messages.*;
+import ServerInterfaces.ServerListener;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ServerController implements Initializable
+public class ServerController implements Initializable, ServerListener
 {
     public ListView registeredPlayersList;
     public ListView onlinePlayerList;
@@ -41,12 +42,14 @@ public class ServerController implements Initializable
         try
         {
             int usernameIndex = registeredPlayersList.getSelectionModel().getSelectedIndex();
-            User selectedPlayer = allPlayers.get(usernameIndex);
+           // User selectedPlayer = allPlayers.get(usernameIndex); doesn't work because user is selected from registered users
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifyPlayer.fxml"));
             Parent root = loader.load();
             ModifyPlayerController mpc = loader.getController();
-            mpc.passInfo(selectedPlayer);
+            MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(mpc);
+            mpc.passInfo(1 /* need to pull id */);
             Stage stage = (Stage) modifyPlayerButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Modify Player");
@@ -66,6 +69,9 @@ public class ServerController implements Initializable
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameDetails.fxml"));
             Parent root = loader.load();
             GameDetailsController gdc = loader.getController();
+            MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(gdc);
+            gdc.passInfo("Need to pull game ID");
             Stage stage = (Stage) activeGameDetailsButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Active Game Details");
@@ -85,49 +91,96 @@ public class ServerController implements Initializable
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameDetails.fxml"));
             Parent root = loader.load();
             GameDetailsController gdc = loader.getController();
-            //gdc.passInfo();
+            MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(gdc);
+            gdc.passInfo("Need to pull game ID");
             Stage stage = (Stage) inactiveGameDetailsButton.getScene().getWindow();
             stage.close();
-            stage.setTitle("Inactive Game Details");
+            stage.setTitle("Completed Game Details");
             stage.setScene(new Scene(root));
             stage.show();
         }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
+        catch(IOException e){e.printStackTrace();}
     }
 
-    public void update(Serializable msg) {
+    @Override
+    public void update(Serializable msg, Object data) {
         Platform.runLater(() -> {
-            if (msg instanceof LoginSuccessfulMessage || msg instanceof DeactivateAccountMessage) {
-                onlinePlayerList.getItems().clear();
-                Client client = null;
-                synchronized (MainServer.getInstance().getClients()) {
-                    Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
-                    while (iterator.hasNext()) {
-                        client = iterator.next();
-                        if (client.getUser() != null && client.getUser().getId() != 0) {
-                                allPlayers.add(client.getUser());
-                                onlinePlayerList.getItems().add(new Label(client.getUser().getUsername() + " (" + client.getUser().getFullName() + ")"));
+            switch (msg.getClass().getSimpleName()) {
+                case "EncapsulatedMessage":
+                    SQLServiceConnection.getInstance().sendPacket(new Packet("AGS-MSG", new AllGamesMessage()));
+                case "AccountSuccessfulMessage":
+                    SQLServiceConnection.getInstance().sendPacket(new Packet("RUS-MSG", new RegisteredUsersMessage()));
+                    break;
+
+                case "AllGamesMessage":
+                    List<Object> all_games = ((AllGamesMessage) msg).getGames();
+                    for(Object obj: all_games) {
+                        TTT_GameData game = (TTT_GameData) obj;
+                        if (game.getWinningPlayerId() != -1) {
+                            String p1 = String.valueOf(game.getPlayer1Id());
+                            String p2 = (game.getPlayer2Id() == 1) ? "AI" : String.valueOf(game.getPlayer2Id());
+                            inactiveGamesList.getItems().add(new Label(p1 + " vs " + p2 + " (" + game.getId() + ")"));
                         }
                     }
-                }
-            }
-            else if(msg instanceof AccountSuccessfulMessage) {
-                // update registered player list from db
-            }
-            else if(msg instanceof ConnectToLobbyMessage || msg instanceof CreateAIGameMessage) {
-                // update active games
-            }
-            else if(msg instanceof GameResultMessage) {
-                // update completed games list from db
+                    break;
+
+                case "RegisteredUsersMessage":
+                    // update registered player list
+                    registeredPlayersList.getItems().clear();
+                    List<Object> all_users = ((RegisteredUsersMessage)msg).getUsers();
+                    for(Object obj: all_users) {
+                        User user = (User) obj;
+                        registeredPlayersList.getItems().add(new Label(user.getUsername() + " (" + user.getId() + ")"));
+                    }
+                    break;
+
+                case "LoginSuccessfulMessage":
+                case "DeactivateAccountMessage":
+                    onlinePlayerList.getItems().clear();
+                    Client client = null;
+                    synchronized (MainServer.getInstance().getClients()) {
+                        Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
+                        while (iterator.hasNext()) {
+                            client = iterator.next();
+                            if (client.getUser() != null && client.getUser().getId() != 0) {
+                                allPlayers.add(client.getUser());
+                                onlinePlayerList.getItems().add(new Label(client.getUser().getUsername() + " (" + client.getUser().getId() + ")"));
+                            }
+                        }
+                    }
+                    break;
+
+                case "GameResultMessage":
+                    // update completed games list
+                    String game_id = (String) data;
+                    TTT_GameData game = MainServer.getInstance().getGame_by_id().get(game_id);
+                    String p1 = String.valueOf(game.getPlayer1Id());
+                    String p2 = (game.getPlayer2Id() == 1) ? "AI" : String.valueOf(game.getPlayer2Id());
+                    inactiveGamesList.getItems().add(new Label(p1 + " vs " + p2 + " (" + game.getId() + ")"));
+                case "ConnectToLobbyMessage":
+                case "CreateAIGameMessage":
+                    // update active games
+                    activeGamesList.getItems().clear();
+                    synchronized (MainServer.getInstance().getActiveGames()) {
+                        Iterator<TTT_GameData> iterator = MainServer.getInstance().getActiveGames().iterator();
+                        while (iterator.hasNext()) {
+                            game = iterator.next();
+                            if (game.getPlayer2Id() != 0) {
+                                p1 = String.valueOf(game.getPlayer1Id());
+                                p2 = (game.getPlayer2Id() == 1) ? "AI" : String.valueOf(game.getPlayer2Id());
+                                activeGamesList.getItems().add(new Label(p1 + " vs " + p2 + " (" + game.getId() + ")"));
+                            }
+                        }
+                    }
+                    break;
             }
         });
     }
 
-
-
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {SQLServiceConnection.getInstance().setListener(this);}
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        MainServer.getInstance().addObserver(this);
+        MainServer.getInstance().notifyObservers(new EncapsulatedMessage(null, null, null), null);
+    }
 }

@@ -79,7 +79,7 @@ public class Publisher implements Runnable{
 
                             }
                         }
-                        
+                        MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
                         break;
 
@@ -125,6 +125,7 @@ public class Publisher implements Runnable{
 
                             }
                         }
+                        MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
                         break;
 
@@ -178,14 +179,13 @@ public class Publisher implements Runnable{
                         InactiveGameMessage IAG = (InactiveGameMessage) MessageFactory.getMessage("IAG-MSG");
 
                         // Create Save Game Message and update Game Result Message
-                        current_game = MainServer.getInstance().getGame_by_id().get(ENC.getidentifier());
+                        String game_id = (String) ENC.getidentifier();
+                        current_game = MainServer.getInstance().getGame_by_id().get(game_id);
                         Client player1 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer1Id());
                         Client player2 = null;
 
                         if(current_game.getPlayer2Id() != 1)
-                        {
                             player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
-                        }
 
                         if(GRE.getWinner().equals("0")) {
                             current_game.setWinningPlayerId(0);
@@ -230,10 +230,7 @@ public class Publisher implements Runnable{
                             while (i.hasNext()) {
                                 Client client = i.next();
                                 if(client.getUser() != null)
-                                {
                                     client.sendPacket(new Packet("IAG-MSG", IAG));
-                                }
-
                             }
                         }
 
@@ -242,6 +239,7 @@ public class Publisher implements Runnable{
 
                         // remove game from active games list
                         MainServer.getInstance().getActiveGames().remove(current_game); // remove is already synchronized
+                        MainServer.getInstance().notifyObservers(GRE, current_game.getId());
                         break;
 
                     //--------------------------------------------------------------------------------------------------

@@ -1,7 +1,9 @@
 package UI;
 
+import MainServer.*;
 import DataClasses.User;
-import Database.DBManager;
+import Messages.*;
+import ServerInterfaces.ServerListener;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,10 +15,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ModifyPlayerController implements Initializable
+public class ModifyPlayerController implements Initializable, ServerListener
 {
     public Button confirmButton;
     public Button cancelButton;
@@ -39,43 +42,39 @@ public class ModifyPlayerController implements Initializable
             player.setLastName(enterLastName.getText());
             player.setPassword(enterPassword.getText());
 
-            DBManager.getInstance().update(player);
+            UpdateAccountInfoMessage UPA = (UpdateAccountInfoMessage) MessageFactory.getMessage("UPA-MSG");
+            UPA.setUpdatedUser(player);
 
-            try
-            {
+            try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Server.fxml"));
                 Parent root = loader.load();
                 ServerController sc = loader.getController();
+                MainServer.getInstance().removeObserver(this);
+                MainServer.getInstance().addObserver(sc);
                 Stage stage = (Stage) confirmButton.getScene().getWindow();
                 stage.close();
                 stage.setTitle("Server");
                 stage.setScene(new Scene(root));
                 stage.show();
             }
-            catch(IOException e)
-            {
-                e.printStackTrace();
-            }
+            catch(IOException e) {e.printStackTrace();}
+
+            SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("UPA-MSG", player.getId(), UPA)));
         }
         else
         {
             Platform.runLater(() -> {
                 StringBuffer error = new StringBuffer();
-                if (enterFirstName.getText().equals("")) {
+                if (enterFirstName.getText().equals(""))
                     error.append("Please enter a first name!\n");
-                }
-                if (enterLastName.getText().equals("")) {
+                if (enterLastName.getText().equals(""))
                     error.append("Please enter a last name!\n");
-                }
-                if (enterUsername.getText().equals("")) {
+                if (enterUsername.getText().equals(""))
                     error.append("Please enter a valid username!\n");
-                }
-                if (enterPassword.getText().equals("")) {
+                if (enterPassword.getText().equals(""))
                     error.append("Please enter a valid password!\n");
-                }
-                if (!enterPassword.getText().equals(enterConfirmPassword.getText()) && !enterPassword.getText().equals("")) {
+                if (!enterPassword.getText().equals(enterConfirmPassword.getText()) && !enterPassword.getText().equals(""))
                     error.append("Passwords do NOT match!\n");
-                }
 
                 errorLabel.setText(error.toString());
             });
@@ -83,36 +82,49 @@ public class ModifyPlayerController implements Initializable
 
     }
 
-    public void onCancelClicked()
-    {
-        try
-        {
+    public void onCancelClicked() {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Server.fxml"));
             Parent root = loader.load();
             ServerController sc = loader.getController();
+            MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(sc);
             Stage stage = (Stage) cancelButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Server");
             stage.setScene(new Scene(root));
             stage.show();
         }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
+        catch(IOException e) {e.printStackTrace();}
     }
 
-    public void passInfo(User player)
-    {
-        this.player = player;
-
-        enterUsername.setText(player.getUsername());
-        enterFirstName.setText(player.getFirstName());
-        enterLastName.setText(player.getLastName());
-        enterPassword.setText(player.getPassword());
-        enterConfirmPassword.setText(player.getPassword());
+    public void passInfo(int player_id) {
+        /*need a new message to pull user's info from the db using player_id*/
+        SQLServiceConnection.getInstance().sendPacket(new Packet("New Message Type", /*new message*/null));
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {}
+
+    @Override
+    public void update(Serializable msg, Object data) {
+//        Platform.runLater(() -> {
+//            switch (msg.getClass().getSimpleName()) {
+//                case "AccountSuccessfulMessage": // If user changes their info while it is being changed on the server
+//                                                 // (Probably should be removed because this could delete changes made by the admin when it updates)
+//                    SQLServiceConnection.getInstance().sendPacket(new Packet("New Message Type", new NewMessage()));
+//                    break;
+//
+//                case "SomeNewMessage":
+//                    this.player = NewMessage.getUser;
+//
+//                    enterUsername.setText(player.getUsername());
+//                    enterFirstName.setText(player.getFirstName());
+//                    enterLastName.setText(player.getLastName());
+//                    enterPassword.setText(player.getPassword());
+//                    enterConfirmPassword.setText(player.getPassword());
+//                    break;
+//            }
+//        });
+    }
 }
