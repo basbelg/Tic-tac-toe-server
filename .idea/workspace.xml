@@ -20,7 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -258,10 +260,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="1938" height="257" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1589227205387" />
-    <state x="905" y="539" key="SettingsEditor" timestamp="1589226551804">
+    <state x="905" y="539" key="SettingsEditor" timestamp="1589229147302">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="905" y="539" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1589226551804" />
+    <state x="905" y="539" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1589229147302" />
     <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1588223881320">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

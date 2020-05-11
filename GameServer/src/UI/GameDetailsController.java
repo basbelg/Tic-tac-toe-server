@@ -46,6 +46,8 @@ public class GameDetailsController implements Initializable, ServerListener
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Server.fxml"));
             Parent root = loader.load();
             ServerController sc = loader.getController();
+            MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(sc);
             Stage stage = (Stage) cancelButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Server");
@@ -85,10 +87,11 @@ public class GameDetailsController implements Initializable, ServerListener
             Platform.runLater(() -> {
                 switch (msg.getClass().getSimpleName()) {
                     case "MoveMessage": // If a new move comes in while observing active game
-
+                        // add new move to move list
                         break;
 
                     case "GameResultMessage": // If active game concludes
+                        
                         break;
 
                     case "AllGameInfoMessage": // Pull game information from db

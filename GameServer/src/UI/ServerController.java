@@ -42,12 +42,14 @@ public class ServerController implements Initializable, ServerListener
         try
         {
             int usernameIndex = registeredPlayersList.getSelectionModel().getSelectedIndex();
-            User selectedPlayer = allPlayers.get(usernameIndex - 1);
+           // User selectedPlayer = allPlayers.get(usernameIndex); doesn't work because user is selected from registered users
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifyPlayer.fxml"));
             Parent root = loader.load();
             ModifyPlayerController mpc = loader.getController();
-            mpc.passInfo(selectedPlayer);
+            MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(mpc);
+            mpc.passInfo(1 /* need to pull id */);
             Stage stage = (Stage) modifyPlayerButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Modify Player");
@@ -67,8 +69,9 @@ public class ServerController implements Initializable, ServerListener
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameDetails.fxml"));
             Parent root = loader.load();
             GameDetailsController gdc = loader.getController();
-            MainServer.getInstance().addObserver(gdc);
             MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(gdc);
+            gdc.passInfo("Need to pull game ID");
             Stage stage = (Stage) activeGameDetailsButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Active Game Details");
@@ -88,7 +91,9 @@ public class ServerController implements Initializable, ServerListener
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameDetails.fxml"));
             Parent root = loader.load();
             GameDetailsController gdc = loader.getController();
-            //gdc.passInfo();
+            MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(gdc);
+            gdc.passInfo("Need to pull game ID");
             Stage stage = (Stage) inactiveGameDetailsButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Completed Game Details");
@@ -172,8 +177,6 @@ public class ServerController implements Initializable, ServerListener
             }
         });
     }
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
