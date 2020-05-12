@@ -70,6 +70,8 @@ public class SQLServiceConnection implements Runnable{
                 System.out.println("Received from SQLConnection: " + ENC.getType());
                 switch (ENC.getType()) {
                     case "UPA-MSG": // Update Account Info
+                        MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).setUser(((UpdateAccountInfoMessage)ENC.getMsg()).getUpdatedUser());
+                        MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
                     case "STS-MSG": // Stats
                     case "GLG-MSG": // Game Log
                     case "DAC-MSG": // Deactivate Account

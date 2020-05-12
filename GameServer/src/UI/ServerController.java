@@ -121,7 +121,8 @@ public class ServerController implements Initializable, ServerListener
                     for(Object obj: all_games) {
                         TTT_GameData game = (TTT_GameData) obj;
                         if (game.getWinningPlayerId() != -1) {
-                            String p1 = getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer1Id() + ")";
+                            User user = getUserFromList(game.getPlayer1Id());
+                            String p1 = ((user == null) ? "<Deleted Account> " : user.getUsername()) + " (ID: " + game.getPlayer1Id() + ")";
                             String p2 = (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : getUserFromList(game.getPlayer2Id()).getUsername() + " (ID: " + game.getPlayer2Id() + ")";
                             inactiveGamesList.getItems().add(new Label(p1 + " vs " + p2 + " (" + game.getId() + ")"));
                         }
