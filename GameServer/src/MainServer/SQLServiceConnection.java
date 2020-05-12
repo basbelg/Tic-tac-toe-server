@@ -1,10 +1,8 @@
 package MainServer;
 
-import Messages.DeactivateAccountMessage;
-import Messages.EncapsulatedMessage;
-import Messages.LoginSuccessfulMessage;
-import Messages.Packet;
+import Messages.*;
 import ServerInterfaces.ServerListener;
+import UI.Main;
 import UI.ServerController;
 
 import java.io.IOException;

@@ -34,7 +34,8 @@ public class ServerController implements Initializable, ServerListener
     public Button activeGameDetailsButton;
     public ListView inactiveGamesList;
     public Button inactiveGameDetailsButton;
-    private List<User> allPlayers = new ArrayList<>();
+    private List<User> onlinePlayers = new ArrayList<>();
+    private List<Object> allPlayers = new ArrayList<>();
 
 
     public void onModifyPlayerClicked()
@@ -107,8 +108,10 @@ public class ServerController implements Initializable, ServerListener
     public void update(Serializable msg, Object data) {
         Platform.runLater(() -> {
             switch (msg.getClass().getSimpleName()) {
-                case "EncapsulatedMessage":
+                case "EncapsulatedMessage": //KEEP ENCAPSULATEDMESSAGE AND ACCOUNTSUCCESSFULMESSAGE CASES SEPARATE
+                    SQLServiceConnection.getInstance().sendPacket(new Packet("RUS-MSG", new RegisteredUsersMessage()));
                     SQLServiceConnection.getInstance().sendPacket(new Packet("AGS-MSG", new AllGamesMessage()));
+                    break;
                 case "AccountSuccessfulMessage":
                     SQLServiceConnection.getInstance().sendPacket(new Packet("RUS-MSG", new RegisteredUsersMessage()));
                     break;
@@ -118,8 +121,8 @@ public class ServerController implements Initializable, ServerListener
                     for(Object obj: all_games) {
                         TTT_GameData game = (TTT_GameData) obj;
                         if (game.getWinningPlayerId() != -1) {
-                            String p1 = String.valueOf(game.getPlayer1Id());
-                            String p2 = (game.getPlayer2Id() == 1) ? "AI" : String.valueOf(game.getPlayer2Id());
+                            String p1 = getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer1Id() + ")";
+                            String p2 = (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : getUserFromList(game.getPlayer2Id()).getUsername() + " (ID: " + game.getPlayer2Id() + ")";
                             inactiveGamesList.getItems().add(new Label(p1 + " vs " + p2 + " (" + game.getId() + ")"));
                         }
                     }
@@ -128,13 +131,15 @@ public class ServerController implements Initializable, ServerListener
                 case "RegisteredUsersMessage":
                     // update registered player list
                     registeredPlayersList.getItems().clear();
-                    List<Object> all_users = ((RegisteredUsersMessage)msg).getUsers();
-                    for(Object obj: all_users) {
+                    allPlayers = ((RegisteredUsersMessage)msg).getUsers();
+                    for(Object obj: allPlayers) {
                         User user = (User) obj;
-                        registeredPlayersList.getItems().add(new Label(user.getUsername() + " (" + user.getId() + ")"));
+                        registeredPlayersList.getItems().add(new Label(user.getUsername() + " (ID: " + user.getId() + ")"));
                     }
                     break;
 
+                case "UpdateAccountInfoMessage":
+                    SQLServiceConnection.getInstance().sendPacket(new Packet("RUS-MSG", new RegisteredUsersMessage()));
                 case "LoginSuccessfulMessage":
                 case "DeactivateAccountMessage":
                     onlinePlayerList.getItems().clear();
@@ -144,8 +149,7 @@ public class ServerController implements Initializable, ServerListener
                         while (iterator.hasNext()) {
                             client = iterator.next();
                             if (client.getUser() != null && client.getUser().getId() != 0) {
-                                allPlayers.add(client.getUser());
-                                onlinePlayerList.getItems().add(new Label(client.getUser().getUsername() + " (" + client.getUser().getId() + ")"));
+                                onlinePlayerList.getItems().add(new Label(client.getUser().getUsername() + " (ID: " + client.getUser().getId() + ")"));
                             }
                         }
                     }
@@ -155,8 +159,8 @@ public class ServerController implements Initializable, ServerListener
                     // update completed games list
                     String game_id = (String) data;
                     TTT_GameData game = MainServer.getInstance().getGame_by_id().get(game_id);
-                    String p1 = String.valueOf(game.getPlayer1Id());
-                    String p2 = (game.getPlayer2Id() == 1) ? "AI" : String.valueOf(game.getPlayer2Id());
+                    String p1 = getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer1Id() + ")";
+                    String p2 = (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer2Id() + ")";
                     inactiveGamesList.getItems().add(new Label(p1 + " vs " + p2 + " (" + game.getId() + ")"));
                 case "ConnectToLobbyMessage":
                 case "CreateAIGameMessage":
@@ -167,8 +171,8 @@ public class ServerController implements Initializable, ServerListener
                         while (iterator.hasNext()) {
                             game = iterator.next();
                             if (game.getPlayer2Id() != 0) {
-                                p1 = String.valueOf(game.getPlayer1Id());
-                                p2 = (game.getPlayer2Id() == 1) ? "AI" : String.valueOf(game.getPlayer2Id());
+                                p1 = getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer1Id() + ")";
+                                p2 = (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer2Id() + ")";
                                 activeGamesList.getItems().add(new Label(p1 + " vs " + p2 + " (" + game.getId() + ")"));
                             }
                         }
@@ -176,6 +180,26 @@ public class ServerController implements Initializable, ServerListener
                     break;
             }
         });
+    }
+
+    private User getUserFromList(int id)
+    {
+        for(Object user : allPlayers) {
+            if(((User) user).getId() == id) {
+                return (User) user;
+            }
+        }
+        return null;
+    }
+
+    private boolean isUserInOnlineList(int id)
+    {
+        for(User user : onlinePlayers) {
+            if(user.getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -100,8 +100,7 @@ public class SQLHandler implements Runnable{
                                 }
 
                                 if(!UAC_Failed) {
-                                    AccountSuccessfulMessage ACS = (AccountSuccessfulMessage) MessageFactory.getMessage("ACS-MSG");
-                                    SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("ACS-MSG", ENC.getidentifier(), ACS)));
+                                    SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("UPA-MSG", ENC.getidentifier(), UPA)));
                                     DBManager.getInstance().update(UPA.getUpdatedUser());
                                 }
 
@@ -283,7 +282,7 @@ public class SQLHandler implements Runnable{
 
                     case "RUS-MSG":
                         RegisteredUsersMessage RUS = (RegisteredUsersMessage) packet.getData();
-                        RUS.setUsers(DBManager.getInstance().list(User.class));
+                        RUS.setUsers(DBManager.getInstance().query(User.class, "active"));
                         SQLServer.getInstance().sendPacket(packet);
                         break;
                 }

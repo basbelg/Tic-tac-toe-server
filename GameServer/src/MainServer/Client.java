@@ -47,6 +47,12 @@ public class Client implements Runnable, Serializable {
         // Used to set this client socket's user to null if they tried to CREATE an account with an already existing username
         if(packet.getType().equals("ACF-MSG") && user.getId() == 0)
             user = null;
+        else if(packet.getType().equals("UPA-MSG"))
+        {
+            setUser(((UpdateAccountInfoMessage)packet.getData()).getUpdatedUser());
+            MainServer.getInstance().notifyObservers(packet.getData(), null);
+        }
+
 
         try {
             output.writeObject(packet);
