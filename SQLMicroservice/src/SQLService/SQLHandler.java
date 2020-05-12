@@ -300,7 +300,7 @@ public class SQLHandler implements Runnable{
                         }
 
                         if(!UAC_Failed) {
-                            UpdateAccountInfoMessage UPA = (UpdateAccountInfoMessage) MessageFactory.getMessage("UPA-MSG");
+                            UpdateAccountInfoMessage UPA = AAU.getUPA();
                             SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("UPA-MSG", AAU.getId(), UPA)));
                             DBManager.getInstance().update(AAU.getUPA().getUpdatedUser());
                         }
