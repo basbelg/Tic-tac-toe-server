@@ -118,6 +118,7 @@ public class ServerController implements Initializable, ServerListener
 
                 case "AllGamesMessage":
                     List<Object> all_games = ((AllGamesMessage) msg).getGames();
+                    inactiveGamesList.getItems().clear();
                     for(Object obj: all_games) {
                         TTT_GameData game = (TTT_GameData) obj;
                         if (game.getWinningPlayerId() != -1) {
