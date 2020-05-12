@@ -61,6 +61,11 @@ public class SQLServiceConnection implements Runnable{
                         case "RUS-MSG": // All Registered Users
                         case "AGS-MSG": // All Games
                             MainServer.getInstance().notifyObservers(packet.getData(), null);
+                            break;
+                        case "AGI-MSG": // Game Info
+                            AllGameInfoMessage AGI = (AllGameInfoMessage) packet.getData();
+                            MainServer.getInstance().notifyObservers(packet.getData(), AGI.getId());
+                            break;
                     }
                     continue;
                 }
@@ -70,8 +75,11 @@ public class SQLServiceConnection implements Runnable{
                 System.out.println("Received from SQLConnection: " + ENC.getType());
                 switch (ENC.getType()) {
                     case "UPA-MSG": // Update Account Info
-                        MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).setUser(((UpdateAccountInfoMessage)ENC.getMsg()).getUpdatedUser());
+                        Client client = MainServer.getInstance().getClientIDMap().get(ENC.getidentifier());
                         MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
+                        if(client == null)
+                            break;
+                        client.setUser(((UpdateAccountInfoMessage)ENC.getMsg()).getUpdatedUser());
                     case "STS-MSG": // Stats
                     case "GLG-MSG": // Game Log
                     case "DAC-MSG": // Deactivate Account
@@ -87,7 +95,7 @@ public class SQLServiceConnection implements Runnable{
                     //------------------------------------------------------------------------------------------
                     case "LOS-MSG": // login succeeded
                         LoginSuccessfulMessage LOS = (LoginSuccessfulMessage) ENC.getMsg();
-                        Client client = null;
+                        client = null;
                         synchronized (MainServer.getInstance().getClients()) {
                             Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
                             while (iterator.hasNext()) {

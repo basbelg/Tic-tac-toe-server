@@ -285,6 +285,63 @@ public class SQLHandler implements Runnable{
                         RUS.setUsers(DBManager.getInstance().query(User.class, "active"));
                         SQLServer.getInstance().sendPacket(packet);
                         break;
+
+                    case "AAU-MSG":
+                        AdminAccountUpdateMessage AAU = (AdminAccountUpdateMessage) packet.getData();
+                        List<Object> users = DBManager.getInstance().list(User.class);
+                        boolean UAC_Failed = false;
+
+                        for(Object obj: users) {
+                            User user = (User) obj;
+                            if(user.getUsername().equals(AAU.getUPA().getUpdatedUser().getUsername()) && user.getId() != AAU.getId()) {
+                                UAC_Failed = true;
+                                break;
+                            }
+                        }
+
+                        if(!UAC_Failed) {
+                            UpdateAccountInfoMessage UPA = (UpdateAccountInfoMessage) MessageFactory.getMessage("UPA-MSG");
+                            SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("UPA-MSG", AAU.getId(), UPA)));
+                            DBManager.getInstance().update(AAU.getUPA().getUpdatedUser());
+                        }
+                        break;
+
+                    case "AGI-MSG":
+                        AllGameInfoMessage AGI = (AllGameInfoMessage) packet.getData();
+
+                        TTT_GameData gameData = (TTT_GameData) DBManager.getInstance().get(TTT_GameData.class, AGI.getId());
+                        AGI.getGameLog().setGameStarted(gameData.getStartingTime());
+                        AGI.getGameLog().setGameEnded(gameData.getEndTime());
+                        User player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getPlayer1Id()));
+                        AGI.getGameLog().setPlayer1Username(player.getUsername());
+                        player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getPlayer2Id()));
+                        AGI.getGameLog().setPlayer2Username(player.getUsername());
+                        if(gameData.getWinningPlayerId() != 0) {
+                            player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getWinningPlayerId()));
+                            AGI.getGameLog().setWinner(player.getUsername() + " has won the game");
+                        }
+                        else
+                            AGI.getGameLog().setWinner("It's a tie!");
+
+                        List<Object> list = DBManager.getInstance().query(TTT_MoveData.class, AGI.getId());
+                        List<MoveInfo> moves = new ArrayList<>();
+                        int playerNum = 1;
+                        for(Object obj : list) {
+                            move = (TTT_MoveData) obj;
+                            moves.add(new MoveInfo(new TTT_Move((playerNum == 1 ? playerNum++ : playerNum--), move.getRow(), move.getColumn()), move.getTime()));
+                        }
+                        AGI.getGameLog().setMoveHistory(moves);
+
+                        list = DBManager.getInstance().query(TTT_ViewerData.class, AGI.getId());
+                        List<Spectator> spectators = new ArrayList<>();
+                        for(Object obj : list) {
+                            User viewer = (User) DBManager.getInstance().get(User.class, String.valueOf(((TTT_ViewerData) obj).getViewer_id()));
+                            spectators.add(new Spectator(viewer.getUsername()));
+                        }
+                        AGI.getGameViewers().setSpectators(spectators);
+
+                        SQLServer.getInstance().sendPacket(packet);
+                        break;
                 }
             }
         } catch (InterruptedException | NullPointerException e) {

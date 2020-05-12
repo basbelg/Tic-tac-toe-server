@@ -238,7 +238,9 @@ public class Publisher implements Runnable{
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
 
                         // remove game from active games list
-                        MainServer.getInstance().getActiveGames().remove(current_game); // remove is already synchronized
+                        MainServer.getInstance().getActiveGames().remove(current_game);
+
+                        // send GRE to active controller
                         MainServer.getInstance().notifyObservers(GRE, current_game.getId());
                         break;
 

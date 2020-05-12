@@ -59,7 +59,7 @@ public class ModifyPlayerController implements Initializable, ServerListener
             }
             catch(IOException e) {e.printStackTrace();}
 
-            SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("UPA-MSG", player.getId(), UPA)));
+            SQLServiceConnection.getInstance().sendPacket(new Packet("AAU-MSG",  new AdminAccountUpdateMessage(UPA.getUpdatedUser().getId(), UPA)));
         }
         else
         {
@@ -98,9 +98,14 @@ public class ModifyPlayerController implements Initializable, ServerListener
         catch(IOException e) {e.printStackTrace();}
     }
 
-    public void passInfo(int player_id) {
-        /*need a new message to pull user's info from the db using player_id*/
-        SQLServiceConnection.getInstance().sendPacket(new Packet("New Message Type", /*new message*/null));
+    public void passInfo(User player) {
+        this.player = player;
+
+        enterUsername.setText(player.getUsername());
+        enterFirstName.setText(player.getFirstName());
+        enterLastName.setText(player.getLastName());
+        enterPassword.setText(player.getPassword());
+        enterConfirmPassword.setText(player.getPassword());
     }
 
     @Override

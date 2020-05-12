@@ -90,6 +90,7 @@ public class GameServiceConnection implements Runnable{
                             }
                         }
                         SQLServiceConnection.getInstance().sendPacket(new Packet("MOV-MSG", MOV));
+                        MainServer.getInstance().notifyObservers(MOV, MOV.getGameId());
                         break;
 
                     //--------------------------------------------------------------------------------------------------

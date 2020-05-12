@@ -42,15 +42,16 @@ public class ServerController implements Initializable, ServerListener
     {
         try
         {
+            // retrieve selected user
             int usernameIndex = registeredPlayersList.getSelectionModel().getSelectedIndex();
-           // User selectedPlayer = allPlayers.get(usernameIndex); doesn't work because user is selected from registered users
+            User selectedPlayer = (User) allPlayers.get(usernameIndex);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifyPlayer.fxml"));
             Parent root = loader.load();
             ModifyPlayerController mpc = loader.getController();
             MainServer.getInstance().removeObserver(this);
             MainServer.getInstance().addObserver(mpc);
-            mpc.passInfo(1 /* need to pull id */);
+            mpc.passInfo(selectedPlayer);
             Stage stage = (Stage) modifyPlayerButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Modify Player");
@@ -67,12 +68,16 @@ public class ServerController implements Initializable, ServerListener
     {
         try
         {
+            // retrieve selected game id
+            String selected = ((Label)activeGamesList.getSelectionModel().getSelectedItem()).getText();
+            String id = selected.substring(selected.lastIndexOf('(') + 1, selected.lastIndexOf(')'));
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameDetails.fxml"));
             Parent root = loader.load();
             GameDetailsController gdc = loader.getController();
             MainServer.getInstance().removeObserver(this);
             MainServer.getInstance().addObserver(gdc);
-            gdc.passInfo("Need to pull game ID");
+            gdc.passInfo(id);
             Stage stage = (Stage) activeGameDetailsButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Active Game Details");
@@ -89,12 +94,16 @@ public class ServerController implements Initializable, ServerListener
     {
         try
         {
+            // retrieve selected game id
+            String selected = ((Label)inactiveGamesList.getSelectionModel().getSelectedItem()).getText();
+            String id = selected.substring(selected.lastIndexOf('(') + 1, selected.lastIndexOf(')'));
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameDetails.fxml"));
             Parent root = loader.load();
             GameDetailsController gdc = loader.getController();
             MainServer.getInstance().removeObserver(this);
             MainServer.getInstance().addObserver(gdc);
-            gdc.passInfo("Need to pull game ID");
+            gdc.passInfo(id);
             Stage stage = (Stage) inactiveGameDetailsButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Completed Game Details");
