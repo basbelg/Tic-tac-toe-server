@@ -69,7 +69,7 @@ public class ServerController implements Initializable, ServerListener
         try
         {
             // retrieve selected game id
-            String selected = ((Label)registeredPlayersList.getSelectionModel().getSelectedItem()).getText();
+            String selected = ((Label)activeGamesList.getSelectionModel().getSelectedItem()).getText();
             String id = selected.substring(selected.lastIndexOf('(') + 1, selected.lastIndexOf(')'));
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameDetails.fxml"));
@@ -95,7 +95,7 @@ public class ServerController implements Initializable, ServerListener
         try
         {
             // retrieve selected game id
-            String selected = ((Label)registeredPlayersList.getSelectionModel().getSelectedItem()).getText();
+            String selected = ((Label)inactiveGamesList.getSelectionModel().getSelectedItem()).getText();
             String id = selected.substring(selected.lastIndexOf('(') + 1, selected.lastIndexOf(')'));
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameDetails.fxml"));
