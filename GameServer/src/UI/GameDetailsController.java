@@ -60,10 +60,10 @@ public class GameDetailsController implements Initializable, ServerListener
         }
     }
 
-    public void passInfo(String game_id) {
+    public void passInfo(String game_id) {                                                  // pass proper id
         gameData = new AllGameInfoMessage();
         gameData.setId(game_id);
-        SQLServiceConnection.getInstance().sendPacket(new Packet("AGI-MSG", gameData));
+        SQLServiceConnection.getInstance().sendPacket(new Packet("AGI-MSG", gameData)); // handle message
     }
 
     public void onNextClicked()
@@ -91,7 +91,7 @@ public class GameDetailsController implements Initializable, ServerListener
                         break;
 
                     case "GameResultMessage": // If active game concludes
-                        
+
                         break;
 
                     case "AllGameInfoMessage": // Pull game information from db
