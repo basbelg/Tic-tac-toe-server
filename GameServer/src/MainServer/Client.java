@@ -4,6 +4,7 @@ import DataClasses.LobbyInfo;
 import DataClasses.TTT_GameData;
 import DataClasses.User;
 import Messages.*;
+import UI.Main;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -158,6 +159,12 @@ public class Client implements Runnable, Serializable {
                         }
                         break;
 
+                    case "DAC-MSG": // Deactivate Account
+                        MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", new EncapsulatedMessage(packet.getType(), user.getId(), packet.getData())));
+                        EncapsulatedMessage ENCM = new EncapsulatedMessage(packet.getType(), user.getId(),
+                                packet.getData());
+                        SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENCM));
+                        break;
                     case "GVW-MSG": // Game Viewers
                         if(((GameViewersMessage) packet.getData()).isGameActive()) {
                             EncapsulatedMessage ENC = new EncapsulatedMessage(packet.getType(), user.getId(), packet.getData());
@@ -165,7 +172,6 @@ public class Client implements Runnable, Serializable {
                             break;
                         }
                     case "GMP-MSG": // Games played
-                    case "DAC-MSG": // Deactivate Account
                     case "UPA-MSG": // Update Account Info
                     case "GLG-MSG": // Game Log
                     case "STS-MSG": // Stats
@@ -183,7 +189,6 @@ public class Client implements Runnable, Serializable {
                 MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC));
             }
             clients.remove(this);
-            MainServer.getInstance().notifyObservers((DeactivateAccountMessage)MessageFactory.getMessage("DAC-MSG"), null);
         }
     }
 

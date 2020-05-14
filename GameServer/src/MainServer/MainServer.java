@@ -3,9 +3,7 @@ package MainServer;
 import DataClasses.TTT_GameData;
 import DataClasses.TTT_ViewerData;
 import Database.DBManager;
-import Messages.AccountSuccessfulMessage;
-import Messages.EncapsulatedMessage;
-import Messages.Packet;
+import Messages.*;
 import ServerInterfaces.ServerListener;
 
 import java.io.IOException;
@@ -111,7 +109,29 @@ public class MainServer implements Runnable {
         synchronized (observers) {
             Iterator<ServerListener> iterator = observers.iterator();
             while(iterator.hasNext())
-                iterator.next().update(msg, data);
+            {
+                ServerListener listener = iterator.next();
+                switch(listener.getClass().getSimpleName())
+                {
+                    case "ServerController":
+                        if(msg instanceof EncapsulatedMessage || msg instanceof DeactivateAccountMessage || msg instanceof AccountSuccessfulMessage ||
+                           msg instanceof AllGamesMessage || msg instanceof RegisteredUsersMessage || msg instanceof UpdateAccountInfoMessage ||
+                           msg instanceof LoginSuccessfulMessage || msg instanceof DisconnectMessage || msg instanceof GameResultMessage ||
+                           msg instanceof ConnectToLobbyMessage || msg instanceof CreateAIGameMessage || msg instanceof SpectateMessage || msg instanceof StopSpectatingMessage)
+                        {
+                            listener.update(msg, data);
+                        }
+                        break;
+                    case "GameDetailsController":
+                        if(msg instanceof AllGameInfoMessage || msg instanceof MoveMessage || msg instanceof GameResultMessage ||
+                            msg instanceof SpectateMessage)
+                        {
+                            listener.update(msg, data);
+                        }
+                        break;
+
+                }
+            }
         }
     }
 

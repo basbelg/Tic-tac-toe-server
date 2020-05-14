@@ -272,6 +272,8 @@ public class Publisher implements Runnable{
                         // Send to viewer
                         MainServer.getInstance().getClientIDMap().get(SPC.getSpectatorId()).sendPacket(
                                 new Packet("SPC-MSG", SPC));
+
+                        MainServer.getInstance().notifyObservers(SPC, SPC.getGameId());
                         break;
 
                     case "GVW-MSG":
@@ -310,6 +312,7 @@ public class Publisher implements Runnable{
                         break;
 
                     case "DIS-MSG":
+                        MainServer.getInstance().notifyObservers(new DisconnectMessage(), null);
                     case "IAG-MSG":
                         int user_id = (int) ENC.getidentifier();
                         TTT_GameData user_game = null;
@@ -358,6 +361,10 @@ public class Publisher implements Runnable{
                             EncapsulatedMessage ENC_CNC = new EncapsulatedMessage("CNC-MSG", user_game.getId(), CNC);
                             GameServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC_CNC));
                         }
+                        break;
+
+                    case "DAC-MSG":
+                        MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
                         break;
                 }
             }
