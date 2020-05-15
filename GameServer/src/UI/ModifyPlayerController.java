@@ -112,24 +112,5 @@ public class ModifyPlayerController implements Initializable, ServerListener
     public void initialize(URL url, ResourceBundle resourceBundle) {}
 
     @Override
-    public void update(Serializable msg, Object data) {
-//        Platform.runLater(() -> {
-//            switch (msg.getClass().getSimpleName()) {
-//                case "AccountSuccessfulMessage": // If user changes their info while it is being changed on the server
-//                                                 // (Probably should be removed because this could delete changes made by the admin when it updates)
-//                    SQLServiceConnection.getInstance().sendPacket(new Packet("New Message Type", new NewMessage()));
-//                    break;
-//
-//                case "SomeNewMessage":
-//                    this.player = NewMessage.getUser;
-//
-//                    enterUsername.setText(player.getUsername());
-//                    enterFirstName.setText(player.getFirstName());
-//                    enterLastName.setText(player.getLastName());
-//                    enterPassword.setText(player.getPassword());
-//                    enterConfirmPassword.setText(player.getPassword());
-//                    break;
-//            }
-//        });
-    }
+    public void update(Serializable msg, Object data) {}
 }
