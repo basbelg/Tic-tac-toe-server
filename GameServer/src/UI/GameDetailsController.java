@@ -116,16 +116,14 @@ public class GameDetailsController implements Initializable, ServerListener
                         time.getDayOfMonth() + ", " + time.getYear() + "\n at " + (time.getHour() < 10 ? ("0" + time.getHour()) : time.getHour()) +
                         ":" + (time.getMinute() < 10 ? ("0" + time.getMinute()) : time.getMinute()) +
                         ":" + (time.getSecond() < 10 ? ("0" + time.getSecond()) : time.getSecond()));
-                playerTurnLabel.setText((playerTurnLabel.getText()).equals(gameData.getGameLog().getPlayer1Username() + "\'s turn!") ? (gameData.getGameLog().getPlayer2Username() + "\'s turn!") : (gameData.getGameLog().getPlayer1Username() + "\'s turn!"));
+                playerTurnLabel.setText((playerTurnLabel.getText()).equals(gameData.getGameLog().getPlayer1Username() + "\'s move!") ? (gameData.getGameLog().getPlayer2Username() + "\'s move!") : (gameData.getGameLog().getPlayer1Username() + "\'s move!"));
 
                 if (moveCounter >= (gameData.getGameLog().getMoveHistory().size() - 1)) {
                     nextButton.setDisable(true);
                     if(gameData.getGameLog().getWinner() != null)
                     {
-                        winnerLabel.setText(gameData.getGameLog().getWinner());
+                        winnerLabel.setText("Winner: " + gameData.getGameLog().getWinner());
                     }
-                    playerTurnLabel.setVisible(false);
-                    outPlayersTurnLabel.setVisible(false);
                 } if (previousButton.isDisable()) {
                 previousButton.setDisable(false);
             }
@@ -189,7 +187,7 @@ public class GameDetailsController implements Initializable, ServerListener
                         time.getDayOfMonth() + ", " + time.getYear() + "\n at " + (time.getHour() < 10 ? ("0" + time.getHour()) : time.getHour()) +
                         ":" + (time.getMinute() < 10 ? ("0" + time.getMinute()) : time.getMinute()) +
                         ":" + (time.getSecond() < 10 ? ("0" + time.getSecond()) : time.getSecond()));
-                playerTurnLabel.setText((playerTurnLabel.getText()).equals(gameData.getGameLog().getPlayer1Username() + "\'s turn!") ? (gameData.getGameLog().getPlayer2Username() + "\'s turn!") : (gameData.getGameLog().getPlayer1Username() + "\'s turn!"));
+                playerTurnLabel.setText((playerTurnLabel.getText()).equals(gameData.getGameLog().getPlayer1Username() + "\'s move!") ? (gameData.getGameLog().getPlayer2Username() + "\'s move!") : (gameData.getGameLog().getPlayer1Username() + "\'s move!"));
 
                 if (moveCounter <= 0) {
                     previousButton.setDisable(true);
@@ -225,6 +223,11 @@ public class GameDetailsController implements Initializable, ServerListener
                         if(moveNumLabel.getText().equals("0/0"))
                         {
                             placeMove();
+                            LocalDateTime time = gameData.getGameLog().getMoveHistory().get(moveCounter).getTimeMade();
+                            moveTimeLabel.setText((time.getMonth().toString()) + " " +
+                                    time.getDayOfMonth() + ", " + time.getYear() + "\n at " + (time.getHour() < 10 ? ("0" + time.getHour()) : time.getHour()) +
+                                    ":" + (time.getMinute() < 10 ? ("0" + time.getMinute()) : time.getMinute()) +
+                                    ":" + (time.getSecond() < 10 ? ("0" + time.getSecond()) : time.getSecond()));
                         }
 
                         moveNumLabel.setText((moveCounter + 1)  + "/" + gameData.getGameLog().getMoveHistory().size());
@@ -236,16 +239,33 @@ public class GameDetailsController implements Initializable, ServerListener
                         GameResultMessage GMR = (GameResultMessage) msg;
                         gameData.getGameLog().setWinner(GMR.getWinner());
                         gameData.getGameLog().setGameEnded(MainServer.getInstance().getGame_by_id().get(gameData.getGameLog().getGameId()).getEndTime());
+                        LocalDateTime endtime = gameData.getGameLog().getGameEnded();
+                        endTimeLabel.setText((endtime.getMonth().toString()) + " " +
+                                endtime.getDayOfMonth() + ", " + endtime.getYear() + "\n at " + (endtime.getHour() < 10 ? ("0" + endtime.getHour()) : endtime.getHour()) +
+                                ":" + (endtime.getMinute() < 10 ? ("0" + endtime.getMinute()) : endtime.getMinute()) +
+                                ":" + (endtime.getSecond() < 10 ? ("0" + endtime.getSecond()) : endtime.getSecond()));
                         break;
 
                     case "SpectateMessage":
                         SpectateMessage SPC = (SpectateMessage) msg;
+                        boolean found = false;
                         if(gameData.getGameViewers().getSpectators().isEmpty())
                         {
                             spectatorsList.getItems().clear();
                         }
-                        gameData.getGameViewers().getSpectators().add(new Spectator(MainServer.getInstance().getClientIDMap().get(SPC.getSpectatorId()).getUser().getUsername()));
-                        spectatorsList.getItems().add(new Label("User: " + MainServer.getInstance().getClientIDMap().get(SPC.getSpectatorId()).getUser().getUsername()));
+                        for(Spectator s : gameData.getGameViewers().getSpectators())
+                        {
+                            if(s.getUsername().equals(MainServer.getInstance().getClientIDMap().get(SPC.getSpectatorId()).getUser().getUsername()))
+                            {
+                                found = true;
+                                break;
+                            }
+                        }
+                        if(!found)
+                        {
+                            gameData.getGameViewers().getSpectators().add(new Spectator(MainServer.getInstance().getClientIDMap().get(SPC.getSpectatorId()).getUser().getUsername()));
+                            spectatorsList.getItems().add(new Label("User: " + MainServer.getInstance().getClientIDMap().get(SPC.getSpectatorId()).getUser().getUsername()));
+                        }
                         break;
 
                     case "AllGameInfoMessage": // Pull game information from db
@@ -258,19 +278,25 @@ public class GameDetailsController implements Initializable, ServerListener
                                 ":" + (starttime.getSecond() < 10 ? ("0" + starttime.getSecond()) : starttime.getSecond()));
                         if(gameData.getGameLog().getGameEnded() != null)
                         {
-                            LocalDateTime endtime = gameData.getGameLog().getGameEnded();
-                            endTimeLabel.setText((endtime.getMonth().toString()) + " " +
-                                    endtime.getDayOfMonth() + ", " + endtime.getYear() + "\n at " + (endtime.getHour() < 10 ? ("0" + endtime.getHour()) : endtime.getHour()) +
-                                    ":" + (endtime.getMinute() < 10 ? ("0" + endtime.getMinute()) : endtime.getMinute()) +
-                                    ":" + (endtime.getSecond() < 10 ? ("0" + endtime.getSecond()) : endtime.getSecond()));
+                            LocalDateTime end_time = gameData.getGameLog().getGameEnded();
+                            endTimeLabel.setText((end_time.getMonth().toString()) + " " +
+                                    end_time.getDayOfMonth() + ", " + end_time.getYear() + "\n at " + (end_time.getHour() < 10 ? ("0" + end_time.getHour()) : end_time.getHour()) +
+                                    ":" + (end_time.getMinute() < 10 ? ("0" + end_time.getMinute()) : end_time.getMinute()) +
+                                    ":" + (end_time.getSecond() < 10 ? ("0" + end_time.getSecond()) : end_time.getSecond()));
                         }
 
                         if(!gameData.getGameLog().getMoveHistory().isEmpty())
                         {
                             placeMove();
                             moveNumLabel.setText("1/" + gameData.getGameLog().getMoveHistory().size());
+                            LocalDateTime time = gameData.getGameLog().getMoveHistory().get(moveCounter).getTimeMade();
+                            moveTimeLabel.setText((time.getMonth().toString()) + " " +
+                                    time.getDayOfMonth() + ", " + time.getYear() + "\n at " + (time.getHour() < 10 ? ("0" + time.getHour()) : time.getHour()) +
+                                    ":" + (time.getMinute() < 10 ? ("0" + time.getMinute()) : time.getMinute()) +
+                                    ":" + (time.getSecond() < 10 ? ("0" + time.getSecond()) : time.getSecond()));
                         }
 
+                        playerTurnLabel.setText(gameData.getGameLog().getPlayer1Username() + "\'s move!");
                         player1Label.setText(gameData.getGameLog().getPlayer1Username());
                         player2Label.setText(gameData.getGameLog().getPlayer2Username());
 
