@@ -28,8 +28,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameServer/src/UI/GameDetails.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetails.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetailsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayer.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/GameDetailsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/GameDetailsController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ModifyPlayerController.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -225,7 +226,7 @@
       <workItem from="1589324321735" duration="5960000" />
       <workItem from="1589341728455" duration="15057000" />
       <workItem from="1589421871685" duration="6880000" />
-      <workItem from="1589528469224" duration="3783000" />
+      <workItem from="1589528469224" duration="6686000" />
     </task>
     <servers />
   </component>

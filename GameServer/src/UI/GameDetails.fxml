@@ -32,7 +32,7 @@
         <Button fx:id="previousButton" layoutX="277.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#onPreviousClicked" prefHeight="25.0" prefWidth="88.0" text="&lt;&lt; Previous" />
         <Button fx:id="nextButton" layoutX="489.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#onNextClicked" prefHeight="25.0" prefWidth="88.0" text="Next &gt;&gt;" />
         <Button fx:id="cancelButton" layoutX="719.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#onCancelClicked" prefHeight="25.0" prefWidth="74.0" text="Cancel" />
-        <Label fx:id="winnerLabel" layoutX="277.0" layoutY="15.0" text="Winner: N/A">
+        <Label fx:id="winnerLabel" layoutX="277.0" layoutY="15.0" text="No Winner Yet">
          <font>
             <Font size="18.0" />
          </font></Label>
