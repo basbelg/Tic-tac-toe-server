@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ModifyPlayerController implements Initializable, ServerListener
@@ -30,6 +31,7 @@ public class ModifyPlayerController implements Initializable, ServerListener
     public TextField enterConfirmPassword;
     public Label errorLabel;
     private User player;
+    private List<Object> allPlayers;
 
     public void onConfirmClicked()
     {
@@ -88,7 +90,7 @@ public class ModifyPlayerController implements Initializable, ServerListener
             Parent root = loader.load();
             ServerController sc = loader.getController();
             MainServer.getInstance().removeObserver(this);
-            MainServer.getInstance().addObserver(sc);
+            sc.passInfo(allPlayers);
             Stage stage = (Stage) cancelButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Server");
@@ -98,8 +100,9 @@ public class ModifyPlayerController implements Initializable, ServerListener
         catch(IOException e) {e.printStackTrace();}
     }
 
-    public void passInfo(User player) {
+    public void passInfo(User player, List<Object> allPlayers) {
         this.player = player;
+        this.allPlayers = allPlayers;
 
         enterUsername.setText(player.getUsername());
         enterFirstName.setText(player.getFirstName());

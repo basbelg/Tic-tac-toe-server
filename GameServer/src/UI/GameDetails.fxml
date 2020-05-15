@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.GameDetailsController">
     <children>
@@ -16,6 +17,17 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
+            <children>
+                <Label fx:id="tile00" alignment="CENTER" prefHeight="105.0" prefWidth="110.0" textAlignment="CENTER" />
+                <Label fx:id="tile01" alignment="CENTER" prefHeight="104.0" prefWidth="127.0" textAlignment="CENTER" GridPane.columnIndex="1" />
+                <Label fx:id="tile02" alignment="CENTER" prefHeight="133.0" prefWidth="104.0" textAlignment="CENTER" GridPane.columnIndex="2" />
+                <Label fx:id="tile10" alignment="CENTER" prefHeight="123.0" prefWidth="135.0" textAlignment="CENTER" GridPane.rowIndex="1" />
+                <Label fx:id="tile11" alignment="CENTER" prefHeight="192.0" prefWidth="117.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label fx:id="tile12" alignment="CENTER" prefHeight="104.0" prefWidth="140.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <Label fx:id="tile20" alignment="CENTER" prefHeight="107.0" prefWidth="124.0" textAlignment="CENTER" GridPane.rowIndex="2" />
+                <Label fx:id="tile21" alignment="CENTER" prefHeight="148.0" prefWidth="144.0" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label fx:id="tile22" alignment="CENTER" prefHeight="145.0" prefWidth="159.0" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            </children>
         </GridPane>
         <Button fx:id="previousButton" layoutX="491.0" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#onPreviousClicked" prefHeight="25.0" prefWidth="74.0" text="Previous" />
         <Button fx:id="nextButton" layoutX="491.0" layoutY="47.0" mnemonicParsing="false" onMouseClicked="#onNextClicked" prefHeight="25.0" prefWidth="74.0" text="Next" />
@@ -23,20 +35,26 @@
         <Label fx:id="moveNumLabel" layoutX="95.0" layoutY="255.0" text="0/0" />
         <Button fx:id="cancelButton" layoutX="611.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#onCancelClicked" prefHeight="25.0" prefWidth="74.0" text="Cancel" />
         <Label layoutX="22.0" layoutY="290.0" text="Time Made:" />
-        <Label fx:id="moveTimeLabel" layoutX="94.0" layoutY="290.0" text="0:00 am" />
-        <Label layoutX="12.0" layoutY="325.0" text="Player's Turn:" />
+        <Label fx:id="moveTimeLabel" layoutX="94.0" layoutY="290.0" text="N/A" />
+        <Label fx:id="outPlayersTurnLabel" layoutX="12.0" layoutY="325.0" text="Player's Turn:" />
         <Label fx:id="playerTurnLabel" layoutX="93.0" layoutY="325.0" text="N/A" />
         <Label layoutX="31.0" layoutY="86.0" text="Player 2:" />
         <Label layoutX="31.0" layoutY="51.0" text="Player 1:" />
         <Label fx:id="player1Label" layoutX="90.0" layoutY="51.0" text="N/A" />
         <Label fx:id="player2Label" layoutX="90.0" layoutY="86.0" text="N/A" />
         <Label layoutX="19.0" layoutY="119.0" text="Start Time:" />
-        <Label fx:id="startTimeLabel" layoutX="87.0" layoutY="119.0" text="0:00 am" />
+        <Label fx:id="startTimeLabel" layoutX="87.0" layoutY="119.0" text="N/A" />
         <Label layoutX="27.0" layoutY="157.0" text="End Time:" />
-        <Label fx:id="endTimeLabel" layoutX="87.0" layoutY="157.0" text="0:00 am" />
-        <Label layoutX="177.0" layoutY="30.0" text="Winner:" />
-        <Label fx:id="winnerLabel" layoutX="235.0" layoutY="30.0" text="N/A" />
+        <Label fx:id="endTimeLabel" layoutX="87.0" layoutY="157.0" text="N/A" />
+        <Label layoutX="177.0" layoutY="25.0" text="Winner:">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
+        <Label fx:id="winnerLabel" layoutX="251.0" layoutY="25.0" text="N/A">
+         <font>
+            <Font size="18.0" />
+         </font></Label>
         <ListView fx:id="spectatorsList" layoutX="491.0" layoutY="150.0" prefHeight="200.0" prefWidth="193.0" />
-        <Label layoutX="560.0" layoutY="136.0" text="Spectators" />
+        <Label layoutX="560.0" layoutY="128.0" text="Spectators" />
     </children>
 </AnchorPane>

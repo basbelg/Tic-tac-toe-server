@@ -34,7 +34,10 @@ public class ServerController implements Initializable, ServerListener
     public Button activeGameDetailsButton;
     public ListView inactiveGamesList;
     public Button inactiveGameDetailsButton;
-    private List<User> onlinePlayers = new ArrayList<>();
+    public Label errorModifyLabel;
+    public Label errorActiveLabel;
+    public Label errorCompletedLabel;
+    private List<Client> onlinePlayers = new ArrayList<>();
     private List<Object> allPlayers = new ArrayList<>();
 
 
@@ -51,7 +54,7 @@ public class ServerController implements Initializable, ServerListener
             ModifyPlayerController mpc = loader.getController();
             MainServer.getInstance().removeObserver(this);
             MainServer.getInstance().addObserver(mpc);
-            mpc.passInfo(selectedPlayer);
+            mpc.passInfo(selectedPlayer, allPlayers);
             Stage stage = (Stage) modifyPlayerButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Modify Player");
@@ -61,6 +64,19 @@ public class ServerController implements Initializable, ServerListener
         catch(IOException | NullPointerException e)
         {
             e.printStackTrace();
+        }
+        catch(IndexOutOfBoundsException e)
+        {
+            if(registeredPlayersList.getItems().isEmpty())
+            {
+                errorModifyLabel.setText("There Are No Registered Players");
+                errorModifyLabel.setVisible(true);
+            }
+            else if(registeredPlayersList.getSelectionModel().getSelectedIndex() < 0)
+            {
+                errorModifyLabel.setText("Please Select a Player To Modify");
+                errorModifyLabel.setVisible(true);
+            }
         }
     }
 
@@ -77,7 +93,7 @@ public class ServerController implements Initializable, ServerListener
             GameDetailsController gdc = loader.getController();
             MainServer.getInstance().removeObserver(this);
             MainServer.getInstance().addObserver(gdc);
-            gdc.passInfo(id);
+            gdc.passInfo(id, allPlayers);
             Stage stage = (Stage) activeGameDetailsButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Active Game Details");
@@ -87,6 +103,19 @@ public class ServerController implements Initializable, ServerListener
         catch(IOException e)
         {
             e.printStackTrace();
+        }
+        catch(IndexOutOfBoundsException | NullPointerException e)
+        {
+            if(activeGamesList.getItems().isEmpty())
+            {
+                errorActiveLabel.setText("There Are No Active Games");
+                errorActiveLabel.setVisible(true);
+            }
+            else if(activeGamesList.getSelectionModel().getSelectedIndex() < 0)
+            {
+                errorActiveLabel.setText("Please Select a Game To View");
+                errorActiveLabel.setVisible(true);
+            }
         }
     }
 
@@ -103,7 +132,7 @@ public class ServerController implements Initializable, ServerListener
             GameDetailsController gdc = loader.getController();
             MainServer.getInstance().removeObserver(this);
             MainServer.getInstance().addObserver(gdc);
-            gdc.passInfo(id);
+            gdc.passInfo(id, allPlayers);
             Stage stage = (Stage) inactiveGameDetailsButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Completed Game Details");
@@ -111,6 +140,19 @@ public class ServerController implements Initializable, ServerListener
             stage.show();
         }
         catch(IOException e){e.printStackTrace();}
+        catch(IndexOutOfBoundsException | NullPointerException e)
+        {
+            if(inactiveGamesList.getItems().isEmpty())
+            {
+                errorCompletedLabel.setText("There Are No Completed Games");
+                errorCompletedLabel.setVisible(true);
+            }
+            else if(inactiveGamesList.getSelectionModel().getSelectedIndex() < 0)
+            {
+                errorCompletedLabel.setText("Please Select a Game To View");
+                errorCompletedLabel.setVisible(true);
+            }
+        }
     }
 
     @Override
@@ -118,6 +160,7 @@ public class ServerController implements Initializable, ServerListener
         Platform.runLater(() -> {
             switch (msg.getClass().getSimpleName()) {
                 case "EncapsulatedMessage": //KEEP ENCAPSULATEDMESSAGE AND ACCOUNTSUCCESSFULMESSAGE CASES SEPARATE
+                case "DeactivateAccountMessage":
                     SQLServiceConnection.getInstance().sendPacket(new Packet("RUS-MSG", new RegisteredUsersMessage()));
                     SQLServiceConnection.getInstance().sendPacket(new Packet("AGS-MSG", new AllGamesMessage()));
                     break;
@@ -137,10 +180,12 @@ public class ServerController implements Initializable, ServerListener
                             inactiveGamesList.getItems().add(new Label(p1 + " vs " + p2 + " (" + game.getId() + ")"));
                         }
                     }
+                    errorCompletedLabel.setVisible(false);
                     break;
 
                 case "RegisteredUsersMessage":
                     // update registered player list
+                    errorModifyLabel.setVisible(false);
                     registeredPlayersList.getItems().clear();
                     allPlayers = ((RegisteredUsersMessage)msg).getUsers();
                     for(Object obj: allPlayers) {
@@ -152,11 +197,11 @@ public class ServerController implements Initializable, ServerListener
                 case "UpdateAccountInfoMessage":
                     SQLServiceConnection.getInstance().sendPacket(new Packet("RUS-MSG", new RegisteredUsersMessage()));
                 case "LoginSuccessfulMessage":
-                case "DeactivateAccountMessage":
+                case "DisconnectMessage":
                     onlinePlayerList.getItems().clear();
                     Client client = null;
-                    synchronized (MainServer.getInstance().getClients()) {
-                        Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
+                    synchronized (onlinePlayers) {
+                        Iterator<Client> iterator = onlinePlayers.iterator();
                         while (iterator.hasNext()) {
                             client = iterator.next();
                             if (client.getUser() != null && client.getUser().getId() != 0) {
@@ -173,6 +218,7 @@ public class ServerController implements Initializable, ServerListener
                     String p1 = getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer1Id() + ")";
                     String p2 = (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer2Id() + ")";
                     inactiveGamesList.getItems().add(new Label(p1 + " vs " + p2 + " (" + game.getId() + ")"));
+                    errorCompletedLabel.setVisible(false);
                 case "ConnectToLobbyMessage":
                 case "CreateAIGameMessage":
                     // update active games
@@ -188,6 +234,7 @@ public class ServerController implements Initializable, ServerListener
                             }
                         }
                     }
+                    errorActiveLabel.setVisible(false);
                     break;
             }
         });
@@ -203,19 +250,35 @@ public class ServerController implements Initializable, ServerListener
         return null;
     }
 
-    private boolean isUserInOnlineList(int id)
+    public void onPlayerListClicked()
     {
-        for(User user : onlinePlayers) {
-            if(user.getId() == id) {
-                return true;
-            }
-        }
-        return false;
+        errorModifyLabel.setVisible(false);
+    }
+
+    public void onActiveGamesListClicked()
+    {
+        errorActiveLabel.setVisible(false);
+    }
+
+    public void onCompletedGamesListClicked()
+    {
+        errorCompletedLabel.setVisible(false);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        errorActiveLabel.setVisible(false);
+        errorCompletedLabel.setVisible(false);
+        errorModifyLabel.setVisible(false);
+        onlinePlayers = MainServer.getInstance().getClients();
         MainServer.getInstance().addObserver(this);
         MainServer.getInstance().notifyObservers(new EncapsulatedMessage(null, null, null), null);
+    }
+
+    public void passInfo(List<Object> allPlayers)
+    {
+        this.allPlayers = allPlayers;
+        MainServer.getInstance().notifyObservers((LoginSuccessfulMessage) MessageFactory.getMessage("LOS-MSG"), null);
+        MainServer.getInstance().notifyObservers((CreateAIGameMessage) MessageFactory.getMessage("CAI-MSG"), null);
     }
 }

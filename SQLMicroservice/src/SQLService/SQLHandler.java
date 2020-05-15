@@ -288,7 +288,7 @@ public class SQLHandler implements Runnable{
 
                     case "AAU-MSG":
                         AdminAccountUpdateMessage AAU = (AdminAccountUpdateMessage) packet.getData();
-                        List<Object> users = DBManager.getInstance().list(User.class);
+                        List<Object> users = DBManager.getInstance().query(User.class, "active");
                         boolean UAC_Failed = false;
 
                         for(Object obj: users) {
@@ -300,8 +300,7 @@ public class SQLHandler implements Runnable{
                         }
 
                         if(!UAC_Failed) {
-                            UpdateAccountInfoMessage UPA = AAU.getUPA();
-                            SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("UPA-MSG", AAU.getId(), UPA)));
+                            SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("UPA-MSG", AAU.getId(), AAU.getUPA())));
                             DBManager.getInstance().update(AAU.getUPA().getUpdatedUser());
                         }
                         break;
@@ -316,11 +315,11 @@ public class SQLHandler implements Runnable{
                         AGI.getGameLog().setPlayer1Username(player.getUsername());
                         player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getPlayer2Id()));
                         AGI.getGameLog().setPlayer2Username(player.getUsername());
-                        if(gameData.getWinningPlayerId() != 0) {
+                        if(gameData.getWinningPlayerId() != 0 && gameData.getWinningPlayerId() != -1) {
                             player = (User) DBManager.getInstance().get(User.class, String.valueOf(gameData.getWinningPlayerId()));
                             AGI.getGameLog().setWinner(player.getUsername() + " has won the game");
                         }
-                        else
+                        else if(gameData.getWinningPlayerId() != -1)
                             AGI.getGameLog().setWinner("It's a tie!");
 
                         List<Object> list = DBManager.getInstance().query(TTT_MoveData.class, AGI.getId());
