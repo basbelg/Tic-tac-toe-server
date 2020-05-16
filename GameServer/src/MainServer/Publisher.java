@@ -281,13 +281,14 @@ public class Publisher implements Runnable{
                         List<TTT_ViewerData> currentViewers = MainServer.getInstance().getActiveViewers().get(GVW.getGameId());
                         List<Spectator> spectators = new ArrayList<>();
 
-                        synchronized (currentViewers) {
-                            Iterator<TTT_ViewerData> iterator = currentViewers.iterator();
-                            while(iterator.hasNext()) {
-                                TTT_ViewerData v = iterator.next();
-                                spectators.add(new Spectator(MainServer.getInstance().getClientIDMap().get(v.getViewer_id()).getUser().getUsername()));
+                        if(currentViewers != null)
+                            synchronized (currentViewers) {
+                                Iterator<TTT_ViewerData> iterator = currentViewers.iterator();
+                                while(iterator.hasNext()) {
+                                    TTT_ViewerData v = iterator.next();
+                                    spectators.add(new Spectator(MainServer.getInstance().getClientIDMap().get(v.getViewer_id()).getUser().getUsername()));
+                                }
                             }
-                        }
 
                         GVW.setSpectators(spectators);
                         MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).sendPacket(new Packet("GVW-MSG", GVW));

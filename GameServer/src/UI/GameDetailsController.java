@@ -238,7 +238,7 @@ public class GameDetailsController implements Initializable, ServerListener
                     case "GameResultMessage": // If active game concludes
                         GameResultMessage GMR = (GameResultMessage) msg;
                         gameData.getGameLog().setWinner(GMR.getWinner());
-                        gameData.getGameLog().setGameEnded(MainServer.getInstance().getGame_by_id().get(gameData.getGameLog().getGameId()).getEndTime());
+                        gameData.getGameLog().setGameEnded(MainServer.getInstance().getGame_by_id().get(gameData.getId()).getEndTime());
                         LocalDateTime endtime = gameData.getGameLog().getGameEnded();
                         endTimeLabel.setText((endtime.getMonth().toString()) + " " +
                                 endtime.getDayOfMonth() + ", " + endtime.getYear() + "\n at " + (endtime.getHour() < 10 ? ("0" + endtime.getHour()) : endtime.getHour()) +
