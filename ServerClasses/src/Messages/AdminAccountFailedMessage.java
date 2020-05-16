@@ -1,6 +1,6 @@
 package Messages;
 
-public class AdminAccountFailed {
+public class AdminAccountFailedMessage {
     @Override
     public String toString() {
         return "Username Taken";

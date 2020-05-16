@@ -25,7 +25,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ServerClasses/src/Messages/AdminAccountFailed.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerClasses/src/Messages/AdminAccountFailedMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/ServerClasses/Messages/AdminAccountFailed.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/ServerClasses.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" afterDir="false" />
@@ -230,7 +231,7 @@
       <workItem from="1589341728455" duration="15057000" />
       <workItem from="1589421871685" duration="6880000" />
       <workItem from="1589528469224" duration="6831000" />
-      <workItem from="1589606776475" duration="1897000" />
+      <workItem from="1589606776475" duration="2090000" />
     </task>
     <servers />
   </component>
