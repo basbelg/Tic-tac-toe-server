@@ -1,23 +1,23 @@
 package MainServer;
 
-import Messages.DeactivateAccountMessage;
-import Messages.EncapsulatedMessage;
-import Messages.LoginSuccessfulMessage;
-import Messages.Packet;
+import Messages.*;
+import ServerInterfaces.ServerListener;
+import UI.Main;
 import UI.ServerController;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.nio.channels.ClosedByInterruptException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class SQLServiceConnection implements Runnable{
     private static SQLServiceConnection instance = new SQLServiceConnection(8002);
 
     private Socket socket;
-    private ServerController listener;
     private ObjectInputStream input;
     private ObjectOutputStream output;
 
@@ -38,13 +38,6 @@ public class SQLServiceConnection implements Runnable{
 
     public static SQLServiceConnection getInstance() {return instance;}
 
-    public void setListener(ServerController listener)
-    {
-        this.listener = listener;
-    }
-
-    public void updateUI() { listener.update(new DeactivateAccountMessage()); }
-
     public void sendPacket(Packet packet) {
         try {
             output.writeObject(packet);
@@ -63,15 +56,32 @@ public class SQLServiceConnection implements Runnable{
             while (!thread.isInterrupted()) {
                 Packet packet = (Packet) input.readObject();
 
-
-                if(!packet.getType().equals("ENC-MSG"))
+                if(!packet.getType().equals("ENC-MSG")) {
+                    switch (packet.getType()) {
+                        case "RUS-MSG": // All Registered Users
+                        case "AGS-MSG": // All Games
+                        case "AAF-MSG": // Admin Update Account Failed
+                        case "AAS-MSG": // Admin Update Account Successful
+                            MainServer.getInstance().notifyObservers(packet.getData(), null);
+                            break;
+                        case "AGI-MSG": // Game Info
+                            AllGameInfoMessage AGI = (AllGameInfoMessage) packet.getData();
+                            MainServer.getInstance().notifyObservers(packet.getData(), AGI.getId());
+                            break;
+                    }
                     continue;
+                }
 
                 EncapsulatedMessage ENC = (EncapsulatedMessage) packet.getData();
 
                 System.out.println("Received from SQLConnection: " + ENC.getType());
                 switch (ENC.getType()) {
                     case "UPA-MSG": // Update Account Info
+                        Client client = MainServer.getInstance().getClientIDMap().get(ENC.getidentifier());
+                        MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
+                        if(client == null)
+                            break;
+                        client.setUser(((UpdateAccountInfoMessage)ENC.getMsg()).getUpdatedUser());
                     case "STS-MSG": // Stats
                     case "GLG-MSG": // Game Log
                     case "DAC-MSG": // Deactivate Account
@@ -87,7 +97,7 @@ public class SQLServiceConnection implements Runnable{
                     //------------------------------------------------------------------------------------------
                     case "LOS-MSG": // login succeeded
                         LoginSuccessfulMessage LOS = (LoginSuccessfulMessage) ENC.getMsg();
-                        Client client = null;
+                        client = null;
                         synchronized (MainServer.getInstance().getClients()) {
                             Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
                             while (iterator.hasNext()) {
@@ -103,19 +113,19 @@ public class SQLServiceConnection implements Runnable{
                         }
                             client.setUser(LOS.getUser());
                             MainServer.getInstance().getClientIDMap().put(client.getUser().getId(), client);
-                            listener.update(ENC.getMsg());
-
+                            MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
                         break;
 
                     // -----------------------------------------------------------------------------------------
                     //                                        Create Account
                     //------------------------------------------------------------------------------------------
                     case "ACS-MSG": // create/update account
-
+                        MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
                     case "ACF-MSG": // create/update account
                         if(!(ENC.getidentifier() instanceof String)) {
-                            MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).
-                                    sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
+                            Client account_creator = MainServer.getInstance().getClientIDMap().get(ENC.getidentifier());
+                            if(account_creator != null)
+                                account_creator.sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
                         }
 
                     case "LOF-MSG": // login failed

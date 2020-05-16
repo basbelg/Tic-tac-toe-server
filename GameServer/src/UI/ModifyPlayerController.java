@@ -1,7 +1,9 @@
 package UI;
 
+import MainServer.*;
 import DataClasses.User;
-import Database.DBManager;
+import Messages.*;
+import ServerInterfaces.ServerListener;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,10 +15,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class ModifyPlayerController implements Initializable
+public class ModifyPlayerController implements Initializable, ServerListener
 {
     public Button confirmButton;
     public Button cancelButton;
@@ -25,11 +29,25 @@ public class ModifyPlayerController implements Initializable
     public TextField enterLastName;
     public TextField enterPassword;
     public TextField enterConfirmPassword;
+    public Label errorFNameLabel;
+    public Label errorLNameLabel;
+    public Label errorUsernameLabel;
+    public Label errorPasswordLabel;
+    public Label errorConfirmPasswordLabel;
     public Label errorLabel;
     private User player;
+    private List<Object> allPlayers;
 
     public void onConfirmClicked()
     {
+
+        errorFNameLabel.setText("");
+        errorLNameLabel.setText("");
+        errorUsernameLabel.setText("");
+        errorPasswordLabel.setText("");
+        errorConfirmPasswordLabel.setText("");
+        errorLabel.setText("");
+
         if(!enterFirstName.getText().equals("") && !enterLastName.getText().equals("") && !enterUsername.getText().equals("") &&
                 !enterPassword.getText().equals("") && !enterConfirmPassword.getText().equals("") &&
                 enterPassword.getText().equals(enterConfirmPassword.getText()))
@@ -39,72 +57,54 @@ public class ModifyPlayerController implements Initializable
             player.setLastName(enterLastName.getText());
             player.setPassword(enterPassword.getText());
 
-            DBManager.getInstance().update(player);
-
-            try
-            {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Server.fxml"));
-                Parent root = loader.load();
-                ServerController sc = loader.getController();
-                Stage stage = (Stage) confirmButton.getScene().getWindow();
-                stage.close();
-                stage.setTitle("Server");
-                stage.setScene(new Scene(root));
-                stage.show();
-            }
-            catch(IOException e)
-            {
-                e.printStackTrace();
-            }
+            confirmButton.setDisable(true);
+            cancelButton.setDisable(true);
+            UpdateAccountInfoMessage UPA = (UpdateAccountInfoMessage) MessageFactory.getMessage("UPA-MSG");
+            UPA.setUpdatedUser(player);
+            SQLServiceConnection.getInstance().sendPacket(new Packet("AAU-MSG",  new AdminAccountUpdateMessage(UPA.getUpdatedUser().getId(), UPA)));
         }
         else
         {
             Platform.runLater(() -> {
-                StringBuffer error = new StringBuffer();
                 if (enterFirstName.getText().equals("")) {
-                    error.append("Please enter a first name!\n");
+                    errorFNameLabel.setText("Please enter your first name!\n");
                 }
                 if (enterLastName.getText().equals("")) {
-                    error.append("Please enter a last name!\n");
+                    errorLNameLabel.setText("Please enter your last name!\n");
                 }
                 if (enterUsername.getText().equals("")) {
-                    error.append("Please enter a valid username!\n");
+                    errorUsernameLabel.setText("Please enter a valid username!\n");
                 }
                 if (enterPassword.getText().equals("")) {
-                    error.append("Please enter a valid password!\n");
+                    errorPasswordLabel.setText("Please enter a valid password!\n");
                 }
                 if (!enterPassword.getText().equals(enterConfirmPassword.getText()) && !enterPassword.getText().equals("")) {
-                    error.append("Passwords do NOT match!\n");
+                    errorConfirmPasswordLabel.setText("Passwords do NOT match!\n");
                 }
-
-                errorLabel.setText(error.toString());
             });
         }
 
     }
 
-    public void onCancelClicked()
-    {
-        try
-        {
+    public void onCancelClicked() {
+        try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Server.fxml"));
             Parent root = loader.load();
             ServerController sc = loader.getController();
+            MainServer.getInstance().removeObserver(this);
+            sc.passInfo(allPlayers);
             Stage stage = (Stage) cancelButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Server");
             stage.setScene(new Scene(root));
             stage.show();
         }
-        catch(IOException e)
-        {
-            e.printStackTrace();
-        }
+        catch(IOException e) {e.printStackTrace();}
     }
 
-    public void passInfo(User player)
-    {
+    public void passInfo(User player, List<Object> allPlayers) {
         this.player = player;
+        this.allPlayers = allPlayers;
 
         enterUsername.setText(player.getUsername());
         enterFirstName.setText(player.getFirstName());
@@ -115,4 +115,35 @@ public class ModifyPlayerController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {}
+
+    @Override
+    public void update(Serializable msg, Object data)
+    {
+        Platform.runLater(() -> {
+            switch(msg.getClass().getSimpleName())
+            {
+                case "AdminAccountFailedMessage":
+                    errorLabel.setText(msg.toString());
+                    confirmButton.setDisable(false);
+                    cancelButton.setDisable(false);
+                    break;
+                case "AdminAccountSuccessfulMessage":
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("Server.fxml"));
+                        Parent root = loader.load();
+                        ServerController sc = loader.getController();
+                        MainServer.getInstance().removeObserver(this);
+                        sc.passInfo(allPlayers);
+                        Stage stage = (Stage) confirmButton.getScene().getWindow();
+                        stage.close();
+                        stage.setTitle("Server");
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    }
+                    catch(IOException e) {e.printStackTrace();}
+                    break;
+            }
+        });
+
+    }
 }

@@ -1,13 +1,16 @@
 package MainServer;
 
+import DataClasses.Spectator;
 import DataClasses.TTT_GameData;
 import DataClasses.TTT_ViewerData;
 import Messages.*;
+import UI.Main;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 public class Publisher implements Runnable{
@@ -76,7 +79,7 @@ public class Publisher implements Runnable{
 
                             }
                         }
-                        
+                        MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
                         break;
 
@@ -122,6 +125,7 @@ public class Publisher implements Runnable{
 
                             }
                         }
+                        MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
                         break;
 
@@ -175,14 +179,13 @@ public class Publisher implements Runnable{
                         InactiveGameMessage IAG = (InactiveGameMessage) MessageFactory.getMessage("IAG-MSG");
 
                         // Create Save Game Message and update Game Result Message
-                        current_game = MainServer.getInstance().getGame_by_id().get(ENC.getidentifier());
+                        String game_id = (String) ENC.getidentifier();
+                        current_game = MainServer.getInstance().getGame_by_id().get(game_id);
                         Client player1 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer1Id());
                         Client player2 = null;
 
                         if(current_game.getPlayer2Id() != 1)
-                        {
                             player2 = MainServer.getInstance().getClientIDMap().get(current_game.getPlayer2Id());
-                        }
 
                         if(GRE.getWinner().equals("0")) {
                             current_game.setWinningPlayerId(0);
@@ -227,10 +230,7 @@ public class Publisher implements Runnable{
                             while (i.hasNext()) {
                                 Client client = i.next();
                                 if(client.getUser() != null)
-                                {
                                     client.sendPacket(new Packet("IAG-MSG", IAG));
-                                }
-
                             }
                         }
 
@@ -238,7 +238,10 @@ public class Publisher implements Runnable{
                         SQLServiceConnection.getInstance().sendPacket(new Packet("SAV-MSG", SAV));
 
                         // remove game from active games list
-                        MainServer.getInstance().getActiveGames().remove(current_game); // remove is already synchronized
+                        MainServer.getInstance().getActiveGames().remove(current_game);
+
+                        // send GRE to active controller
+                        MainServer.getInstance().notifyObservers(GRE, current_game.getId());
                         break;
 
                     //--------------------------------------------------------------------------------------------------
@@ -269,9 +272,48 @@ public class Publisher implements Runnable{
                         // Send to viewer
                         MainServer.getInstance().getClientIDMap().get(SPC.getSpectatorId()).sendPacket(
                                 new Packet("SPC-MSG", SPC));
+
+                        MainServer.getInstance().notifyObservers(SPC, SPC.getGameId());
+                        break;
+
+                    case "GVW-MSG":
+                        GameViewersMessage GVW = (GameViewersMessage) ENC.getMsg();
+                        List<TTT_ViewerData> currentViewers = MainServer.getInstance().getActiveViewers().get(GVW.getGameId());
+                        List<Spectator> spectators = new ArrayList<>();
+
+                        if(currentViewers != null)
+                            synchronized (currentViewers) {
+                                Iterator<TTT_ViewerData> iterator = currentViewers.iterator();
+                                while(iterator.hasNext()) {
+                                    TTT_ViewerData v = iterator.next();
+                                    spectators.add(new Spectator(MainServer.getInstance().getClientIDMap().get(v.getViewer_id()).getUser().getUsername()));
+                                }
+                            }
+
+                        GVW.setSpectators(spectators);
+                        MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).sendPacket(new Packet("GVW-MSG", GVW));
+                        break;
+
+                    case "SSP-MSG":
+                        StopSpectatingMessage SSP = (StopSpectatingMessage) ENC.getMsg();
+                        List<TTT_ViewerData> viewers = MainServer.getInstance().getActiveViewers().get(SSP.getGameId());
+                        synchronized (viewers) {
+                            Iterator<TTT_ViewerData> iterator = viewers.iterator();
+                            while(iterator.hasNext()) {
+                                TTT_ViewerData spectator = iterator.next();
+                                if(((int)ENC.getidentifier()) == spectator.getViewer_id()) {
+                                    viewers.remove(spectator);
+                                    break;
+                                }
+                            }
+                        }
+
+                        MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).sendPacket(
+                                new Packet("SSP-MSG", SSP));
                         break;
 
                     case "DIS-MSG":
+                        MainServer.getInstance().notifyObservers(new DisconnectMessage(), null);
                     case "IAG-MSG":
                         int user_id = (int) ENC.getidentifier();
                         TTT_GameData user_game = null;
@@ -320,6 +362,10 @@ public class Publisher implements Runnable{
                             EncapsulatedMessage ENC_CNC = new EncapsulatedMessage("CNC-MSG", user_game.getId(), CNC);
                             GameServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENC_CNC));
                         }
+                        break;
+
+                    case "DAC-MSG":
+                        MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
                         break;
                 }
             }

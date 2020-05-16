@@ -16,7 +16,7 @@ public class DBManager implements DataSource {
 
     private DBManager() {
         try {
-            // File file = new File("R:\\CS4B\\SQL_Password.txt");
+            //File file = new File("R:\\CS4B\\SQL_Password.txt");
 			File file = new File("C:\\Users\\basbe\\OneDrive\\Documents\\CS 4B\\SQL_Password.txt");
             //File file = new File("C:\\Users\\jtols\\Documents\\SQLPassword.txt");
             Scanner scanner = new Scanner(file);
@@ -281,7 +281,7 @@ public class DBManager implements DataSource {
                 while(resultSet.next())
                     objs.add(new TTT_GameData(resultSet.getString("id"),
                             resultSet.getTimestamp("start_time").toLocalDateTime(),
-                            resultSet.getTimestamp("end_time").toLocalDateTime(),
+                            (resultSet.getTimestamp("end_time") == null ? null : resultSet.getTimestamp("end_time").toLocalDateTime()),
                             resultSet.getInt("player1"), resultSet.getInt("player2"),
                             resultSet.getInt("starting_player"), resultSet.getInt("winner")));
             }

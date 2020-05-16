@@ -1,13 +1,12 @@
 package UI;
 
+import DataClasses.TTT_GameData;
 import DataClasses.User;
 import Database.DBManager;
 import MainServer.Client;
-import MainServer.MainServer;
-import MainServer.SQLServiceConnection;
-import Messages.AccountSuccessfulMessage;
-import Messages.DeactivateAccountMessage;
-import Messages.LoginSuccessfulMessage;
+import MainServer.*;
+import Messages.*;
+import ServerInterfaces.ServerListener;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,7 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class ServerController implements Initializable
+public class ServerController implements Initializable, ServerListener
 {
     public ListView registeredPlayersList;
     public ListView onlinePlayerList;
@@ -35,20 +34,27 @@ public class ServerController implements Initializable
     public Button activeGameDetailsButton;
     public ListView inactiveGamesList;
     public Button inactiveGameDetailsButton;
-    private List<User> allPlayers = new ArrayList<>();
+    public Label errorModifyLabel;
+    public Label errorActiveLabel;
+    public Label errorCompletedLabel;
+    private List<Client> onlinePlayers = new ArrayList<>();
+    private List<Object> allPlayers = new ArrayList<>();
 
 
     public void onModifyPlayerClicked()
     {
         try
         {
+            // retrieve selected user
             int usernameIndex = registeredPlayersList.getSelectionModel().getSelectedIndex();
-            User selectedPlayer = allPlayers.get(usernameIndex);
+            User selectedPlayer = (User) allPlayers.get(usernameIndex);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ModifyPlayer.fxml"));
             Parent root = loader.load();
             ModifyPlayerController mpc = loader.getController();
-            mpc.passInfo(selectedPlayer);
+            MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(mpc);
+            mpc.passInfo(selectedPlayer, allPlayers);
             Stage stage = (Stage) modifyPlayerButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Modify Player");
@@ -59,15 +65,35 @@ public class ServerController implements Initializable
         {
             e.printStackTrace();
         }
+        catch(IndexOutOfBoundsException e)
+        {
+            if(registeredPlayersList.getItems().isEmpty())
+            {
+                errorModifyLabel.setText("There Are No Registered Players");
+                errorModifyLabel.setVisible(true);
+            }
+            else if(registeredPlayersList.getSelectionModel().getSelectedIndex() < 0)
+            {
+                errorModifyLabel.setText("Please Select a Player To Modify");
+                errorModifyLabel.setVisible(true);
+            }
+        }
     }
 
     public void onActiveGameDetailsClicked()
     {
         try
         {
+            // retrieve selected game id
+            String selected = ((Label)activeGamesList.getSelectionModel().getSelectedItem()).getText();
+            String id = selected.substring(selected.lastIndexOf('(') + 1, selected.lastIndexOf(')'));
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameDetails.fxml"));
             Parent root = loader.load();
             GameDetailsController gdc = loader.getController();
+            MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(gdc);
+            gdc.passInfo(id, allPlayers);
             Stage stage = (Stage) activeGameDetailsButton.getScene().getWindow();
             stage.close();
             stage.setTitle("Active Game Details");
@@ -78,78 +104,182 @@ public class ServerController implements Initializable
         {
             e.printStackTrace();
         }
+        catch(IndexOutOfBoundsException | NullPointerException e)
+        {
+            if(activeGamesList.getItems().isEmpty())
+            {
+                errorActiveLabel.setText("There Are No Active Games");
+                errorActiveLabel.setVisible(true);
+            }
+            else if(activeGamesList.getSelectionModel().getSelectedIndex() < 0)
+            {
+                errorActiveLabel.setText("Please Select a Game To View");
+                errorActiveLabel.setVisible(true);
+            }
+        }
     }
 
     public void onInactiveGameDetailsClicked()
     {
         try
         {
+            // retrieve selected game id
+            String selected = ((Label)inactiveGamesList.getSelectionModel().getSelectedItem()).getText();
+            String id = selected.substring(selected.lastIndexOf('(') + 1, selected.lastIndexOf(')'));
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("GameDetails.fxml"));
             Parent root = loader.load();
             GameDetailsController gdc = loader.getController();
-            //gdc.passInfo();
+            MainServer.getInstance().removeObserver(this);
+            MainServer.getInstance().addObserver(gdc);
+            gdc.passInfo(id, allPlayers);
             Stage stage = (Stage) inactiveGameDetailsButton.getScene().getWindow();
             stage.close();
-            stage.setTitle("Inactive Game Details");
+            stage.setTitle("Completed Game Details");
             stage.setScene(new Scene(root));
             stage.show();
         }
-        catch(IOException e)
+        catch(IOException e){e.printStackTrace();}
+        catch(IndexOutOfBoundsException | NullPointerException e)
         {
-            e.printStackTrace();
+            if(inactiveGamesList.getItems().isEmpty())
+            {
+                errorCompletedLabel.setText("There Are No Completed Games");
+                errorCompletedLabel.setVisible(true);
+            }
+            else if(inactiveGamesList.getSelectionModel().getSelectedIndex() < 0)
+            {
+                errorCompletedLabel.setText("Please Select a Game To View");
+                errorCompletedLabel.setVisible(true);
+            }
         }
-    }
-
-    public void update(Serializable msg) {
-        Platform.runLater(() -> {
-            if (msg instanceof LoginSuccessfulMessage || msg instanceof DeactivateAccountMessage) {
-                onlinePlayerList.getItems().clear();
-                Client client = null;
-                synchronized (MainServer.getInstance().getClients()) {
-                    Iterator<Client> iterator = MainServer.getInstance().getClients().iterator();
-                    while (iterator.hasNext()) {
-                        client = iterator.next();
-                        if (client.getUser() != null) {
-                            if (client.getUser().getId() != 0) {
-                                allPlayers.add(client.getUser());
-                                onlinePlayerList.getItems().add(new Label(client.getUser().getUsername() + " (" + client.getUser().getFullName() + ")"));
-                            }
-                        }
-                    }
-                }
-            }/* else if (msg instanceof LoginSuccessfulMessage) {
-                for (Client c : MainServer.getInstance().getClients()) {
-                    if (!c.getUser().equals(null)) {
-                        onlinePlayerList.getItems().add(new Label(c.getUser().getUsername() + " (" + c.getUser().getFullName() + ")"));
-                    }
-                }
-            }*/
-        });
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle)
-    {
-       SQLServiceConnection.getInstance().setListener(this);
+    public void update(Serializable msg, Object data) {
+        Platform.runLater(() -> {
+            switch (msg.getClass().getSimpleName()) {
+                case "EncapsulatedMessage": //KEEP ENCAPSULATEDMESSAGE AND ACCOUNTSUCCESSFULMESSAGE CASES SEPARATE
+                case "DeactivateAccountMessage":
+                    SQLServiceConnection.getInstance().sendPacket(new Packet("RUS-MSG", new RegisteredUsersMessage()));
+                    SQLServiceConnection.getInstance().sendPacket(new Packet("AGS-MSG", new AllGamesMessage()));
+                    break;
+                case "AccountSuccessfulMessage":
+                    SQLServiceConnection.getInstance().sendPacket(new Packet("RUS-MSG", new RegisteredUsersMessage()));
+                    break;
 
-       /*  //ALL Players
-        List<Object> players = DBManager.getInstance().list(User.class);
-        for(Object user : players)
-        {
-            if(((User) user).getId() != 0)
-            {
-                allPlayers.add((User) user);
-                registeredPlayersList.getItems().add(new Label(((User) user).getUsername() + " (" + ((User) user).getFullName() + ")"));
+                case "AllGamesMessage":
+                    List<Object> all_games = ((AllGamesMessage) msg).getGames();
+                    inactiveGamesList.getItems().clear();
+                    for(Object obj: all_games) {
+                        TTT_GameData game = (TTT_GameData) obj;
+                        if (game.getWinningPlayerId() != -1) {
+                            User user = getUserFromList(game.getPlayer1Id());
+                            String p1 = ((user == null) ? "<Deleted Account> " : user.getUsername()) + " (ID: " + game.getPlayer1Id() + ")";
+                            user = getUserFromList(game.getPlayer2Id());
+                            String p2 = user == null ? "<Deleted Account> " : (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : user.getUsername() + " (ID: " + game.getPlayer2Id() + ")";
+                            inactiveGamesList.getItems().add(new Label(p1 + " vs " + p2 + " \n(" + game.getId() + ")"));
+                        }
+                    }
+                    errorCompletedLabel.setVisible(false);
+                    break;
+
+                case "RegisteredUsersMessage":
+                    // update registered player list
+                    errorModifyLabel.setVisible(false);
+                    registeredPlayersList.getItems().clear();
+                    allPlayers = ((RegisteredUsersMessage)msg).getUsers();
+                    for(Object obj: allPlayers) {
+                        User user = (User) obj;
+                        registeredPlayersList.getItems().add(new Label(user.getUsername() + " (ID: " + user.getId() + ")"));
+                    }
+                    break;
+
+                case "UpdateAccountInfoMessage":
+                    SQLServiceConnection.getInstance().sendPacket(new Packet("RUS-MSG", new RegisteredUsersMessage()));
+                case "LoginSuccessfulMessage":
+                case "DisconnectMessage":
+                    onlinePlayerList.getItems().clear();
+                    Client client = null;
+                    synchronized (onlinePlayers) {
+                        Iterator<Client> iterator = onlinePlayers.iterator();
+                        while (iterator.hasNext()) {
+                            client = iterator.next();
+                            if (client.getUser() != null && client.getUser().getId() != 0) {
+                                onlinePlayerList.getItems().add(new Label(client.getUser().getUsername() + " (ID: " + client.getUser().getId() + ")"));
+                            }
+                        }
+                    }
+                    break;
+
+                case "GameResultMessage":
+                    // update completed games list
+                    String game_id = (String) data;
+                    TTT_GameData game = MainServer.getInstance().getGame_by_id().get(game_id);
+                    String p1 = getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer1Id() + ")";
+                    String p2 = (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer2Id() + ")";
+                    inactiveGamesList.getItems().add(new Label(p1 + " vs " + p2 + " \n(" + game.getId() + ")"));
+                    errorCompletedLabel.setVisible(false);
+                case "ConnectToLobbyMessage":
+                case "CreateAIGameMessage":
+                    // update active games
+                    activeGamesList.getItems().clear();
+                    synchronized (MainServer.getInstance().getActiveGames()) {
+                        Iterator<TTT_GameData> iterator = MainServer.getInstance().getActiveGames().iterator();
+                        while (iterator.hasNext()) {
+                            game = iterator.next();
+                            if (game.getPlayer2Id() != 0) {
+                                p1 = getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer1Id() + ")";
+                                p2 = (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer2Id() + ")";
+                                activeGamesList.getItems().add(new Label(p1 + " vs " + p2 + " \n(" + game.getId() + ")"));
+                            }
+                        }
+                    }
+                    errorActiveLabel.setVisible(false);
+                    break;
+            }
+        });
+    }
+
+    private User getUserFromList(int id)
+    {
+        for(Object user : allPlayers) {
+            if(((User) user).getId() == id) {
+                return (User) user;
             }
         }
+        return null;
+    }
 
-        //ONLINE Players
-        for(Client c : MainServer.getInstance().getClients())
-        {
-            if(!c.getUser().equals(null))
-            {
-                onlinePlayerList.getItems().add(new Label(c.getUser().getUsername() + " (" + c.getUser().getFullName() + ")"));
-            }
-        }*/
+    public void onPlayerListClicked()
+    {
+        errorModifyLabel.setVisible(false);
+    }
+
+    public void onActiveGamesListClicked()
+    {
+        errorActiveLabel.setVisible(false);
+    }
+
+    public void onCompletedGamesListClicked()
+    {
+        errorCompletedLabel.setVisible(false);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        errorActiveLabel.setVisible(false);
+        errorCompletedLabel.setVisible(false);
+        errorModifyLabel.setVisible(false);
+        onlinePlayers = MainServer.getInstance().getClients();
+        MainServer.getInstance().addObserver(this);
+        MainServer.getInstance().notifyObservers(new EncapsulatedMessage(null, null, null), null);
+    }
+
+    public void passInfo(List<Object> allPlayers)
+    {
+        this.allPlayers = allPlayers;
+        MainServer.getInstance().notifyObservers((LoginSuccessfulMessage) MessageFactory.getMessage("LOS-MSG"), null);
+        MainServer.getInstance().notifyObservers((CreateAIGameMessage) MessageFactory.getMessage("CAI-MSG"), null);
     }
 }

@@ -4,6 +4,7 @@ import DataClasses.LobbyInfo;
 import DataClasses.TTT_GameData;
 import DataClasses.User;
 import Messages.*;
+import UI.Main;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -86,7 +87,8 @@ public class Client implements Runnable, Serializable {
                         sendPacket(new Packet("AAG-MSG", AAG));
                         break;
 
-                    case "IAG-MSG": // Inactive game message
+                    case "SSP-MSG": // Stop Spectating Message
+                    case "IAG-MSG": // Inactive Game Message
                         EncapsulatedMessage ENC_IAG = new EncapsulatedMessage(packet.getType(), user.getId(),
                                 packet.getData());
                         MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC_IAG));
@@ -157,9 +159,19 @@ public class Client implements Runnable, Serializable {
                         }
                         break;
 
-                    case "GMP-MSG": // Games played
-                    case "GVW-MSG": // Game Viewers
                     case "DAC-MSG": // Deactivate Account
+                        MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", new EncapsulatedMessage(packet.getType(), user.getId(), packet.getData())));
+                        EncapsulatedMessage ENCM = new EncapsulatedMessage(packet.getType(), user.getId(),
+                                packet.getData());
+                        SQLServiceConnection.getInstance().sendPacket(new Packet("ENC-MSG", ENCM));
+                        break;
+                    case "GVW-MSG": // Game Viewers
+                        if(((GameViewersMessage) packet.getData()).isGameActive()) {
+                            EncapsulatedMessage ENC = new EncapsulatedMessage(packet.getType(), user.getId(), packet.getData());
+                            MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC));
+                            break;
+                        }
+                    case "GMP-MSG": // Games played
                     case "UPA-MSG": // Update Account Info
                     case "GLG-MSG": // Game Log
                     case "STS-MSG": // Stats
@@ -177,7 +189,6 @@ public class Client implements Runnable, Serializable {
                 MainServer.getInstance().getRequests().add(new Packet("ENC-MSG", ENC));
             }
             clients.remove(this);
-            SQLServiceConnection.getInstance().updateUI();
         }
     }
 

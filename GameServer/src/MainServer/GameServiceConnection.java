@@ -90,14 +90,15 @@ public class GameServiceConnection implements Runnable{
                             }
                         }
                         SQLServiceConnection.getInstance().sendPacket(new Packet("MOV-MSG", MOV));
+                        MainServer.getInstance().notifyObservers(MOV, MOV.getGameId());
                         break;
 
                     //--------------------------------------------------------------------------------------------------
-                    //                                       Illegal Move
+                    //                                Illegal Move/Connect Failed
                     //--------------------------------------------------------------------------------------------------
                     case "ILM-MSG":
-                        IllegalMoveMessage ILM = (IllegalMoveMessage) ENC.getMsg();
-                        MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).sendPacket(new Packet("ILM-MSG", ILM));
+                    case "COF-MSG":
+                        MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).sendPacket(new Packet(ENC.getType(), ENC.getMsg()));
                         break;
 
                     //--------------------------------------------------------------------------------------------------
