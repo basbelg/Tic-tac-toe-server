@@ -57,7 +57,7 @@
               <Label text="Start Time:" GridPane.rowIndex="2" />
               <Label fx:id="startTimeLabel" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="2" />
               <Label text="End Time:" GridPane.rowIndex="3" />
-              <Label fx:id="endTimeLabel" text="N/A" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+              <Label fx:id="endTimeLabel" text="Game Is Not Over" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <GridPane fx:id="moveInfoGrid" layoutX="25.0" layoutY="50.0" prefHeight="107.0" prefWidth="233.0">

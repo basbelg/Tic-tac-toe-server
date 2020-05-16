@@ -117,7 +117,8 @@ public class MainServer implements Runnable {
                         if(msg instanceof EncapsulatedMessage || msg instanceof DeactivateAccountMessage || msg instanceof AccountSuccessfulMessage ||
                            msg instanceof AllGamesMessage || msg instanceof RegisteredUsersMessage || msg instanceof UpdateAccountInfoMessage ||
                            msg instanceof LoginSuccessfulMessage || msg instanceof DisconnectMessage || msg instanceof GameResultMessage ||
-                           msg instanceof ConnectToLobbyMessage || msg instanceof CreateAIGameMessage || msg instanceof SpectateMessage || msg instanceof StopSpectatingMessage)
+                           msg instanceof ConnectToLobbyMessage || msg instanceof CreateAIGameMessage || msg instanceof SpectateMessage ||
+                           msg instanceof StopSpectatingMessage)
                         {
                             listener.update(msg, data);
                         }
@@ -125,6 +126,12 @@ public class MainServer implements Runnable {
                     case "GameDetailsController":
                         if(msg instanceof AllGameInfoMessage || msg instanceof MoveMessage || msg instanceof GameResultMessage ||
                             msg instanceof SpectateMessage)
+                        {
+                            listener.update(msg, data);
+                        }
+                        break;
+                    case "ModifyPlayerController":
+                        if(msg instanceof AdminAccountFailedMessage || msg instanceof AdminAccountSuccessfulMessage)
                         {
                             listener.update(msg, data);
                         }

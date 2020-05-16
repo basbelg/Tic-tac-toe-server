@@ -60,6 +60,8 @@ public class SQLServiceConnection implements Runnable{
                     switch (packet.getType()) {
                         case "RUS-MSG": // All Registered Users
                         case "AGS-MSG": // All Games
+                        case "AAF-MSG": // Admin Update Account Failed
+                        case "AAS-MSG": // Admin Update Account Successful
                             MainServer.getInstance().notifyObservers(packet.getData(), null);
                             break;
                         case "AGI-MSG": // Game Info

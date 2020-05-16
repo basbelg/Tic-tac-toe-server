@@ -295,6 +295,10 @@ public class GameDetailsController implements Initializable, ServerListener
                                     ":" + (time.getMinute() < 10 ? ("0" + time.getMinute()) : time.getMinute()) +
                                     ":" + (time.getSecond() < 10 ? ("0" + time.getSecond()) : time.getSecond()));
                         }
+                        else
+                        {
+                            nextButton.setDisable(true);
+                        }
 
                         playerTurnLabel.setText(gameData.getGameLog().getPlayer1Username() + "\'s move!");
                         player1Label.setText(gameData.getGameLog().getPlayer1Username());

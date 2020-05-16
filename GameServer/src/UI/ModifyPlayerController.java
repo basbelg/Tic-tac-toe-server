@@ -57,23 +57,10 @@ public class ModifyPlayerController implements Initializable, ServerListener
             player.setLastName(enterLastName.getText());
             player.setPassword(enterPassword.getText());
 
+            confirmButton.setDisable(true);
+            cancelButton.setDisable(true);
             UpdateAccountInfoMessage UPA = (UpdateAccountInfoMessage) MessageFactory.getMessage("UPA-MSG");
             UPA.setUpdatedUser(player);
-
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("Server.fxml"));
-                Parent root = loader.load();
-                ServerController sc = loader.getController();
-                MainServer.getInstance().removeObserver(this);
-                MainServer.getInstance().addObserver(sc);
-                Stage stage = (Stage) confirmButton.getScene().getWindow();
-                stage.close();
-                stage.setTitle("Server");
-                stage.setScene(new Scene(root));
-                stage.show();
-            }
-            catch(IOException e) {e.printStackTrace();}
-
             SQLServiceConnection.getInstance().sendPacket(new Packet("AAU-MSG",  new AdminAccountUpdateMessage(UPA.getUpdatedUser().getId(), UPA)));
         }
         else
@@ -130,5 +117,33 @@ public class ModifyPlayerController implements Initializable, ServerListener
     public void initialize(URL url, ResourceBundle resourceBundle) {}
 
     @Override
-    public void update(Serializable msg, Object data) {}
+    public void update(Serializable msg, Object data)
+    {
+        Platform.runLater(() -> {
+            switch(msg.getClass().getSimpleName())
+            {
+                case "AdminAccountFailedMessage":
+                    errorLabel.setText(msg.toString());
+                    confirmButton.setDisable(false);
+                    cancelButton.setDisable(false);
+                    break;
+                case "AdminAccountSuccessfulMessage":
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("Server.fxml"));
+                        Parent root = loader.load();
+                        ServerController sc = loader.getController();
+                        MainServer.getInstance().removeObserver(this);
+                        MainServer.getInstance().addObserver(sc);
+                        Stage stage = (Stage) confirmButton.getScene().getWindow();
+                        stage.close();
+                        stage.setTitle("Server");
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    }
+                    catch(IOException e) {e.printStackTrace();}
+                    break;
+            }
+        });
+
+    }
 }
