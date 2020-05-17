@@ -86,7 +86,7 @@ public class SQLHandler implements Runnable{
                             case "UPA-MSG": // Update Account Info
                                 UpdateAccountInfoMessage UPA = (UpdateAccountInfoMessage) ENC.getMsg();
 
-                                List<Object> users = DBManager.getInstance().list(User.class);
+                                List<Object> users = DBManager.getInstance().query(User.class, "active");
                                 boolean UAC_Failed = false;
 
                                 for(Object obj: users) {
@@ -295,11 +295,13 @@ public class SQLHandler implements Runnable{
                             User user = (User) obj;
                             if(user.getUsername().equals(AAU.getUPA().getUpdatedUser().getUsername()) && user.getId() != AAU.getId()) {
                                 UAC_Failed = true;
+                                SQLServer.getInstance().sendPacket(new Packet("AAF-MSG", new AdminAccountFailedMessage()));
                                 break;
                             }
                         }
 
                         if(!UAC_Failed) {
+                            SQLServer.getInstance().sendPacket(new Packet("AAS-MSG", new AdminAccountSuccessfulMessage()));
                             SQLServer.getInstance().sendPacket(new Packet("ENC-MSG", new EncapsulatedMessage("UPA-MSG", AAU.getId(), AAU.getUPA())));
                             DBManager.getInstance().update(AAU.getUPA().getUpdatedUser());
                         }

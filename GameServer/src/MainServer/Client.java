@@ -27,6 +27,7 @@ public class Client implements Runnable, Serializable {
 
     private List<Client> clients;
     private BlockingQueue<Packet> requests;
+    private String currentGameId;
 
     public Client(Socket socket) {
         try {
@@ -36,6 +37,7 @@ public class Client implements Runnable, Serializable {
 
             this.clients = MainServer.getInstance().getClients();
             this.requests = MainServer.getInstance().getRequests();
+            currentGameId = "No Game";
 
             thread = new Thread(this);
             thread.start();
@@ -203,4 +205,12 @@ public class Client implements Runnable, Serializable {
 
     public User getUser() {return user;}
     public void setUser(User user) {this.user = user;}
+
+    public String getCurrentGameId() {
+        return currentGameId;
+    }
+    public void setCurrentGameId(String currentGameId) {
+        this.currentGameId = currentGameId;
+    }
+
 }
