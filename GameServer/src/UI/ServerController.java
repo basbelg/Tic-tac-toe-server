@@ -176,13 +176,8 @@ public class ServerController implements Initializable, ServerListener
                         if (game.getWinningPlayerId() != -1) {
                             User user = getUserFromList(game.getPlayer1Id());
                             String p1 = ((user == null) ? "<Deleted Account> " : user.getUsername()) + " (ID: " + game.getPlayer1Id() + ")";
-                            String p2;
-                            if(game.getPlayer2Id() == 1)
-                                p2 = "AI Player (ID: 1)";
-                            else {
-                                user = getUserFromList(game.getPlayer2Id());
-                                p2 = (user == null)? "<Deleted Account> ": user.getUsername() + " (ID: " + game.getPlayer2Id() + ")";
-                            }
+                            user = getUserFromList(game.getPlayer2Id());
+                            String p2 = (user != null)? user.getUsername() + " (ID: " + game.getPlayer2Id() + ")" : game.getPlayer2Id() == 1 ? "AI Player (ID: 1)" : "<Deleted Account> ";
                             inactiveGamesList.getItems().add(new Label(p1 + " vs " + p2 + " \n(" + game.getId() + ")"));
                         }
                     }
