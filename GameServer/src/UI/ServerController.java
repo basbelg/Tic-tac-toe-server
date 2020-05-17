@@ -197,8 +197,6 @@ public class ServerController implements Initializable, ServerListener
 
                 case "UpdateAccountInfoMessage":
                     SQLServiceConnection.getInstance().sendPacket(new Packet("RUS-MSG", new RegisteredUsersMessage()));
-                case "LoginSuccessfulMessage":
-                case "DisconnectMessage":
                     onlinePlayerList.getItems().clear();
                     Client client = null;
                     synchronized (onlinePlayers) {
@@ -206,21 +204,22 @@ public class ServerController implements Initializable, ServerListener
                         while (iterator.hasNext()) {
                             client = iterator.next();
                             if (client.getUser() != null && client.getUser().getId() != 0) {
-                                onlinePlayerList.getItems().add(new Label(client.getUser().getUsername() + " (ID: " + client.getUser().getId() + ")"));
+                                onlinePlayerList.getItems().add(new Label(client.getUser().getUsername() + " (ID: " + client.getUser().getId() + ")" + "\n" + client.getCurrentGameId()));
                             }
                         }
                     }
-                    break;
 
                 case "GameResultMessage":
                     // update completed games list
                     String game_id = (String) data;
+
                     TTT_GameData game = MainServer.getInstance().getGame_by_id().get(game_id);
                     String p1 = getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer1Id() + ")";
                     String p2 = (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer2Id() + ")";
                     inactiveGamesList.getItems().add(new Label(p1 + " vs " + p2 + " \n(" + game.getId() + ")"));
                     errorCompletedLabel.setVisible(false);
                 case "ConnectToLobbyMessage":
+                case "CreateLobbyMessage":
                 case "CreateAIGameMessage":
                     // update active games
                     activeGamesList.getItems().clear();
@@ -236,6 +235,23 @@ public class ServerController implements Initializable, ServerListener
                         }
                     }
                     errorActiveLabel.setVisible(false);
+
+                case "StopSpectatingMessage":
+                case "SpectateMessage":
+                case "LoginSuccessfulMessage":
+                case "DisconnectMessage":
+                case "InactiveGameMessage":
+                    onlinePlayerList.getItems().clear();
+                    client = null;
+                    synchronized (onlinePlayers) {
+                        Iterator<Client> iterator = onlinePlayers.iterator();
+                        while (iterator.hasNext()) {
+                            client = iterator.next();
+                            if (client.getUser() != null && client.getUser().getId() != 0) {
+                                onlinePlayerList.getItems().add(new Label(client.getUser().getUsername() + " (ID: " + client.getUser().getId() + ")" + "\n" + client.getCurrentGameId()));
+                            }
+                        }
+                    }
                     break;
             }
         });

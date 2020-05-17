@@ -118,7 +118,7 @@ public class MainServer implements Runnable {
                            msg instanceof AllGamesMessage || msg instanceof RegisteredUsersMessage || msg instanceof UpdateAccountInfoMessage ||
                            msg instanceof LoginSuccessfulMessage || msg instanceof DisconnectMessage || msg instanceof GameResultMessage ||
                            msg instanceof ConnectToLobbyMessage || msg instanceof CreateAIGameMessage || msg instanceof SpectateMessage ||
-                           msg instanceof StopSpectatingMessage)
+                           msg instanceof StopSpectatingMessage || msg instanceof CreateLobbyMessage || msg instanceof InactiveGameMessage)
                         {
                             listener.update(msg, data);
                         }
