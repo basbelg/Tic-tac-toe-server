@@ -118,6 +118,7 @@ public class GameHandler implements Runnable{
                         try {
                             // attempt move
                             current_game.performMove(MOV.getMoveInfo().getNextMove());
+                            MOV.setTurn(current_game.getTurn());
 
                             // If the game is over: send game result and end the game
                             if (current_game.isFinished()) {

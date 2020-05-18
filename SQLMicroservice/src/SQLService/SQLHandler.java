@@ -255,7 +255,7 @@ public class SQLHandler implements Runnable{
                         MoveMessage MOV = (MoveMessage) packet.getData();
                         TTT_MoveData move = new TTT_MoveData(MOV.getGameId(), MOV.getMovingPlayerId(),
                                 MOV.getMoveInfo().getTimeMade(), MOV.getMoveInfo().getNextMove().getRow(),
-                                MOV.getMoveInfo().getNextMove().getColumn(), 0);
+                                MOV.getMoveInfo().getNextMove().getColumn(), MOV.getTurn());
                         DBManager.getInstance().insert(move);
                         break;
 

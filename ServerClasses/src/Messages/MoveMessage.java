@@ -7,6 +7,7 @@ import java.io.Serializable;
 public class MoveMessage implements Serializable {
     private MoveInfo moveInfo;
     private String gameId;
+    private int turn;
     private int movingPlayerId;
 
     public MoveMessage() {
@@ -34,5 +35,13 @@ public class MoveMessage implements Serializable {
 
     public void setMovingPlayerId(int movingPlayerId) {
         this.movingPlayerId = movingPlayerId;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
     }
 }
