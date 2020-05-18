@@ -26,15 +26,12 @@
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="Tic-Tac-Toe-Server" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -59,8 +56,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/openjfx-12.0.2_windows-x64_bin-sdk/javafx-sdk-12.0.2/lib" />
-    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ServerClasses/ServerClasses.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.28235295" />
@@ -72,18 +68,6 @@
       <recent name="R:\CS4B\Tic-Tac-Toe\src\Game" />
       <recent name="R:\CS4B\Tic-Tac-Toe\src\DataClasses" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="GameMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -102,7 +86,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="UI.Main" />
       <module name="GameServer" />
-      <option name="VM_PARAMETERS" value="--module-path C:\Users\jtols\Downloads\openjfx-12.0.2_windows-x64_bin-sdk\javafx-sdk-12.0.2\lib --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path &quot;C:\Users\Smart\Documents\javafx-sdk-13.0.2\lib&quot; --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="UI.*" />
@@ -218,8 +202,6 @@
       <workItem from="1588215940862" duration="4459000" />
       <workItem from="1588223881140" duration="2202000" />
       <workItem from="1588745264881" duration="6521000" />
-      <workItem from="1588797933257" duration="14480000" />
-      <workItem from="1589613273717" duration="274000" />
       <workItem from="1588797933257" duration="14751000" />
       <workItem from="1589169982065" duration="1482000" />
       <workItem from="1589239150910" duration="251000" />
@@ -227,10 +209,13 @@
       <workItem from="1589324321735" duration="5960000" />
       <workItem from="1589341728455" duration="15057000" />
       <workItem from="1589421871685" duration="6880000" />
+<<<<<<< HEAD
       <workItem from="1589528469224" duration="6831000" />
       <workItem from="1589606776475" duration="2090000" />
       <workItem from="1589613849607" duration="1128000" />
       <workItem from="1589702054324" duration="4739000" />
+=======
+>>>>>>> a7d1de539ba03a82b0af735ecedfca182c8b7f04
     </task>
     <servers />
   </component>
@@ -242,13 +227,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="872" y="359" key="#Project_Structure" timestamp="1588189839178">
@@ -275,30 +259,30 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1159" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.2560.1400@0.0.2560.1400" timestamp="1586801492447" />
-    <state x="586" y="530" key="FileChooserDialogImpl" timestamp="1589572607856">
+    <state x="586" y="530" key="FileChooserDialogImpl" timestamp="1589709715231">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1589572607856" />
-    <state width="2517" height="257" key="GridCell.Tab.0.bottom" timestamp="1589573910911">
+    <state x="586" y="530" key="FileChooserDialogImpl/0.0.2560.1400@0.0.2560.1400" timestamp="1589709715231" />
+    <state width="2517" height="257" key="GridCell.Tab.0.bottom" timestamp="1589711641869">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="257" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1589573910911" />
-    <state width="2517" height="257" key="GridCell.Tab.0.center" timestamp="1589573910911">
+    <state width="2517" height="257" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1589711641869" />
+    <state width="2517" height="257" key="GridCell.Tab.0.center" timestamp="1589711641869">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="257" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1589573910911" />
-    <state width="2517" height="257" key="GridCell.Tab.0.left" timestamp="1589573910911">
+    <state width="2517" height="257" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1589711641869" />
+    <state width="2517" height="257" key="GridCell.Tab.0.left" timestamp="1589711641869">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="257" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1589573910911" />
-    <state width="2517" height="257" key="GridCell.Tab.0.right" timestamp="1589573910911">
+    <state width="2517" height="257" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1589711641869" />
+    <state width="2517" height="257" key="GridCell.Tab.0.right" timestamp="1589711641869">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="257" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1589573910911" />
-    <state x="905" y="539" key="SettingsEditor" timestamp="1589567396188">
+    <state width="2517" height="257" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1589711641869" />
+    <state x="905" y="539" key="SettingsEditor" timestamp="1589709717427">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="905" y="539" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1589567396188" />
+    <state x="905" y="539" key="SettingsEditor/0.0.2560.1400@0.0.2560.1400" timestamp="1589709717427" />
     <state x="976" y="524" key="com.intellij.ide.util.TipDialog" timestamp="1588223881320">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
