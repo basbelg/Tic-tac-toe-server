@@ -127,4 +127,8 @@ public class TTT_Game implements Game {
     }
 
     public boolean isActive() {return active;}
+
+    public int getTurn()
+    {return turn;}
+
 }

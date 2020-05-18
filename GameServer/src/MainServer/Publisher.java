@@ -72,7 +72,13 @@ public class Publisher implements Runnable{
                                 {
                                     if(client.getUser().getId() == SAV.getGame().getPlayer1Id() ||
                                             client.getUser().getId() == SAV.getGame().getPlayer2Id())
+                                    {
                                         client.sendPacket(new Packet("CNT-MSG", CNT));
+                                        if(client.getUser().getId() == SAV.getGame().getPlayer2Id())
+                                        {
+                                            client.setCurrentGameId("Player 2: " + CNT.getLobbyGameId());
+                                        }
+                                    }
                                     else
                                         client.sendPacket(new Packet("FUL-MSG", FUL));
                                 }
@@ -118,7 +124,10 @@ public class Publisher implements Runnable{
                                 if(client.getUser() != null)
                                 {
                                     if(CAI.getPlayer1Id() == client.getUser().getId())
+                                    {
                                         client.sendPacket(new Packet("CAI-MSG", CAI));
+                                        client.setCurrentGameId("Player 1 (vs. AI): " + CAI.getGameLobbyId());
+                                    }
                                     else
                                         client.sendPacket(new Packet("NAI-MSG", NAI));
                                 }
@@ -160,7 +169,10 @@ public class Publisher implements Runnable{
                                 if (client.getUser() != null)
                                 {
                                     if(CLB.getPlayer1Id() == client.getUser().getId())
+                                    {
                                         client.sendPacket(new Packet("CLB-MSG", CLB));
+                                        client.setCurrentGameId("Player 1: " + CLB.getGameLobbyId());
+                                    }
                                     else
                                         client.sendPacket(new Packet("NLB-MSG", NLB));
                                 }
@@ -168,7 +180,7 @@ public class Publisher implements Runnable{
                             }
                         }
 
-
+                        MainServer.getInstance().notifyObservers(CLB, null);
                         break;
 
                     //--------------------------------------------------------------------------------------------------
@@ -210,8 +222,13 @@ public class Publisher implements Runnable{
 
                         // Send result message to players
                         player1.sendPacket(new Packet("GRE-MSG", GRE));
+                        player1.setCurrentGameId("No Game");
                         if(current_game.getPlayer2Id() != 1)
+                        {
                             player2.sendPacket(new Packet("GRE-MSG", GRE));
+                            player2.setCurrentGameId("No Game");
+                        }
+
 
                         // Send result to viewers
                         synchronized (MainServer.getInstance().getActiveViewers().get(current_game.getId())) {
@@ -221,6 +238,7 @@ public class Publisher implements Runnable{
                                 TTT_ViewerData viewer = i.next();
                                 Client c = MainServer.getInstance().getClientIDMap().get(viewer.getViewer_id());
                                 c.sendPacket(new Packet("GRE-MSG", GRE));
+                                c.setCurrentGameId("No Game");
                             }
                         }
 
@@ -272,6 +290,7 @@ public class Publisher implements Runnable{
                         // Send to viewer
                         MainServer.getInstance().getClientIDMap().get(SPC.getSpectatorId()).sendPacket(
                                 new Packet("SPC-MSG", SPC));
+                        MainServer.getInstance().getClientIDMap().get(SPC.getSpectatorId()).setCurrentGameId("Spectating: " + SPC.getGameId());
 
                         MainServer.getInstance().notifyObservers(SPC, SPC.getGameId());
                         break;
@@ -310,6 +329,8 @@ public class Publisher implements Runnable{
 
                         MainServer.getInstance().getClientIDMap().get(ENC.getidentifier()).sendPacket(
                                 new Packet("SSP-MSG", SSP));
+                        MainServer.getInstance().getClientIDMap().get(SSP.getPlayerId()).setCurrentGameId("No Game");
+                        MainServer.getInstance().notifyObservers(SSP, null);
                         break;
 
                     case "DIS-MSG":
@@ -331,8 +352,13 @@ public class Publisher implements Runnable{
                                 }
                             }
                         else if(ENC.getType().equals("IAG-MSG"))
+                        {
                             user_game = MainServer.getInstance().getGame_by_id()
                                     .get(((InactiveGameMessage) ENC.getMsg()).getFinishedGameId());
+                            MainServer.getInstance().getClientIDMap().get(user_id).setCurrentGameId("No Game");
+                            MainServer.getInstance().notifyObservers(ENC.getMsg(), null);
+                        }
+
 
                         // If the client was in a game
                         if(user_game != null) {
