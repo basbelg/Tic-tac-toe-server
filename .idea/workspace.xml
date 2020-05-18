@@ -25,21 +25,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameMicroservice/GameMicroservice.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/MainServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Publisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Publisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SQLMicroservice/SQLMicroservice.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerClasses/src/Database/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerClasses/src/Database/DBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/ServerClasses_jar/ServerClasses.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/ServerClasses_jar/ServerClasses.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/MainServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/MainServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Publisher.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/ServerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/ServerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Database/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClasses/Database/DBManager.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -244,7 +230,7 @@
       <workItem from="1589528469224" duration="6831000" />
       <workItem from="1589606776475" duration="2090000" />
       <workItem from="1589613849607" duration="1128000" />
-      <workItem from="1589702054324" duration="4095000" />
+      <workItem from="1589702054324" duration="4739000" />
     </task>
     <servers />
   </component>
