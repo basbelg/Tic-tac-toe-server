@@ -215,7 +215,7 @@ public class ServerController implements Initializable, ServerListener
 
                     TTT_GameData game = MainServer.getInstance().getGame_by_id().get(game_id);
                     String p1 = getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer1Id() + ")";
-                    String p2 = (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer2Id() + ")";
+                    String p2 = (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : getUserFromList(game.getPlayer2Id()).getUsername() + " (ID: " + game.getPlayer2Id() + ")";
                     inactiveGamesList.getItems().add(new Label(p1 + " vs " + p2 + " \n(" + game.getId() + ")"));
                     errorCompletedLabel.setVisible(false);
                 case "ConnectToLobbyMessage":
