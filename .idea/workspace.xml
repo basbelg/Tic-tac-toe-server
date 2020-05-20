@@ -24,8 +24,17 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bbf8dc4d-6b41-4f73-8fd2-fe25636aa7d9" name="Default Changelist" comment="">
+    <list default="true" id="9ae343c7-26ac-47c1-a622-08bcab77c4bd" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerClasses/src/Database/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerClasses/src/Database/DBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tic-Tac-Toe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Tic-Tac-Toe.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/ServerClasses_jar/ServerClasses.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/ServerClasses_jar/ServerClasses.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Database/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClasses/Database/DBManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/META-INF/ServerClasses.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/sample/DBManagerTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +106,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="UI.Main" />
       <module name="GameServer" />
-      <option name="VM_PARAMETERS" value="--module-path C:\Users\jtols\Downloads\openjfx-12.0.2_windows-x64_bin-sdk\javafx-sdk-12.0.2\lib --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path C:\Users\basbe\Downloads\openjfx-13.0.2_windows-x64_bin-sdk\javafx-sdk-13.0.2\lib --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="UI.*" />
@@ -163,8 +172,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.SQLMain" />
         <item itemvalue="Application.GameMain" />
+        <item itemvalue="Application.SQLMain" />
         <item itemvalue="JUnit.DBManagerTest.addUser" />
         <item itemvalue="JUnit.DBManagerTest.addGame" />
       </list>
@@ -222,6 +231,8 @@
       <workItem from="1589421871685" duration="6880000" />
       <workItem from="1589528469224" duration="6831000" />
       <workItem from="1589606776475" duration="2090000" />
+      <workItem from="1589613849607" duration="1512000" />
+      <workItem from="1589844838543" duration="366000" />
       <workItem from="1589613849607" duration="1128000" />
       <workItem from="1589702054324" duration="4739000" />
     </task>
