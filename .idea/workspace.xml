@@ -25,16 +25,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9ae343c7-26ac-47c1-a622-08bcab77c4bd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/button.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameServer/src/UI/list.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/lib.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/lib.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/MainServer/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/GameServer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/GameServer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/GameDetails.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/GameDetails.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ModifyPlayer.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/Server.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/Server.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameServer/src/UI/ServerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ServerClasses/src/Database/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerClasses/src/Database/DBManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tic-Tac-Toe.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Tic-Tac-Toe.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/ServerClasses_jar/ServerClasses.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/ServerClasses_jar/ServerClasses.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/MainServer/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GameServer/UI/Server.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GameServer/UI/Server.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/Database/DBManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ServerClasses/Database/DBManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ServerClasses/META-INF/ServerClasses.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/sample/DBManagerTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +50,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -64,8 +69,9 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/out/artifacts/ServerClasses_jar/ServerClasses.jar!/" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/openjfx-12.0.2_windows-x64_bin-sdk/javafx-sdk-12.0.2/lib" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
@@ -106,7 +112,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="UI.Main" />
       <module name="GameServer" />
-      <option name="VM_PARAMETERS" value="--module-path C:\Users\basbe\Downloads\openjfx-13.0.2_windows-x64_bin-sdk\javafx-sdk-13.0.2\lib --add-modules javafx.controls,javafx.fxml" />
+      <option name="VM_PARAMETERS" value="--module-path C:\Users\jtols\Downloads\openjfx-12.0.2_windows-x64_bin-sdk\javafx-sdk-12.0.2\lib --add-modules javafx.controls,javafx.fxml" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="UI.*" />
@@ -172,8 +178,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.GameMain" />
         <item itemvalue="Application.SQLMain" />
+        <item itemvalue="Application.GameMain" />
         <item itemvalue="JUnit.DBManagerTest.addUser" />
         <item itemvalue="JUnit.DBManagerTest.addGame" />
       </list>

@@ -229,7 +229,7 @@ public class ServerController implements Initializable, ServerListener
                             game = iterator.next();
                             if (game.getPlayer2Id() != 0) {
                                 p1 = getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer1Id() + ")";
-                                p2 = (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : getUserFromList(game.getPlayer1Id()).getUsername() + " (ID: " + game.getPlayer2Id() + ")";
+                                p2 = (game.getPlayer2Id() == 1) ? "AI Player (ID: 1)" : getUserFromList(game.getPlayer2Id()).getUsername() + " (ID: " + game.getPlayer2Id() + ")";
                                 activeGamesList.getItems().add(new Label(p1 + " vs " + p2 + " \n(" + game.getId() + ")"));
                             }
                         }
