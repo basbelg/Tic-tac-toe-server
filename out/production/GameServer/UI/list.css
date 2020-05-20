@@ -1,0 +1,7 @@
+.list-cell:even {
+    -fx-control-inner-background: #1f1f23;
+}
+
+.list-cell:odd {
+    -fx-control-inner-background: #26262b;
+}

@@ -1,33 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="725.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ServerController">
+<AnchorPane prefHeight="696.0" prefWidth="617.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.ServerController">
     <children>
-        <Label layoutX="414.0" layoutY="54.0" text="Online Players" />
-        <ListView fx:id="registeredPlayersList" layoutX="30.0" layoutY="71.0" onMouseClicked="#onPlayerListClicked" prefHeight="222.0" prefWidth="268.0" />
-        <Label layoutX="127.0" layoutY="383.0" text="Active Games" />
-        <ListView fx:id="activeGamesList" layoutX="29.0" layoutY="400.0" onMouseClicked="#onActiveGamesListClicked" prefHeight="222.0" prefWidth="268.0" />
-        <ListView fx:id="inactiveGamesList" layoutX="318.0" layoutY="400.0" onMouseClicked="#onCompletedGamesListClicked" prefHeight="222.0" prefWidth="268.0" />
-        <Label layoutX="403.0" layoutY="383.0" text="Completed Games" />
-        <Button fx:id="inactiveGameDetailsButton" layoutX="376.0" layoutY="663.0" mnemonicParsing="false" onMouseClicked="#onInactiveGameDetailsClicked" prefHeight="25.0" prefWidth="152.0" text="Completed Game Details" />
-        <Button fx:id="modifyPlayerButton" layoutX="96.0" layoutY="338.0" mnemonicParsing="false" onMouseClicked="#onModifyPlayerClicked" prefHeight="25.0" prefWidth="137.0" text="Modify Player" />
-        <Button fx:id="activeGameDetailsButton" layoutX="96.0" layoutY="663.0" mnemonicParsing="false" onMouseClicked="#onActiveGameDetailsClicked" prefHeight="25.0" prefWidth="137.0" text="Active Game Details" />
-      <ListView fx:id="onlinePlayerList" layoutX="318.0" layoutY="71.0" prefHeight="222.0" prefWidth="268.0" />
-      <Label layoutX="116.0" layoutY="54.0" text="Registered Players" />
-      <Label fx:id="errorActiveLabel" alignment="CENTER" layoutX="29.0" layoutY="622.0" prefHeight="32.0" prefWidth="267.0" style="-fx-background-color: #ffffff; -fx-border-color: gray;" textFill="RED">
+        <Label layoutX="415.0" layoutY="37.0" text="Online Players" textFill="WHITE" underline="true">
+         <effect>
+            <Bloom />
+         </effect></Label>
+        <ListView fx:id="registeredPlayersList" layoutX="31.0" layoutY="54.0" onMouseClicked="#onPlayerListClicked" prefHeight="222.0" prefWidth="268.0" style="-fx-background-color: #1f1f23;" stylesheets="@list.css" />
+        <Label layoutX="127.0" layoutY="366.0" text="Active Games" textFill="WHITE" underline="true">
+         <effect>
+            <Bloom />
+         </effect></Label>
+        <ListView fx:id="activeGamesList" layoutX="29.0" layoutY="383.0" onMouseClicked="#onActiveGamesListClicked" prefHeight="222.0" prefWidth="268.0" style="-fx-background-color: #1f1f23;" stylesheets="@list.css" />
+        <ListView fx:id="inactiveGamesList" layoutX="318.0" layoutY="383.0" onMouseClicked="#onCompletedGamesListClicked" prefHeight="222.0" prefWidth="268.0" style="-fx-background-color: #1f1f23;" stylesheets="@list.css" />
+        <Label layoutX="403.0" layoutY="366.0" text="Completed Games" textFill="WHITE" underline="true">
+         <effect>
+            <Bloom />
+         </effect></Label>
+        <Button fx:id="inactiveGameDetailsButton" layoutX="376.0" layoutY="651.0" mnemonicParsing="false" onMouseClicked="#onInactiveGameDetailsClicked" prefHeight="25.0" prefWidth="152.0" stylesheets="@button.css" text="Completed Game Details" textFill="WHITE">
+         <effect>
+            <Bloom />
+         </effect></Button>
+        <Button fx:id="modifyPlayerButton" layoutX="96.0" layoutY="319.0" mnemonicParsing="false" onMouseClicked="#onModifyPlayerClicked" prefHeight="25.0" prefWidth="137.0" stylesheets="@button.css" text="Modify Player" textFill="WHITE">
+         <effect>
+            <Bloom />
+         </effect></Button>
+        <Button fx:id="activeGameDetailsButton" layoutX="96.0" layoutY="651.0" mnemonicParsing="false" onMouseClicked="#onActiveGameDetailsClicked" prefHeight="25.0" prefWidth="137.0" stylesheets="@button.css" text="Active Game Details" textFill="WHITE">
+         <effect>
+            <Bloom />
+         </effect></Button>
+      <ListView fx:id="onlinePlayerList" layoutX="319.0" layoutY="54.0" prefHeight="222.0" prefWidth="268.0" style="-fx-background-color: #1f1f23;" stylesheets="@list.css" />
+      <Label layoutX="116.0" layoutY="37.0" text="Registered Players" textFill="WHITE" underline="true">
+         <effect>
+            <Bloom />
+         </effect></Label>
+      <Label fx:id="errorActiveLabel" alignment="CENTER" layoutX="30.0" layoutY="606.0" prefHeight="32.0" prefWidth="267.0" style="-fx-background-color: #1f1f23; -fx-border-color: gray;" textFill="RED">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="errorCompletedLabel" alignment="CENTER" layoutX="319.0" layoutY="622.0" prefHeight="32.0" prefWidth="267.0" style="-fx-background-color: white; -fx-border-color: grey;" textFill="RED">
+      <Label fx:id="errorCompletedLabel" alignment="CENTER" layoutX="319.0" layoutY="606.0" prefHeight="32.0" prefWidth="267.0" style="-fx-background-color: #1f1f23; -fx-border-color: grey;" textFill="RED">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="errorModifyLabel" alignment="CENTER" layoutX="31.0" layoutY="293.0" prefHeight="32.0" prefWidth="267.0" style="-fx-background-color: white; -fx-border-color: grey;" textFill="RED">
+      <Label fx:id="errorModifyLabel" alignment="CENTER" layoutX="32.0" layoutY="276.0" prefHeight="32.0" prefWidth="267.0" style="-fx-background-color: #1f1f23; -fx-border-color: grey;" textFill="RED">
          <font>
             <Font size="14.0" />
          </font>
