@@ -244,6 +244,13 @@ public class GameDetailsController implements Initializable, ServerListener
                                 endtime.getDayOfMonth() + ", " + endtime.getYear() + "\n at " + (endtime.getHour() < 10 ? ("0" + endtime.getHour()) : endtime.getHour()) +
                                 ":" + (endtime.getMinute() < 10 ? ("0" + endtime.getMinute()) : endtime.getMinute()) +
                                 ":" + (endtime.getSecond() < 10 ? ("0" + endtime.getSecond()) : endtime.getSecond()));
+
+                        if (moveCounter >= (gameData.getGameLog().getMoveHistory().size() - 1)) {
+                            if(gameData.getGameLog().getWinner() != null)
+                            {
+                                winnerLabel.setText("Winner: " + gameData.getGameLog().getWinner());
+                            }
+                        }
                         break;
 
                     case "SpectateMessage":
@@ -303,6 +310,13 @@ public class GameDetailsController implements Initializable, ServerListener
                         playerTurnLabel.setText(gameData.getGameLog().getPlayer1Username() + "\'s move!");
                         player1Label.setText(gameData.getGameLog().getPlayer1Username());
                         player2Label.setText(gameData.getGameLog().getPlayer2Username());
+
+                        if (moveCounter >= (gameData.getGameLog().getMoveHistory().size() - 1)) {
+                            if(gameData.getGameLog().getWinner() != null)
+                            {
+                                winnerLabel.setText("Winner: " + gameData.getGameLog().getWinner());
+                            }
+                        }
 
                         if(gameData.getGameViewers().getSpectators().isEmpty())
                         {
